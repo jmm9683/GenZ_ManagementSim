@@ -64,7 +64,7 @@
 					  	</form>
 					</td>
 					<td id="{{'description'+component.id|string()}}"> 
-							<form action="{{'/edit/description/'+component.id|string()}}" method="post" target="_blank">
+							<form action="{{'/edit/description/'+component.id|string()}}" method="post" target="dummyframe">
 								<input type="text" name="newDescription" value="{{component.description}}">
 								<input type="submit" value="Save">
 							  </form>
