@@ -30,3 +30,22 @@ def editdata_description(id):
 
     # find component in database and return it in json format
 
+@bp.route('/edit/status/<id>', methods=['POST'])
+def editdata_status(id):
+    db = get_db()
+    newStatus = request.form['powerOnOff']
+    if (newStatus == 'online'):
+        newStatus = 'offline'
+    else:
+        newStatus = 'online'
+    executeString = 'UPDATE components SET status=\'' + newStatus + '\' WHERE id =' + id
+    component_info = db.execute(
+        executeString
+    )
+    db.commit()
+    return "Succesfully Updated the Status for ID = " + id
+
+
+    # find component in database and return it in json format
+
+
