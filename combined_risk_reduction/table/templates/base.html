@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title> QMI </title>
+
+  <!-- jQUuery imports -->
+  <meta charset="utf-8">
+
+  <!-- jQUuery imports -->
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='logo_circle.ico') }}">
+  <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>QMI</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" crossorigin="anonymous" />
+	<script src="https://kit.fontawesome.com/ed884af876.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/basestyle.css') }}">
+  <link href="{{ url_for('static', filename='fonts/alienscows.css') }}" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Abel|Barlow&amp;display=swap" rel="stylesheet">
+  {% block head %}
+  {% endblock %}
+</head>
+
+<body style="background-color:white;">
+    {% include 'loading.html' %}
+    {% set navigation_bar = [
+		('/', 'index', 'HOME'),
+		('/about', 'about', 'ABOUT'),
+		('/projects','projects','PROJECTS'),
+		('/paper', 'whitepaper', 'WHITEPAPERS'),
+		('/team','team','TEAM'),
+		('/partners','partners','PARTNERS')
+		] -%}
+
+    {% set active_page = active_page %}
+
+    <!-- Nav Bar -->
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-lg fixed-top">
+  		<a class="navbar-brand" href="/">
+  			<img id="navicon" src="{{ url_for('static', filename='Logo_Circle12.png') }}" class="d-inline-block align-top" alt="">
+  		</a>
+  		<a id="navtitle" href="/" style="font-family: 'aliens_and_cowsregular';font-size:150%">Quantitative Market Intelligence</a>
+  		<button class="navbar-toggler custom-toggler" style="border:0px" type="button" onclick="collapseFunction()"data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  			<span class="navbar-toggler-icon"></span>
+  		</button>
+  		<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+  			<ul class="nav navbar-nav ml-auto">
+          {% for href, id, caption in navigation_bar %}
+          <li{% if id == active_page %}
+            class="nav-item active"
+            {% else %}
+            class="nav-item"
+            {% endif %}>
+            <a class='nav-link' href="{{ href|e }}">{{ caption|e }}</a>
+          </li>
+          {% endfor %}
+  			</ul>
+  		</div>
+  	</nav>
+    <nav id="mobilenav" class="navbar navbar-toggle navbar-dark fixed-top" style="display:none">
+      <a class="navbar-brand" href="/">
+  			<img id="navicon" src="{{ url_for('static', filename='Logo_Circle12.png') }}" class="d-inline-block align-top" alt="">
+  		</a>
+  		<a id="navtitle" href="/" style="font-family: 'aliens_and_cowsregular';font-size:150%">Quantitative Market Intelligence</a>
+  		<button class="navbar-toggler custom-toggler" style="border:0px" type="button" onclick="collapseFunction()"data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  			<span class="navbar-toggler-icon"></span>
+  		</button>
+  		<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+  			<ul class="nav navbar-nav ml-auto">
+          {% for href, id, caption in navigation_bar %}
+          <li{% if id == active_page %}
+            class="nav-item active"
+            {% else %}
+            class="nav-item"
+            {% endif %}>
+            <a class='nav-link' href="{{ href|e }}">{{ caption|e }}</a>
+          </li>
+          {% endfor %}
+  			</ul>
+  		</div>
+  	</nav>
+    <div id="mobilepadding" style="padding-bottom:50px;display:none;">
+    </div>
+  {% block content %}
+  {% endblock %}
+
+  {% include 'footer.html' %}
+  <!-- Optional JavaScript -->
+  <!-- jQuery first (commented out, and moved into head), then Popper.js, then Bootstrap JS -->
+
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  -->
+
+  <script>
+        function collapseFunction(){
+          if( $( ".collapse" ).is( ":hidden" )){
+            document.getElementById("navbarSupportedContent").style.backgroundColor = "black";
+            document.getElementById("navbarSupportedContent").padding="-2%";
+          }
+          else{
+            document.getElementById("navbarSupportedContent").style.backgroundColor = "transparent";
+          }
+        }
+				// window.onscroll = function() {scrollFunction()};
+				// function scrollFunction(){
+				// 	if(document.body.scrollTop>0 || document.documentElement.scrollTop>0){
+				// 		document.getElementById("navbar").style.maxHeight ="5%";
+        //     document.getElementById("navbar").style.opacity =".5";
+				// 	}
+				// 	else{
+				// 		document.getElementById("navbar").style.maxHeight ="8.2%";
+        //     document.getElementById("navbar").style.opacity ="1.0";
+				// 	}
+				// }
+				var i = 0;
+				var txt = 'Quantitative \n Market \n Intelligence'; /* The text */
+				var speed = 50; /* The speed/duration of the effect in milliseconds */
+
+				function typeWriter() {
+					if (i < txt.length) {
+						document.getElementById("demo").innerHTML += txt.charAt(i);
+						i++;
+						setTimeout(typeWriter, speed);
+					}
+				}
+	</script>
+
+  <style>
+    @media only screen and (max-width:1026px) {
+      #mobilepadding{
+        display:block !important;
+      }
+      #navbar{
+        padding:0;
+      }
+      #navicon{
+        padding-left:10px;
+      }
+  }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
