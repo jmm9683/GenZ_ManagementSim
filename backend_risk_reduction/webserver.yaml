@@ -15,7 +15,7 @@ spec:
         app: myApp
     spec:
       containers:
-      - name: TestServer
+      - name: test
         image: localhost:32000/testing:k8s
         imagePullPolicy: Always
         ports:
