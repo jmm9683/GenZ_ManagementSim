@@ -11,11 +11,6 @@ from flask import request
 
 bp = Blueprint('input', __name__)
 
-@bp.route('/edit/<id>/<status>', methods=['POST'])
-def editdata(id):
-    return
-
-
 @bp.route('/edit/description/<id>', methods=['POST'])
 def editdata_description(id):
     db = get_db()
@@ -49,3 +44,51 @@ def editdata_status(id):
     # find component in database and return it in json format
 
 
+@bp.route('/edit/<id>', methods=['POST'])
+def editdata(id):
+    if 'data' in request and request.method=='POST':
+        try:
+            db = get_db()
+            values = list(request['data'].values())
+            component_info = db.execute(
+                ''' UPDATE components
+                    SET contexturl=?,
+                      etag=?,
+                      redfishid=?,
+                      name=?,
+                      oem=?,
+                      description=?,
+                      address=?,
+                      status=?,
+                      last_update=?
+                    WHERE id =?
+                ''',values
+            )
+
+            return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+        except:
+            return json.dumps({'success':False}), 400, {'ContentType':'application/json'}
+
+@bp.route('/add', methods=['POST'])
+def adddata():
+    if 'data' in request and request.method=='POST':
+        try:
+            db = get_db()
+            values = list(request['data'].values())
+            component_info = db.execute(
+                ''' INSERT INTO components contexturl=?,
+                  etag,
+                  redfishid,
+                  name,
+                  oem,
+                  description,
+                  address,
+                  status,
+                  last_update)
+               VALUES (?,?,?,?,?,?,?,?)"
+                ''',values
+            )
+
+            return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+        except:
+            return json.dumps({'success':False}), 400, {'ContentType':'application/json'}
