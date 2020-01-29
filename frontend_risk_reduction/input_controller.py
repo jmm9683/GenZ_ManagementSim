@@ -11,6 +11,39 @@ from flask import request
 
 bp = Blueprint('input', __name__)
 
+@bp.route('/edit/description/<id>', methods=['POST'])
+def editdata_description(id):
+    db = get_db()
+    newDescription = request.form['newDescription']
+    executeString = 'UPDATE components SET description=\'' + newDescription + '\' WHERE id =' + id
+    component_info = db.execute(
+        executeString
+    )
+    db.commit()
+    return "Succesfully Updated the Description for ID = " + id
+
+
+    # find component in database and return it in json format
+
+@bp.route('/edit/status/<id>', methods=['POST'])
+def editdata_status(id):
+    db = get_db()
+    newStatus = request.form['powerOnOff']
+    if (newStatus == 'online'):
+        newStatus = 'offline'
+    else:
+        newStatus = 'online'
+    executeString = 'UPDATE components SET status=\'' + newStatus + '\' WHERE id =' + id
+    component_info = db.execute(
+        executeString
+    )
+    db.commit()
+    return "Succesfully Updated the Status for ID = " + id
+
+
+    # find component in database and return it in json format
+
+
 @bp.route('/edit/<id>', methods=['POST'])
 def editdata(id):
     if 'data' in request and request.method=='POST':

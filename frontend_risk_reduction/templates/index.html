@@ -12,7 +12,7 @@
 	<meta charset="utf-8">
 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 
 	<title>Senior Design Demo</title>
@@ -30,17 +30,20 @@
 
 </head>
 	<body>
+		<iframe style="display: none" width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
 		<div style="padding:50px">
 			<!-- table goes here-->
 
 			<h1>Dell Senior Design Project Front-end Risk Reduction</h1>
-
-			<table style="width:100%">
+			
+			<table id="components" style="width:100%">
 			<thead>
 				<tr>
 					<td>id</td>
 					<td>Name</td>
-					<td>status</td>
+					<td>Status</td>
+					<td>Actions</td>
+					<td>Description</td>
 					<td>Last Updated</td>
 				</tr>
 			</thead>
@@ -52,6 +55,20 @@
 					<td> {{component.id }} </td>
 					<td> {{ component.name }} </td>
 					<td id="{{'status'+component.id|string()}}"> {{ component.status }} </td>
+					<td>
+						<form action="{{'/edit/status/'+component.id|string()}}" method="post" target="dummyframe">
+							<form action="{{'/edit/description/'+component.id|string()}}" method="post" target="dummyframe">
+								<input style="display: none" id="PowerStatus" type="text" name="powerOnOff" value="{{component.status}}">
+								<input id="PowerButton" type="submit" value="Power I/O">
+							  </form>
+					  	</form>
+					</td>
+					<td id="{{'description'+component.id|string()}}"> 
+							<form action="{{'/edit/description/'+component.id|string()}}" method="post" target="dummyframe">
+								<input type="text" name="newDescription" value="{{component.description}}">
+								<input type="submit" value="Save">
+							  </form>
+						</td>
 					<td id="{{'updated'+component.id|string()}}"> {{ component.last_update }} </td>
 				</tr>
 				{% endfor %}
@@ -62,91 +79,103 @@
 			</table>
 
 		</div>
-
-	<script>
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  (function(){
-				$.getJSON(
-						$SCRIPT_ROOT+"/component/1", // Your AJAX route here
-						function(data,i) {
-								var today = new Date()
-								$("#status1").text(data.status);
-								$("#updated1").text(
-									today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
-									today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
-						}
-				);
-			// run every 10 seconds
-      setTimeout(arguments.callee, 10000);
-  })();
-	</script>
-
-	<script>
-	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-	(function(){
-				$.getJSON(
-						$SCRIPT_ROOT+"/component/2", // Your AJAX route here
-						function(data,i) {
-								var today = new Date()
-								$("#status2").text(data.status);
-								$("#updated2").text(
-									today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
-									today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
-						}
-				);
-			// run every 10 seconds
-			setTimeout(arguments.callee, 10000);
-	})();
-	</script>
-
-	<script>
-	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-	(function(){
-				$.getJSON(
-						$SCRIPT_ROOT+"/component/3", // Your AJAX route here
-						function(data,i) {
-								var today = new Date()
-								$("#status3").text(data.status);
-								$("#updated3").text(
-									today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
-									today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
-						}
-				);
-			// run every 10 seconds
-			setTimeout(arguments.callee, 10000);
-	})();
-	</script>
-
+		<script>
+				$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+				(function(){
+							  $.getJSON(
+									  $SCRIPT_ROOT+"/component/1", // Your AJAX route here
+									  function(data,i) {
+											  var today = new Date()
+											  $("#status1").text(data.status);
+											  $("#updated1").text(
+												  today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
+												  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
+									  }
+							  );
+						  // run every 10 seconds
+					setTimeout(arguments.callee, 10000);
+				})();
+				  </script>
+			  
+				  <script>
+				  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+				  (function(){
+							  $.getJSON(
+									  $SCRIPT_ROOT+"/component/2", // Your AJAX route here
+									  function(data,i) {
+											  var today = new Date()
+											  $("#status2").text(data.status);
+											  $("#updated2").text(
+												  today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
+												  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
+									  }
+							  );
+						  // run every 10 seconds
+						  setTimeout(arguments.callee, 10000);
+				  })();
+				  </script>
+			  
+				  <script>
+				  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+				  (function(){
+							  $.getJSON(
+									  $SCRIPT_ROOT+"/component/3", // Your AJAX route here
+									  function(data,i) {
+											  var today = new Date()
+											  $("#status3").text(data.status);
+											  $("#updated3").text(
+												  today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
+												  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
+									  }
+							  );
+						  // run every 10 seconds
+						  setTimeout(arguments.callee, 10000);
+				  })();
+				  </script>
 	<!-- <script>
-	// $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-	// (function(){
-	// 			$.getJSON(
-	// 					$SCRIPT_ROOT+"/components", // Your AJAX route here
-	// 					function(data) {
-	// 							for(var i in data){
-	// 								alert(i.id)
-	// 								var today = new Date()
-	// 								$("#status"+i.id).text(i.status);
-	// 								$("#updated"+i.id).text(
-	// 									today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
-	// 									today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
-	// 							}
-	// 					}
-	// 			);
-	// 		// run every 10 seconds
-	// 		setTimeout(arguments.callee, 10000);
-	// })();
+	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	(function(){
+				$.getJSON(
+						$SCRIPT_ROOT+"/components", // Your AJAX route here
+						function(data) {
+								for(var i in data){
+									alert(i.id)
+									var today = new Date()
+									$("#status"+i.id).text(i.status);
+									$("#updated"+i.id).text(
+										today.getMonth()+"/"+today.getDate()+"/"+today.getFullYear()+"	"+
+										today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +"."+today.getMilliseconds());
+								}
+						}
+				);
+			// run every 10 seconds
+			setTimeout(arguments.callee, 10000);
+	})();
 	</script> -->
 
 	<style>
-	.table {
-			border-collapse:collapse;
-			width: 100%;
-			}
-	.td {
-			padding: 7px;
-			border:1px solid;
-	}
+	#components {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#components td, #components th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#components tr:nth-child(even){background-color: #f2f2f2;}
+
+#components tr:hover {background-color: #ddd;}
+
+#components thead {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #cc5500;
+  color: white;
+}
 	</style>
 
 
