@@ -1,24 +1,24 @@
 version: '3'
 
 services:
-  test_1:
+  emulator1:
     build:
-        context: ./test_1
+        context: ./Redfish_Emulator_Docker
     networks:
-        testing_net:
-          ipv4_address: 172.29.1.1
+        redfish_net: 
+            ipv4_address: 172.29.1.1
 
-  test_2:
+  emulator2:
     build:
-      context: ./test_1
-      args:
-        machine_config: test_config
+        context: ./Redfish_Emulator_Docker
+        #        args:
+        #            machine_config: cameron_config
     networks:
-        testing_net:
+        redfish_net: 
             ipv4_address: 172.29.1.2
 
 networks:
-  testing_net:
+  redfish_net:
     ipam:
       driver: default
       config:
