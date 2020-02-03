@@ -1,0 +1,8 @@
+        <div *ngFor="let system of webService.systems | async">
+            <mat-card class="card">     
+                <mat-card-title [routerLink]="['/systems', system._id]" style="cursor: pointer;">{{system.Name}}</mat-card-title>  
+                <mat-card-content>
+                    <pre>{{system | json}}</pre>
+                </mat-card-content>
+            </mat-card>
+        </div>
