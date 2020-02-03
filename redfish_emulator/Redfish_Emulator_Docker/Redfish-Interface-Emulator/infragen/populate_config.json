@@ -1,0 +1,11 @@
+{
+	"POPULATE": {
+  		"GenZSwitch" : [
+  			{
+  				"Name": "Gen-Z Switch",
+        		"Id": "GenZSwitch-{0}",
+        		"Count": 5
+    		}
+  		]
+	}
+}
