@@ -14,6 +14,7 @@ import { WebService } from './web.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './nav.component';
 import { HomeComponent } from './home.component';
+import { SingleSystemComponent } from './singleSystem.component';
 
 var routes = [
   {
@@ -26,7 +27,7 @@ var routes = [
 },
 {
   path: 'systems/:sysID',
-  component: SystemsComponent
+  component: SingleSystemComponent
 }
 ];
 
@@ -35,7 +36,8 @@ var routes = [
     AppComponent,
     SystemsComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    SingleSystemComponent
     
   ],
   imports: [

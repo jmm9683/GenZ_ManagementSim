@@ -4,12 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-    selector: 'systems',
-    templateUrl: './systems.component.html',
-    styleUrls: ['./systems.component.css']
+    selector: 'single-system',
+    templateUrl: './singleSystem.component.html'
 
 })
-export class SystemsComponent {
+export class SingleSystemComponent {
 
     constructor(private webService : WebService, private route: ActivatedRoute){}
     ngOnInit(){
