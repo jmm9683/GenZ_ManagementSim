@@ -16,26 +16,25 @@ host_url = 'http://localhost'
 if __name__ == "__main__" :
     #create a GenZSwitch from the template
     s = CreateGenZSwitch(resource_class_kwargs={
-                'rb': g.rest_base}).put(str(host_url) + ':' + str(port) + '/redfish/v1/Fabrics/GenZ/Switches/1')
+                'rb': g.rest_base}).put('1')
     #create a second GenZSwitch from the template
     s2 = CreateGenZSwitch(resource_class_kwargs={
-                'rb': g.rest_base}).put(str(host_url) + ':' + str(port) + '/redfish/v1/Fabrics/GenZ/Switches/2')
+                'rb': g.rest_base}).put('2')
 
     #get the first GenZSwitch
-    x = GenZSwitch.get(s, str(host_url) + ':' + str(port) + '/redfish/v1/Fabrics/GenZ/Switches/1')
+    x = GenZSwitch.get('1')
     print(x)
     #get the second GenZSwitch
-    x2 = GenZSwitch.get(s, str(host_url) + ':' + str(port) + '/redfish/v1/Fabrics/GenZ/Switches/2')
+    x2 = GenZSwitch.get('2')
     print(x2)
 
-
     #delete the 2nd GenZSwitch
-    GenZSwitch.delete(s2, str(host_url) + ':' + str(port) + '/redfish/v1/Fabrics/GenZ/Switches/2')
+    GenZSwitch.delete('2')
     #try to get it after it is deleted
-    x2 = GenZSwitch.get(s, str(host_url) + ':' + str(port) + '/redfish/v1/Fabrics/GenZ/Switches/2')
+    x2 = GenZSwitch.get('2')
     print('x2 status:' + str(x2))
     #get x again after x2 was deleted
-    x = GenZSwitch.get(s, str(host_url) + ':' + str(port) + '/redfish/v1/Fabrics/GenZ/Switches/1')
+    x = GenZSwitch.get('1')
     print('after x2 was deleted: x is: ' + str(x))
 
 
