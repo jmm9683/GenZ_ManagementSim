@@ -14,6 +14,8 @@ import { WebService } from './web.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './nav.component';
 import { HomeComponent } from './home.component';
+import { SingleSystemComponent } from './singleSystem.component';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 var routes = [
   {
@@ -51,7 +53,8 @@ var routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgxJsonViewerModule
     
   ],
   providers: [WebService],

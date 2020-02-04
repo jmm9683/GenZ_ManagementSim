@@ -1,0 +1,8 @@
+        <div *ngFor="let system of webService.systems | async">
+            <mat-card class="card">     
+                <mat-card-title>{{system.Name}}</mat-card-title>  
+                <mat-card-content>
+                    <ngx-json-viewer [json]="system"></ngx-json-viewer>
+                </mat-card-content>
+            </mat-card>
+        </div>
