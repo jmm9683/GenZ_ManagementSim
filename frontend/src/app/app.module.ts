@@ -28,7 +28,7 @@ var routes = [
 },
 {
   path: 'systems/:sysID',
-  component: SystemsComponent
+  component: SingleSystemComponent
 }
 ];
 
@@ -37,7 +37,8 @@ var routes = [
     AppComponent,
     SystemsComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    SingleSystemComponent
     
   ],
   imports: [
