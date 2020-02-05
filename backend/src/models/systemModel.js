@@ -73,7 +73,8 @@ export const SystemSchema = new Schema({
         "BootSourceOverrideSupported": [String],
         "UefiTargetBootSourceOverride": {
             type: String
-        }, 
+        }
+    }, 
     "BiosVersion": {
         type: String
     }, 
@@ -144,5 +145,4 @@ export const SystemSchema = new Schema({
             "ResetType@DMTF.AllowableValues": [String]
         }
         }
-    }
 });
