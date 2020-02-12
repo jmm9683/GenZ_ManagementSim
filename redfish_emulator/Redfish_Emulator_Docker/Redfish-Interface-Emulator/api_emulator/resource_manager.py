@@ -134,8 +134,8 @@ class ResourceManager(object):
             # self.SessionService =   load_static('SessionService', 'redfish', mode, rest_base, self.resource_dictionary)
             # self.TaskService =      load_static('TaskService', 'redfish', mode, rest_base, self.resource_dictionary)
             self.Systems = load_static('Systems', 'redfish', mode, rest_base, self.resource_dictionary)
-            # self.Fabrics = load_static('Fabrics', 'redfish', mode, rest_base, self.resource_dictionary)
-            # self.Chassis = load_static('Chassis', 'redfish', mode, rest_base, self.resource_dictionary)
+            self.Fabrics = load_static('Fabrics', 'redfish', mode, rest_base, self.resource_dictionary)
+            self.Chassis = load_static('Chassis', 'redfish', mode, rest_base, self.resource_dictionary)
 
 
     @property

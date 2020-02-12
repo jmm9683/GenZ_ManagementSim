@@ -1,5 +1,5 @@
 {
-	"@odata.id": "/redfish/v1/System/1/FabricAdapter",
+	"@odata.id": "/redfish/v1/System/GenZ-example/FabricAdapter",
 	"@odata.type": "#FabricAdapter.v1_0_0.FabricAdapter",
 	"@Redfish.Copyright": "Copyright 2018-2019 DMTF.  All rights reserved.",
 	"Id": "Bridge",
