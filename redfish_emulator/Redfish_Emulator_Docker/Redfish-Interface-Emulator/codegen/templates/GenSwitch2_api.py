@@ -2,7 +2,7 @@
 # Copyright 2017-2019 DMTF. All rights reserved.
 # License: BSD 3-Clause License. For full text see link: https://github.com/DMTF/Redfish-Interface-Emulator/blob/master/LICENSE.md
 
-# GenZSwitch.py
+# GenSwitch2.py
 
 import g
 import sys, traceback
@@ -12,11 +12,11 @@ from flask import Flask, request, make_response, render_template
 from flask_restful import reqparse, Api, Resource
 
 members = []
-member_ids = []
+member_ids[]
 foo = 'false'
 INTERNAL_ERROR = 500
 
-class GenZSwitch(Resource):
+class GenSwitch2(Resource):
 	# INIT
 	def __init__(self):
 		try:
@@ -46,7 +46,7 @@ class GenZSwitch(Resource):
 			global config
 			global wildcards
 			wildcards['id'] = ident
-			config=get_GenZSwitch_instance(wildcards)
+			config=get_Chassis_instance(wildcards)
 			members.append(config)
 			member_ids.append({'@odata.id': config['@odata.id']})
 			global foo
@@ -92,14 +92,14 @@ class GenZSwitch(Resource):
 		return resp
 
 
-class GenZSwitchCollection(Resource):
+class GenSwitch2Collection(Resource):
 	def __init__(self):
 		self.rb = g.rest_base
 		self.config = {
-			'@odata.context': self.rb + '$metadata#GenZSwitchCollection.GenZSwitchCollection',
-			'@odata.id': self.rb + 'GenZSwitchCollection',
-			'@odata.type': '#GenZSwitchCollection.1.0.0.GenZSwitchCollection',
-			'Name': 'Gen-Z Switch Collection',
+			'@odata.context': self.rb + '$metadata#GenSwitch2Collection.GenSwitch2Collection'
+			'@odata.id': self.rb + 'GenSwitch2Collection'
+			'@odata.type': '#GenSwitch2Collection.1.0.0.GenSwitch2Collection'
+			'Name': 'Chassis Collection'
 			'Links': {}
 		}
 		self.config['Links']['Members@odata.count'] = len(member_ids)
@@ -115,7 +115,7 @@ class GenZSwitchCollection(Resource):
 
 	def post(self):
 		try:
-			g.api.add_resource(GenZSwitchAPI, '/redfish/v1/Fabrics/GenZ/Switches/<string:ident>')
+			g.api.add_resource(ChassisAPI, '/redfish/v1/Chassiss/<string:ident>')
 			resp=self.config,200
 		except Exception:
 			traceback.print_exc()
@@ -123,21 +123,21 @@ class GenZSwitchCollection(Resource):
 		return resp
 
 
-class CreateGenZSwitch(Resource):
+class CreateGenSwitch2(Resource):
 	def __init__(self, **kwargs):
-		logging.info('CreateGenZSwitch init called')
+		logging.info('CreateChassis init called')
 		if 'resource_class_kwargs' in kwargs:
 			global wildcards
 			wildcards = copy.deepcopy(kwargs['resource_class_kwargs'])
 			logging.debug(wildcards, wildcards.keys())
 
 	def put(self,ident):
-		logging.info('CreateGenZSwitch put called')
+		logging.info('CreateChassis put called')
 		try:
 			global config
 			global wildcards
 			wildcards['id'] = ident
-			config=get_GenZSwitch_instance(wildcards)
+			config=get_Chassis_instance(wildcards)
 			members.append(config)
 			member_ids.append({'@odata.id': config['@odata.id']})
 			# TODO - add code for subordinate resources
@@ -145,5 +145,5 @@ class CreateGenZSwitch(Resource):
 		except Exception:
 			traceback.print_exc()
 			resp = INTERNAL_ERROR
-		logging.info('CreateGenZSwitch init exit')
+		logging.info('CreateChassis init exit')
 		return resp

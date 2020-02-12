@@ -7,7 +7,7 @@
     This program generates a Flask-restful API file for the Redfish Interface
     Emulator.  It generates the code for both the singleton resource and the
     collection resource.
-    
+
 Usage:
      python codegen_api.py <class> <output_directory>
 
@@ -63,7 +63,7 @@ def write_singleton_api(outfile, base_program_name):
     outfile.write("\t\texcept Exception:\n")
     outfile.write("\t\t\ttraceback.print_exc()\n")
     outfile.write("\n")
-    
+
     outfile.write("\t# HTTP GET\n")
     outfile.write("\tdef get(self, ident):\n")
     outfile.write("\t\ttry:\n")
@@ -85,7 +85,7 @@ def write_singleton_api(outfile, base_program_name):
     outfile.write("\t\t\tglobal config\n")
     outfile.write("\t\t\tglobal wildcards\n")
     outfile.write("\t\t\twildcards['id'] = ident\n")
-    outfile.write("\t\t\tconfig=get_Chassis_instance(wildcards)\n")
+    outfile.write("\t\t\tconfig=get_{0}_instance(wildcards)\n".format(base_program_name))
     outfile.write("\t\t\tmembers.append(config)\n")
     outfile.write("\t\t\tmember_ids.append({'@odata.id': config['@odata.id']})\n")
     outfile.write("\t\t\tglobal foo\n")
@@ -147,7 +147,7 @@ def write_collection_api(outfile, base_program_name):
     outfile.write(argument_string)
     argument_string = "\t\t\t'@odata.type': '#{0}Collection.1.0.0.{0}Collection'\n".format(base_program_name)
     outfile.write(argument_string)
-    argument_string = "\t\t\t'Name': 'Chassis Collection'\n"
+    argument_string = "\t\t\t'Name': '{0} Collection'\n".format(base_program_name)
     outfile.write(argument_string)
     outfile.write("\t\t\t'Links': {}\n")
     outfile.write("\t\t}\n")
@@ -165,7 +165,7 @@ def write_collection_api(outfile, base_program_name):
 
     outfile.write("\tdef post(self):\n")
     outfile.write("\t\ttry:\n")
-    outfile.write("\t\t\tg.api.add_resource(ChassisAPI, '/redfish/v1/Chassiss/<string:ident>')\n")
+    outfile.write("\t\t\tg.api.add_resource({0}API, '/redfish/v1/{0}/<string:ident>')\n".format(base_program_name))
     outfile.write("\t\t\tresp=self.config,200\n")
     outfile.write("\t\texcept Exception:\n")
     outfile.write("\t\t\ttraceback.print_exc()\n")
@@ -179,7 +179,7 @@ def write_create_call(outfile, base_program_name):
     argument_string = "class Create{0}(Resource):\n".format(base_program_name)
     outfile.write(argument_string)
     outfile.write("\tdef __init__(self, **kwargs):\n")
-    argument_string = "\t\tlogging.info('CreateChassis init called')\n".format(base_program_name)
+    argument_string = "\t\tlogging.info('Create{0} init called')\n".format(base_program_name)
     outfile.write(argument_string)
     outfile.write("\t\tif 'resource_class_kwargs' in kwargs:\n")
     outfile.write("\t\t\tglobal wildcards\n")
@@ -188,13 +188,13 @@ def write_create_call(outfile, base_program_name):
     outfile.write("\n")
 
     outfile.write("\tdef put(self,ident):\n")
-    argument_string = "\t\tlogging.info('CreateChassis put called')\n".format(base_program_name)
+    argument_string = "\t\tlogging.info('Create{0} put called')\n".format(base_program_name)
     outfile.write(argument_string)
     outfile.write("\t\ttry:\n")
     outfile.write("\t\t\tglobal config\n")
     outfile.write("\t\t\tglobal wildcards\n")
     outfile.write("\t\t\twildcards['id'] = ident\n")
-    argument_string = "\t\t\tconfig=get_Chassis_instance(wildcards)\n".format(base_program_name)
+    argument_string = "\t\t\tconfig=get_{0}_instance(wildcards)\n".format(base_program_name)
     outfile.write(argument_string)
     outfile.write("\t\t\tmembers.append(config)\n")
     outfile.write("\t\t\tmember_ids.append({'@odata.id': config['@odata.id']})\n")
@@ -203,7 +203,7 @@ def write_create_call(outfile, base_program_name):
     outfile.write("\t\texcept Exception:\n")
     outfile.write("\t\t\ttraceback.print_exc()\n")
     outfile.write("\t\t\tresp = INTERNAL_ERROR\n")
-    argument_string = "\t\tlogging.info('CreateChassis init exit')\n".format(base_program_name)
+    argument_string = "\t\tlogging.info('Create{0} init exit')\n".format(base_program_name)
     outfile.write(argument_string)
     outfile.write("\t\treturn resp\n")
     return
@@ -256,7 +256,7 @@ def main(argv=None):
     try:
         # Create the name of the template.
         #   The name can be obtained: from the command line, extracted from the
-        #   index.json file, or extracted from the filename (e.g. Chassis.json).
+        #   index.json file, or extracted from the filename (e.g. {0}.json).
         #   For now, make it a command parameter
         #
         program_name = '{0}_api.py'.format(base_program_name)
@@ -268,10 +268,10 @@ def main(argv=None):
             if c != 'y' and c != 'Y':
                 return status
         # Create a 'base_program_name' folder.
-        new_path = create_folder_under_current_directory("templates")
+        new_path = create_folder_under_current_directory(argv[2])
         # Change the current working directory to the new folder.
         os.chdir(new_path)
-        
+
         # Open the program file and write the program.
         with open(program_name, 'w') as outfile:
             write_program(outfile, base_program_name)

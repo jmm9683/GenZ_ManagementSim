@@ -50,6 +50,8 @@ from .redfish.CompositionService_api import CompositionServiceAPI
 from .redfish.ResourceBlock_api import ResourceBlockCollectionAPI, ResourceBlockAPI, CreateResourceBlock
 from .redfish.ResourceZone_api import ResourceZoneCollectionAPI, ResourceZoneAPI, CreateResourceZone
 
+# GenZSwitch Imports
+from .redfish.Fabric_api import FabricAPI, FabricCollectionAPI
 from .redfish.GenZSwitch_api import GenZSwitch, GenZSwitchCollection
 
 mockupfolders = []
@@ -127,107 +129,13 @@ class ResourceManager(object):
 
         if "Redfish" in mockupfolders:
             logging.info('Loading Redfish static resources')
-            self.AccountService =   load_static('AccountService', 'redfish', mode, rest_base, self.resource_dictionary)
-            self.Registries =       load_static('Registries', 'redfish', mode, rest_base, self.resource_dictionary)
-            self.SessionService =   load_static('SessionService', 'redfish', mode, rest_base, self.resource_dictionary)
-            self.TaskService =      load_static('TaskService', 'redfish', mode, rest_base, self.resource_dictionary)
-
-#        if "Swordfish" in mockupfolders:
-#            self.StorageServices = load_static('StorageServices', 'redfish', mode, rest_base, self.resource_dictionary)
-#            self.StorageSystems = load_static('StorageSystems', 'redfish', mode, rest_base, self.resource_dictionary)
-
-        # Attach APIs for dynamic resources
-
-        # EventService Resources
-        g.api.add_resource(EventServiceAPI, '/redfish/v1/EventService',
-                resource_class_kwargs={'rb': g.rest_base, 'id': "EventService"})
-        # EventService SubResources
-        g.api.add_resource(SubscriptionCollectionAPI, '/redfish/v1/EventService/Subscriptions')
-        g.api.add_resource(SubscriptionAPI, '/redfish/v1/EventService/Subscriptions/<string:ident>',
-                resource_class_kwargs={'rb': g.rest_base})
-
-        # Chassis Resources
-        g.api.add_resource(ChassisCollectionAPI, '/redfish/v1/Chassis')
-        g.api.add_resource(ChassisAPI, '/redfish/v1/Chassis/<string:ident>',
-                resource_class_kwargs={'rb': g.rest_base})
-        # Chassis SubResources
-        g.api.add_resource(ThermalAPI, '/redfish/v1/Chassis/<string:ident>/Thermal',
-                resource_class_kwargs={'rb': g.rest_base})
-        # Chassis SubResources
-        g.api.add_resource(PowerAPI, '/redfish/v1/Chassis/<string:ident>/Power',
-                resource_class_kwargs={'rb': g.rest_base})
-        
-        #CC
-        #Gen-Z Switch Resources
-        g.api.add_resource(GenZSwitchCollection, '/redfish/v1/Fabrics/GenZ/Switches')
-        g.api.add_resource(GenZSwitch, '/redfish/v1/Fabrics/GenZ/Switches/<string:ident>',
-                resource_class_kwargs={'rb': g.rest_base})
-
-        # Manager Resources
-        g.api.add_resource(ManagerCollectionAPI, '/redfish/v1/Managers')
-        g.api.add_resource(ManagerAPI, '/redfish/v1/Managers/<string:ident>', resource_class_kwargs={'rb': g.rest_base})
-
-        # EgResource Resources (Example entries for attaching APIs)
-        # g.api.add_resource(EgResourceCollectionAPI,
-        #     '/redfish/v1/EgResources')
-        # g.api.add_resource(EgResourceAPI,
-        #     '/redfish/v1/EgResources/<string:ident>',
-        #     resource_class_kwargs={'rb': g.rest_base})
-        #
-        # EgResource SubResources (Example entries for attaching APIs)
-        # g.api.add_resource(EgSubResourceCollection,
-        #     '/redfish/v1/EgResources/<string:ident>/EgSubResources',
-        #     resource_class_kwargs={'rb': g.rest_base})
-        # g.api.add_resource(EgSubResource,
-        #     '/redfish/v1/EgResources/<string:ident1>/EgSubResources/<string:ident2>',
-        #     resource_class_kwargs={'rb': g.rest_base})
-
-        # System Resources
-        g.api.add_resource(ComputerSystemCollectionAPI, '/redfish/v1/Systems')
-        g.api.add_resource(ComputerSystemAPI, '/redfish/v1/Systems/<string:ident>',
-                resource_class_kwargs={'rb': g.rest_base})
-        # System SubResources
-        g.api.add_resource(Processors, '/redfish/v1/Systems/<string:ident>/Processors',
-                resource_class_kwargs={'rb': g.rest_base,'suffix':'Systems'})
-        g.api.add_resource(Processor, '/redfish/v1/Systems/<string:ident1>/Processors/<string:ident2>',
-                '/redfish/v1/CompositionService/ResourceBlocks/<string:ident1>/Processors/<string:ident2>')
-        # System SubResources
-        g.api.add_resource(MemoryCollection, '/redfish/v1/Systems/<string:ident>/Memory',
-                 resource_class_kwargs={'rb': g.rest_base,'suffix':'Systems'})
-        g.api.add_resource(Memory, '/redfish/v1/Systems/<string:ident1>/Memory/<string:ident2>',
-                '/redfish/v1/CompositionService/ResourceBlocks/<string:ident1>/Memory/<string:ident2>')
-        # System SubResources
-        g.api.add_resource(SimpleStorageCollection, '/redfish/v1/Systems/<string:ident>/SimpleStorage',
-                resource_class_kwargs={'rb': g.rest_base,'suffix':'Systems'})
-        g.api.add_resource(SimpleStorage, '/redfish/v1/Systems/<string:ident1>/SimpleStorage/<string:ident2>',
-                '/redfish/v1/CompositionService/ResourceBlocks/<string:ident1>/SimpleStorage/<string:ident2>')
-        # System SubResources
-        g.api.add_resource(EthernetInterfaceCollection, '/redfish/v1/Systems/<string:ident>/EthernetInterfaces',
-                resource_class_kwargs={'rb': g.rest_base,'suffix':'Systems'})
-        g.api.add_resource(EthernetInterface, '/redfish/v1/Systems/<string:ident1>/EthernetInterfaces/<string:ident2>',
-                '/redfish/v1/CompositionService/ResourceBlocks/<string:ident1>/EthernetInterfaces/<string:ident2>')
-        # System SubResources
-        g.api.add_resource(ResetActionInfo_API, '/redfish/v1/Systems/<string:ident>/ResetActionInfo',
-                resource_class_kwargs={'rb': g.rest_base})
-        g.api.add_resource(ResetAction_API, '/redfish/v1/Systems/<string:ident>/Actions/ComputerSystem.Reset',
-                resource_class_kwargs={'rb': g.rest_base})
-
-        # PCIe Switch Resources
-        g.api.add_resource(PCIeSwitchesAPI, '/redfish/v1/PCIeSwitches')
-        g.api.add_resource(PCIeSwitchAPI, '/redfish/v1/PCIeSwitches/<string:ident>',
-                resource_class_kwargs={'rb': g.rest_base})
-
-        # Composition Service Resources
-        g.api.add_resource(CompositionServiceAPI, '/redfish/v1/CompositionService',
-                resource_class_kwargs={'rb': g.rest_base, 'id': "CompositionService"})
-        # Composition Service SubResources
-        g.api.add_resource(ResourceBlockCollectionAPI, '/redfish/v1/CompositionService/ResourceBlocks')
-        g.api.add_resource(ResourceBlockAPI, '/redfish/v1/CompositionService/ResourceBlocks/<string:ident>',
-                resource_class_kwargs={'rb': g.rest_base})
-        # Composition Service SubResources
-        g.api.add_resource(ResourceZoneCollectionAPI, '/redfish/v1/CompositionService/ResourceZones')
-        g.api.add_resource(ResourceZoneAPI, '/redfish/v1/CompositionService/ResourceZones/<string:ident>',
-                resource_class_kwargs={'rb': g.rest_base})
+            # self.AccountService =   load_static('AccountService', 'redfish', mode, rest_base, self.resource_dictionary)
+            # self.Registries =       load_static('Registries', 'redfish', mode, rest_base, self.resource_dictionary)
+            # self.SessionService =   load_static('SessionService', 'redfish', mode, rest_base, self.resource_dictionary)
+            # self.TaskService =      load_static('TaskService', 'redfish', mode, rest_base, self.resource_dictionary)
+            self.Systems = load_static('Systems', 'redfish', mode, rest_base, self.resource_dictionary)
+            # self.Fabrics = load_static('Fabrics', 'redfish', mode, rest_base, self.resource_dictionary)
+            # self.Chassis = load_static('Chassis', 'redfish', mode, rest_base, self.resource_dictionary)
 
 
     @property
@@ -245,15 +153,8 @@ class ResourceManager(object):
             'UUID': self.uuid,
             'Chassis': {'@odata.id': self.rest_base + 'Chassis'},
             # 'EgResources': {'@odata.id': self.rest_base + 'EgResources'},
-            'Managers': {'@odata.id': self.rest_base + 'Managers'},
-            'TaskService': {'@odata.id': self.rest_base + 'TaskService'},
-            'SessionService': {'@odata.id': self.rest_base + 'SessionService'},
-            'AccountService': {'@odata.id': self.rest_base + 'AccountService'},
-            'EventService': {'@odata.id': self.rest_base + 'EventService'},
-            'Registries': {'@odata.id': self.rest_base + 'Registries'},
             'Systems': {'@odata.id': self.rest_base + 'Systems'},
-            'CompositionService': {'@odata.id': self.rest_base + 'CompositionService'},
-            'GenZSwitch' : {'@odata.id': self.rest_base + 'GenZSwitch'}
+            'Fabrics': {'@odata.id': self.rest_base + 'Fabrics'},
         }
 
         return config

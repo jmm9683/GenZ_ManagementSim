@@ -12,8 +12,7 @@ from api_emulator.utils import replace_recurse
 _TEMPLATE = \
 {
     "@Redfish.Copyright": "Copyright 2014-2019 DMTF. All rights reserved.",
-    #"@odata.context": "/redfish/v1/$metadata#Chassis.Chassis",
-    "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/{id}",
+    "@odata.id": "{rb}Fabrics/GenZ/Switches/{id}",
     "@odata.type": "#Switch.v1_3_0.Switch",
     "Id": "{id}",
     "Name": "Gen-Z Switch",
@@ -22,12 +21,8 @@ _TEMPLATE = \
     "Model": "ProductModelName",
     "SKU": "",
     "SerialNumber": "2M220100SL",
-    #"PartNumber": "",
-    #"AssetTag": "CustomerWritableThingy",
-    #"IndicatorLED": "Lit",
-    #"PowerState": "On",
     "Ports": {
-        "@data.id": "/redfish/v1/fabrics/GenZ/Switches/Switch1/Ports"
+        "@data.id": "{rb}fabrics/GenZ/Switches/Switch1/Ports"
     },
     "Status": {
         "State": "Enabled",
@@ -36,7 +31,7 @@ _TEMPLATE = \
     "Links": {
         "Endpoints": [
             {
-                "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/{id}"
+                "@odata.id": "{rb}Fabrics/GenZ/Endpoints/{id}"
             }
         ],
     },

@@ -19,6 +19,7 @@ from api_emulator.redfish.ResourceBlock_api import CreateResourceBlock
 from api_emulator.redfish.ResourceZone_api import CreateResourceZone
 
 from api_emulator.redfish.GenZSwitch_api import CreateGenZSwitch
+from api_emulator.redfish.Fabric_api import CreateFabric
 
 # In Python 3, xrange() is not supported.  The usage in this file uses the
 # Python 3 interpretation of range()
@@ -72,7 +73,6 @@ def create_resources(template, chassis, suffix, suffix_id):
 
 def populate(cfg):
     #cfg = 10
-    #print(cfg)
     if type(cfg) is int:
         return n_populate(cfg)
     cs_count = 0
@@ -80,6 +80,7 @@ def populate(cfg):
     chassis_count = 0
     zones = {}
     for chassi_template in cfg['Chassis']:
+        print(chassi_template)
         for i in range(chassi_template.get('Count', 1)):
             chassis_count += 1
             chassis = chassi_template['Id'].format(chassis_count)
@@ -126,13 +127,15 @@ def populate(cfg):
         z=CreateResourceZone(resource_class_kwargs={'rb': g.rest_base})
         z.put(zone)
         [z.post(g.rest_base,zone,'ResourceBlocks',x) for x in zones[zone]]
-        
+
+    t = CreateFabric(resource_class_kwargs={'rb': g.rest_base}).put('GenZ')
     s = CreateGenZSwitch(resource_class_kwargs={
-                'rb': g.rest_base}).put('http://localhost:5000/redfish/v1/Fabrics/GenZ/Switches/1')
+               'rb': g.rest_base}).put('1')
 
 def n_populate(num):
     # populate with some example infrastructure
     for i in range(num):
+        print(i)
         chassis = 'Chassis-{0}'.format(i + 1)
         compSys = 'System-{0}'.format(i + 1)
         bmc = 'BMC-{0}'.format(i + 1)

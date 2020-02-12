@@ -19,7 +19,7 @@ INTERNAL_ERROR = 500
 
 class GenZSwitch(Resource):
 	# INIT
-	def __init__(self):
+	def __init__(self, **kwargs):
 		try:
 			global config
 			global wildcards
@@ -99,9 +99,9 @@ class GenZSwitchCollection(Resource):
 		self.rb = g.rest_base
 		self.config = {
 			'@odata.context': self.rb + '$metadata#GenZSwitchCollection.GenZSwitchCollection',
-			'@odata.id': self.rb + 'GenZSwitchCollection',
-			'@odata.type': '#GenZSwitchCollection.1.0.0.GenZSwitchCollection',
-			'Name': 'Gen-Z Switch Collection',
+			'@odata.id': self.rb + 'Fabrics/GenZ/Switches',
+			'@odata.type': '#SwitchCollection.SwitchCollection',
+			'Name': 'Switch Collection',
 			'Links': {}
 		}
 		self.config['Links']['Members@odata.count'] = len(member_ids)

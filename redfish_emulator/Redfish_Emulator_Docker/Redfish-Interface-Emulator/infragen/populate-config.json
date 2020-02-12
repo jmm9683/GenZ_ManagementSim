@@ -14,7 +14,6 @@
               "Processors": [
                 {
                   "Id": "CPU{0}",
-                  "TotalCores": 12,
                   "MaxSpeedMHz": 2400,
                   "Count": 2
                 }
