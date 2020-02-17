@@ -5,7 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'systems',
-    templateUrl: './systems.component.html'
+    templateUrl: './systems.component.html',
+    styleUrls: ['./systems.component.css']
 
 })
 export class SystemsComponent {
