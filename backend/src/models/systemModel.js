@@ -144,5 +144,9 @@ export const SystemSchema = new Schema({
             }, 
             "ResetType@DMTF.AllowableValues": [String]
         }
-        }
+        },
+    "updated_date": {
+        type: Date,
+        default: Date.now
+    }
 });

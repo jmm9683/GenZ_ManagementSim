@@ -24,7 +24,7 @@ export const getSystems = (req, res) => {
 }
 
 export const getSystemWithID = (req, res) => {
-    System.findById(req.params.systemID, (err, sys) => {
+    System.findOne({ Id: req.params.systemID }, (err, sys) => {
         if (err){
             res.send(err);
         }
@@ -33,7 +33,7 @@ export const getSystemWithID = (req, res) => {
 }
 
 export const updateSystem = (req, res) => {
-    System.findOneAndUpdate({ _id: req.params.systemID }, req.body, { new: true, useFindAndModify: false }, (err, sys) => {
+    System.findOneAndUpdate({ Id: req.params.systemID }, req.body, { new: true, useFindAndModify: false }, (err, sys) => {
         if (err){
             res.send(err);
         }

@@ -1,6 +1,6 @@
         <div *ngFor="let system of webService.systems | async">
             <mat-card class="card">     
-                <mat-card-title [routerLink]="['/systems', system._id]" style="cursor: pointer;">{{system.Name}}</mat-card-title>  
+                <mat-card-title [routerLink]="['/systems', system.Id]" style="cursor: pointer;">{{system.Name}}</mat-card-title>  
                 <mat-card-content>
                    Power: <img [hidden]="system.Power != 'On'"  src="http://localhost:63145/onStatus.jpeg" style="width:10px;height:10px;"><img [hidden]="system.Power == 'On'"  src="http://localhost:63145/offStatus.jpeg" style="width:14px;height:10px;"> {{system.Power}}
                 </mat-card-content>

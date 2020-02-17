@@ -25,5 +25,9 @@ export const SystemCollectionSchema = new Schema({
                 type: String
             }
             }]
+    },
+    "updated_date": {
+        type: Date,
+        default: Date.now
     }
 });
