@@ -1,7 +1,7 @@
-# Backend Readme
+# Simulator Readme
 
 ## Mockup folder path (Holds the JSONs files that is being statically emulated)
-GenZ_Management/redfish_emulator/Redfish_Emulator_Docker/Redfish-Interface-Emulator/api_emulator/redfish/static/
+GenZ_ManagementSim/redfish_emulator/Redfish_Emulator_Docker/Redfish-Interface-Emulator/api_emulator/redfish/static/
 
 ## Installing Docker and Docker-compose
 `sudo apt update`
