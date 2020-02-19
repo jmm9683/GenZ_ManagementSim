@@ -13,7 +13,7 @@
 		"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches"
 	},
 	"EndPoints": {
-		"@odata.id": "/redfish/v1/Fabrics/GenZ/EndPoints"
+		"@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints"
 	},
 	"Zones": {
 		"@odata.id": "/redfish/v1/Fabrics/GenZ/Zones"
