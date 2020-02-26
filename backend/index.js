@@ -1,7 +1,6 @@
 import express from 'express';
-import sysColRoutes from './src/routes/sysColRoutes';
-import sysRoutes from './src/routes/sysRoutes';
-import simTestRoutes from './src/routes/simulatorTesting';
+import objectRoutes from './src/routes/objectRoutes';
+import domainRoutes from './src/routes/domainRoutes';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -12,17 +11,7 @@ import request from 'request';
 const app = express();
 const PORT = 63145;
 
-// cron.schedule("*/10 * * * * *", function(){
-
-//     request('http://localhost:63145/simtest', function (error, response, body) {
-//         var Id = JSON.parse(body)[0].Id
-//         console.log(JSON.parse(body)[0].updated_date)
-//         console.log(JSON.parse(body)[0])
-//         request({ url: 'http://localhost:63145/system/' + Id, method: 'PUT',  json: body})
-//         console.log(Id)
-//     })
-
-// });
+var domains = []
 
 // mongoose connection
 mongoose.Promise = global.Promise;
@@ -36,9 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-sysColRoutes(app);
-sysRoutes(app);
-simTestRoutes(app);
+objectRoutes(app);
+domainRoutes(app);
 
 
 // serving static files
@@ -51,3 +39,30 @@ app.get('/', (req, res) =>
 app.listen(PORT, () =>
     console.log(`Your server is running on port ${PORT}`)
 );
+
+const rootURL = '/redfish/v1/'
+
+cron.schedule("*/10 * * * * *", function(){
+    request("http://localhost:63145/domain", function (error, response, body) {
+        var domainJSON = JSON.parse(body);
+        domainJSON.forEach(elem => {
+            domains = []
+            domains.push(elem.Id);
+        })
+    })
+    console.log(domains)
+    //new port logic
+    domains.forEach(domain => {
+        // if not in collection of domains
+        request({ url: 'http://localhost:63145/object/2', method: 'GET', json: {"domainID": domain}}, function (error, response, body) {
+            if (body == null){
+                request(domain+rootURL, function (error, response, body) {
+                        console.log(JSON.parse(body));
+                        var Id = domain+rootURL;
+                        request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": Id, "domainID": domain, "@odata.id": Id, "jsonFile": body}});
+                    })
+            }
+        })
+    })
+
+});
