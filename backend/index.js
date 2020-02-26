@@ -12,17 +12,17 @@ import request from 'request';
 const app = express();
 const PORT = 63145;
 
-cron.schedule("*/10 * * * * *", function(){
+// cron.schedule("*/10 * * * * *", function(){
 
-    request('http://localhost:63145/simtest', function (error, response, body) {
-        var Id = JSON.parse(body)[0].Id
-        console.log(JSON.parse(body)[0].updated_date)
-        console.log(JSON.parse(body)[0])
-        request({ url: 'http://localhost:63145/system/' + Id, method: 'PUT',  json: body})
-        console.log(Id)
-    })
+//     request('http://localhost:63145/simtest', function (error, response, body) {
+//         var Id = JSON.parse(body)[0].Id
+//         console.log(JSON.parse(body)[0].updated_date)
+//         console.log(JSON.parse(body)[0])
+//         request({ url: 'http://localhost:63145/system/' + Id, method: 'PUT',  json: body})
+//         console.log(Id)
+//     })
 
-});
+// });
 
 // mongoose connection
 mongoose.Promise = global.Promise;

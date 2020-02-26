@@ -6,6 +6,7 @@ const SysCol = mongoose.model('SystemCollection', SystemCollectionSchema);
 export const addNewSysCol = (req, res) => {
     let newSysCol = new SysCol(req.body);
     console.log(newSysCol)
+    newSysCol.markModified("jsonFile");
     newSysCol.save((err, syscol) => {
         if (err){
             res.send(err);
