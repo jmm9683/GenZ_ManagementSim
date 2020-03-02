@@ -30,7 +30,7 @@ app.route('/object/1')
     .delete(deleteObject);
 app.route('/object/2')
     //see if domainID exists
-    .get(getObjectWithDomainID)
+    .get(getObjectWithDomainID);
     
 }
 
