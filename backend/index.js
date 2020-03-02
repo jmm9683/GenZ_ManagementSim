@@ -83,21 +83,20 @@ cron.schedule("*/10 * * * * *", function(){
                     if(typeof jsonFile[k] == "object"){
                         for (var k2 in jsonFile[k]){
                             if (k2 == "@odata.id"){
-                                var link = obj.domainID + jsonFile[k][k2];
+                                let link = obj.domainID + jsonFile[k][k2];
+                                console.log(link)
                                 request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
                                     if (body == null){
-                                        console.log(link)
-                                        // request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "updated_date": Date.now}});
-
+                                        request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "updated_date": Date.now}});
                                     }
                                 })
                             }
                             else if (typeof jsonFile[k][k2] == "object"){
                                 if (jsonFile[k][k2]['@odata.id'] != undefined){
-                                    var link = obj.domainID + jsonFile[k][k2]['@odata.id'];
+                                    let link = obj.domainID + jsonFile[k][k2]['@odata.id'];
                                     request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
                                         if (body == null){
-                                            //   request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "updated_date": Date.now}});
+                                            request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "updated_date": Date.now}});
                                         }
                                          
                                     })
