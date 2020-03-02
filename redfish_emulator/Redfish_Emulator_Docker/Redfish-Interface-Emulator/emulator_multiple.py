@@ -17,7 +17,7 @@ creating the thread (because some threads may be overwriting others)
 TODO
 '''
 
-root_folder = "api_emulator/redfish/AllViews/"
+root_folder = "api_emulator/redfish/Gen_Z_Extension_DMTF/"
 static_path = "api_emulator/redfish/static" #DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
 static_path_temp = "api_emulator/redfish/static_old_temp"
 file_port = {
