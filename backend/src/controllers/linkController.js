@@ -42,10 +42,19 @@ export const updateLink = (req, res) => {
 }
 
 export const deleteLink = (req, res) => {
-    Link.remove({ link: req.body.link }, req.body, (err, sys) => {
+    Link.deleteOne({ _id: req.body._id }, req.body, (err, sys) => {
         if (err){
             res.send(err);
         }
         res.json({ message: 'successfully deleted contact' });
+    });
+}
+
+export const getAllLinkWithID = (req, res) =>{
+    Link.find({ link: req.body.link }, (err, sys) => {
+        if (err){
+            res.send(err);
+        }
+        res.json(sys);
     });
 }

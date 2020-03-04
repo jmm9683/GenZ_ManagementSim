@@ -28,12 +28,11 @@ app.route('/object/1')
 
     // deleting a specific contact
     .delete(deleteObject);
+
 app.route('/object/2')
     //see if domainID exists
     .get(getObjectWithDomainID);
-    
+
 }
-
-
 
 export default objectRoutes;

@@ -2,7 +2,8 @@ import { addNewLink,
     getLinks,
     getLinkWithID,
     updateLink,
-    deleteLink
+    deleteLink,
+    getAllLinkWithID
 
 } from '../controllers/linkController'
 
@@ -27,6 +28,9 @@ app.route('/link/1')
 
     // deleting a specific contact
     .delete(deleteLink);
+
+app.route('/link/2')
+    .get(getAllLinkWithID);
 
 }
 

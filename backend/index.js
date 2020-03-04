@@ -89,10 +89,17 @@ cron.schedule("*/10 * * * * *", function(){
                             if (k2 == "@odata.id"){
                                 let link = obj.domainID + jsonFile[k][k2];
                             // console.log(link)
-                                request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
-                                    if (body == null){
+                                request({ url: 'http://localhost:63145/link/2', method: 'GET', json: {"link": link}}, function (error, response, body) {
+                                    if (body != undefined && body.length == 0){
                                         console.log("adding link: " + link);
                                         request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "linkLocation": obj.Id, "updated_date": Date.now()}});
+                                    }
+                                    else if ( body != undefined && body.length >= 2){
+                                        for (let i = 1; i < body.length; i++){
+                                            console.log("deleting link _id = " + body[i]._id);
+                                            request({ url: 'http://localhost:63145/link/1', method: 'DELETE',  json: {"_id": body[i]._id}});
+
+                                        }
                                     }
                                 })
                             }
@@ -101,22 +108,35 @@ cron.schedule("*/10 * * * * *", function(){
                                 for(let k3 in jsonFile[k][k2]){
                                     if (k3 == "@odata.id"){
                                         let link = obj.domainID + jsonFile[k][k2][k3];
-                                        request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
-                                            if (body == null){
+                                        request({ url: 'http://localhost:63145/link/2', method: 'GET', json: {"link": link}}, function (error, response, body) {
+                                            if (body != undefined && body.length == 0){
                                                 console.log("adding link: " + link);
                                                 request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "linkLocation": obj.Id, "updated_date": Date.now()}});
                                             }
-                                            
+                                            else if (body != undefined && body.length >= 2){
+                                                for (let i = 1; i < body.length; i++){
+                                                    console.log("deleting link _id = " + body[i]._id);
+                                                    request({ url: 'http://localhost:63145/link/1', method: 'DELETE',  json: {"_id": body[i]._id}});
+        
+                                                }
+                                            }    
                                         })
                                     }
                                     else if (typeof jsonFile[k][k2][k3] == "object"){
                                         if (jsonFile[k][k2][k3]["@odata.id"] != undefined){
                                             let link = obj.domainID + jsonFile[k][k2][k3]["@odata.id"];
-                                            request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
-                                                if (body == null){
+                                            request({ url: 'http://localhost:63145/link/2', method: 'GET', json: {"link": link}}, function (error, response, body) {
+                                                if (body != undefined && body.length == 0){
                                                     console.log("adding link: " + link);
                                                     request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "linkLocation": obj.Id, "updated_date": Date.now()}});
-                                                }           
+                                                }
+                                                else if (body != undefined && body.length >= 2){
+                                                    for (let i = 1; i < body.length; i++){
+                                                        console.log("deleting link _id = " + body[i]._id);
+                                                        request({ url: 'http://localhost:63145/link/1', method: 'DELETE',  json: {"_id": body[i]._id}});
+            
+                                                    }
+                                                }        
                                             })
                                         }
                                     }
@@ -136,26 +156,46 @@ cron.schedule("*/10 * * * * *", function(){
             body = JSON.parse(body);
             body.forEach(link => {
                 request({ url: link.link, method: 'GET'}, function (error, response, body) {
-                    let simBody = JSON.parse(body);
-                    let simBodyStatus = simBody.Status;
-                    request({ url: 'http://localhost:63145/object/1', method: 'GET', json: {"objectID": link.link}}, function (error, response, body) {
-                        //add new object
-                        if (body == null && simBodyStatus != "404"){
-                            console.log("adding: " + link.link);
-                            request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
-                        }
-                        //update object
-                        else if (simBody != undefined && simBodyStatus != "404"){
-                        //     console.log("updating: " + link.link);
-                            request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
-                        }
-                        else{
-                            console.log("[" + link.linkLocation + "] error connecting to: " + link.link);
-                        }
-                    })
+                    if (body != undefined){
+                        let simBody = JSON.parse(body);
+                        let simBodyStatus = simBody.Status;
+                        request({ url: 'http://localhost:63145/object/1', method: 'GET', json: {"objectID": link.link}}, function (error, response, body) {
+                            //add new object
+                            if (body != undefined && body.length == 0 && simBodyStatus != "404"){
+                                console.log("adding: " + link.link);
+                                request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
+                            }
+                            //update object
+                            else if (body != undefined && body.length == 1 && simBody != undefined && simBodyStatus != "404"){
+                                console.log("updating: " + link.link);
+                                request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
+                            }
+                            else if (body != undefined && body.length >= 2){
+                                for (let i = 1; i < body.length; i++){
+                                    console.log("deleting object _id = " + body[i]._id);
+                                    request({ url: 'http://localhost:63145/object/1', method: 'DELETE',  json: {"_id": body[i]._id}});
+
+                                }
+                            }
+                            else{
+                                console.log("[" + link.linkLocation + "] error connecting to: " + link.link);
+                            }
+                        })
+                    }
+                    else {
+                        console.log("error connecting to domain for: " + link.link);
+                    }
                 })
                 
             })
         }
     })
+})
+
+cron.schedule("*/10 * * * * *", function(){ 
+
+
+
+
+
 })
