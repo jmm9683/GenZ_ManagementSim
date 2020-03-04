@@ -96,16 +96,31 @@ cron.schedule("*/10 * * * * *", function(){
                                     }
                                 })
                             }
-                            else if (typeof jsonFile[k][k2] == "object"){
-                                if (jsonFile[k][k2]['@odata.id'] != undefined){
-                                    let link = obj.domainID + jsonFile[k][k2]['@odata.id'];
-                                    request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
-                                        if (body == null){
-                                            console.log("adding link: " + link);
-                                            request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "updated_date": Date.now()}});
+                            else if (typeof jsonFile[k][k2] == "object"){ 
+                                //add a loop for elements in k2 to account for array
+                                for(let k3 in jsonFile[k][k2]){
+                                    if (k3 == "@odata.id"){
+                                        let link = obj.domainID + jsonFile[k][k2][k3];
+                                        request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
+                                            if (body == null){
+                                                console.log("adding link: " + link);
+                                                request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "updated_date": Date.now()}});
+                                            }
+                                            
+                                        })
+                                    }
+                                    else if (typeof jsonFile[k][k2][k3] == "object"){
+                                        if (jsonFile[k][k2][k3]["@odata.id"] != undefined){
+                                            let link = obj.domainID + jsonFile[k][k2][k3]["@odata.id"];
+                                        request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
+                                            if (body == null){
+                                                console.log("adding link: " + link);
+                                                request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "updated_date": Date.now()}});
+                                            }
+                                            
+                                        })
                                         }
-                                         
-                                    })
+                                    }
                                 }
                             }
                         }
