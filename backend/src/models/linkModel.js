@@ -9,6 +9,9 @@ export const LinkSchema = new Schema({
     "domain":{
         type: String
     },
+    "linkLocation":{
+        type: String
+    },
     "updated_date": {
         type: Date,
         default: Date.now

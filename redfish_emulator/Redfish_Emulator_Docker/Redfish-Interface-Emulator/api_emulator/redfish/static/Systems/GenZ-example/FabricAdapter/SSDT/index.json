@@ -8,7 +8,7 @@
 	{ "@odata.id": "/redfish/v1/Systems/GenZ-example/FabricAdapter/SSDT/1" },
 	{ "@odata.id": "/redfish/v1/Systems/GenZ-example/FabricAdapter/SSDT/2" },
 	{ "@odata.id": "/redfish/v1/Systems/GenZ-example/FabricAdapter/SSDT/3" },
-	{ "@odata.id": "/redfish/v1/Systems/GenZ-example/FabricAdapter/SSDT/4096" }
+	{ "@odata.id": "/redfish/v1/Systems/GenZ-example/FabricAdapter/SSDT/4095" }
 
     ],
     "Members.count": 4096

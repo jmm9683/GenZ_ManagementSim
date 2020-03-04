@@ -66,8 +66,8 @@ cron.schedule("*/10 * * * * *", function(){
                        // console.log(JSON.parse(body));
                         let Id = domain+rootURL;
                         console.log("adding domain and link: " + domain);
-                        request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": Id, "domainID": domain, "@odata.id": Id, "jsonFile": body, "updated_date": Date.now()}});
-                        request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": Id, "domain": domain, "updated_date": Date.now()}});
+                        request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": Id, "domainID": domain, "@odata.id": Id, "jsonFile": JSON.parse(body), "updated_date": Date.now()}});
+                        request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": Id, "domain": domain, "linkLocation": Id, "updated_date": Date.now()}});
                     })
             }
         })
@@ -82,17 +82,17 @@ cron.schedule("*/10 * * * * *", function(){
             body = JSON.parse(body)
             body.forEach(obj => {
                 let jsonFile = JSON.parse(obj.jsonFile);
-                for(let k in jsonFile)
+                for(let k in jsonFile){
                     //checks up to 2 levels of nesting for @odata.id
                     if(typeof jsonFile[k] == "object"){
                         for (let k2 in jsonFile[k]){
                             if (k2 == "@odata.id"){
                                 let link = obj.domainID + jsonFile[k][k2];
-                               // console.log(link)
+                            // console.log(link)
                                 request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
                                     if (body == null){
                                         console.log("adding link: " + link);
-                                        request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "updated_date": Date.now()}});
+                                        request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "linkLocation": obj.Id, "updated_date": Date.now()}});
                                     }
                                 })
                             }
@@ -104,7 +104,7 @@ cron.schedule("*/10 * * * * *", function(){
                                         request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
                                             if (body == null){
                                                 console.log("adding link: " + link);
-                                                request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "updated_date": Date.now()}});
+                                                request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "linkLocation": obj.Id, "updated_date": Date.now()}});
                                             }
                                             
                                         })
@@ -112,23 +112,23 @@ cron.schedule("*/10 * * * * *", function(){
                                     else if (typeof jsonFile[k][k2][k3] == "object"){
                                         if (jsonFile[k][k2][k3]["@odata.id"] != undefined){
                                             let link = obj.domainID + jsonFile[k][k2][k3]["@odata.id"];
-                                        request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
-                                            if (body == null){
-                                                console.log("adding link: " + link);
-                                                request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "updated_date": Date.now()}});
-                                            }
-                                            
-                                        })
+                                            request({ url: 'http://localhost:63145/link/1', method: 'GET', json: {"link": link}}, function (error, response, body) {
+                                                if (body == null){
+                                                    console.log("adding link: " + link);
+                                                    request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": link, "domain": obj.domainID, "linkLocation": obj.Id, "updated_date": Date.now()}});
+                                                }           
+                                            })
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                })
-            }
-        })
+                }
+            })
+        }
     })
+})
 // loop through links to update objects
 cron.schedule("*/10 * * * * *", function(){
     request({ url: 'http://localhost:63145/link', method: 'GET'}, function (error, response, body) {
@@ -137,24 +137,25 @@ cron.schedule("*/10 * * * * *", function(){
             body.forEach(link => {
                 request({ url: link.link, method: 'GET'}, function (error, response, body) {
                     let simBody = body;
+                    let simBodyStatus = JSON.parse(simBody).Status;
                     request({ url: 'http://localhost:63145/object/1', method: 'GET', json: {"objectID": link.link}}, function (error, response, body) {
                         //add new object
-                        if (body == null){
+                        if (body == null && simBodyStatus != "404"){
                             console.log("adding: " + link.link);
                             request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
                         }
                         //update object
-                        else if (simBody != undefined){
-                            console.log("updating: " + link.link);
+                        else if (simBody != undefined && simBodyStatus != "404"){
+                        //     console.log("updating: " + link.link);
                             request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
                         }
                         else{
-                            console.log("error connecting to: " + link.link);
+                            console.log("[" + link.linkLocation + "] error connecting to: " + link.link);
                         }
                     })
                 })
                 
             })
         }
-        })
     })
+})
