@@ -81,7 +81,7 @@ cron.schedule("*/10 * * * * *", function(){
         if (body != null){
             body = JSON.parse(body)
             body.forEach(obj => {
-                let jsonFile = JSON.parse(obj.jsonFile);
+                let jsonFile = obj.jsonFile;
                 for(let k in jsonFile){
                     //checks up to 2 levels of nesting for @odata.id
                     if(typeof jsonFile[k] == "object"){
@@ -136,8 +136,8 @@ cron.schedule("*/10 * * * * *", function(){
             body = JSON.parse(body);
             body.forEach(link => {
                 request({ url: link.link, method: 'GET'}, function (error, response, body) {
-                    let simBody = body;
-                    let simBodyStatus = JSON.parse(simBody).Status;
+                    let simBody = JSON.parse(body);
+                    let simBodyStatus = simBody.Status;
                     request({ url: 'http://localhost:63145/object/1', method: 'GET', json: {"objectID": link.link}}, function (error, response, body) {
                         //add new object
                         if (body == null && simBodyStatus != "404"){

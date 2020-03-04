@@ -5,9 +5,9 @@ const Objects = mongoose.model('ObjectCollection', ObjectSchema);
 
 export const addNewObject = (req, res) => {
     let newObject = new Objects(req.body);
-    newObject.save((err, sys) => {
+    newObject.save({ checkKeys: false },(err, sys) => {
         if (err){
-            res.send(err);
+            res.json(err);
         }
         res.json(sys);
     });
