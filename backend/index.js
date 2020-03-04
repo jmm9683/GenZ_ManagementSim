@@ -81,7 +81,7 @@ cron.schedule("*/10 * * * * *", function(){
         if (body != null){
             body = JSON.parse(body)
             body.forEach(obj => {
-                let jsonFile = JSON.parse(obj.jsonFile);
+                let jsonFile = obj.jsonFile;
                 for(let k in jsonFile)
                     //checks up to 2 levels of nesting for @odata.id
                     if(typeof jsonFile[k] == "object"){
@@ -126,12 +126,15 @@ cron.schedule("*/10 * * * * *", function(){
                         //add new object
                         if (body == null){
                             console.log("adding: " + link.link);
-                            request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
+                            request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, 
+                            "jsonFile": JSON.parse(simBody), "updated_date": Date.now()}});
                         }
                         //update object
                         else if (simBody != undefined){
                             console.log("updating: " + link.link);
-                            request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
+                            request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {
+                                "objectID": link.link, "jsonFile": JSON.parse(simBody), "updated_date": Date.now(),
+                        }});
                         }
                         else{
                             console.log("error connecting to: " + link.link);
