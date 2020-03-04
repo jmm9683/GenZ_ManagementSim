@@ -50,7 +50,7 @@ def load_static(name, spec, mode, rest_base, resource_dictionary):
                     continue
                 path = os.path.join(dirName,fname)
                 f = open(path)
-                print(path)
+                # print(path)
                 index = json.load(f)
                 m = Member(index)
 
