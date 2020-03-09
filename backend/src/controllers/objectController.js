@@ -5,9 +5,9 @@ const Objects = mongoose.model('ObjectCollection', ObjectSchema);
 
 export const addNewObject = (req, res) => {
     let newObject = new Objects(req.body);
-    newObject.save((err, sys) => {
+    newObject.save({ checkKeys: false },(err, sys) => {
         if (err){
-            res.send(err);
+            res.json(err);
         }
         res.json(sys);
     });
@@ -23,7 +23,7 @@ export const getObjects = (req, res) => {
 }
 
 export const getObjectWithID = (req, res) => {
-    Objects.findOne({ Id: req.body.objectID }, (err, sys) => {
+    Objects.find({ Id: req.body.objectID }, (err, sys) => {
         if (err){
             res.send(err);
         }
@@ -41,7 +41,7 @@ export const updateObject = (req, res) => {
 }
 
 export const deleteObject = (req, res) => {
-    Objects.remove({ Id: req.body.objectID }, req.body, (err, sys) => {
+    Objects.deleteOne({ _id: req.body._id}, req.body, (err, sys) => {
         if (err){
             res.send(err);
         }

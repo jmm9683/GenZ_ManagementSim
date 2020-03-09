@@ -11,8 +11,8 @@ const objectRoutes = (app) => {
 app.route('/object')
     .get((req, res, next) => {
         // middleware
-        console.log(`Request from: ${req.originalUrl}`);
-        console.log(`Request type: ${req.method}`);
+       // console.log(`Request from: ${req.originalUrl}`);
+      //  console.log(`Request type: ${req.method}`);
         next();
     }, getObjects)
     
@@ -28,12 +28,11 @@ app.route('/object/1')
 
     // deleting a specific contact
     .delete(deleteObject);
+
 app.route('/object/2')
     //see if domainID exists
     .get(getObjectWithDomainID);
-    
+
 }
-
-
 
 export default objectRoutes;
