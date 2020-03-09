@@ -1,0 +1,96 @@
+{
+	"@odata.id": "/redfish/v1//Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter",
+	"@odata.type": "#FabricAdapter.v1_0_0.FabricAdapter",
+	"@Redfish.Copyright": "Copyright 2018-2019 DMTF.  All rights reserved.",
+	"Id": "Bridge",
+	"Name": "GenZ Bridge",
+	"Status": {
+		"State": "Enabled",
+		"Health": "OK"
+	},
+	"FabricAdapterPorts": {
+		"@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter/FabricAdapterPorts"
+	},
+	"Routes": [
+                { "@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter/SSDT" },
+                { "@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter/MSDT" }
+        ],
+	"VirtualChannel":  [
+                { "@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter/REQ-VCAT" },
+                { "@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter/RSP-VCAT" }
+	],
+	"PCIeInterface": {
+		"MaxPCIeType": "Gen4",
+		"MaxLanes": 64,
+		"PCIeType": "Gen4",
+		"LanesInUse": 64
+	},
+	"UUID": "45724775-ed3b-2214-1313-9865200c1cc1",
+	"Links": { 
+		"Endpoints": [
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/4" }
+		]
+	},
+	"Actions": {
+		"#FabricAdapter.Reset": {
+			"target": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter/Actions/FabricAdapter.Reset",
+			"ResetType@Redfish.AllowableValues": "ForceRestart"
+		}
+	},
+	"ControllerCapabilities": {
+		"FabricAdapterPortCount": 2
+	},
+	"RIT": [
+		"0x12",
+		"0x3E",
+		"0x12",
+		"0x3E",
+		"0x12",
+		"0x3E",
+		"0x12",
+		"0x3E",
+		"0x12",
+		"0x3E",
+		"0x12",
+		"0x3E",
+		"0x12",
+		"0x3E",
+		"0x12",
+		"0x3E"
+	],
+    	"PIDT": [
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678",
+		"0x12345678"
+	],
+	"Oem": { }
+}

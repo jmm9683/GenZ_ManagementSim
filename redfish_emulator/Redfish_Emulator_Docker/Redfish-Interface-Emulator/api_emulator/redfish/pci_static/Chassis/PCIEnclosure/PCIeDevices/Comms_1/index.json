@@ -1,0 +1,15 @@
+{
+    "@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/Comms_1",
+    "@odata.type": "#PCIeDevice.v1_4_0.PCIeDevice",
+    "Id": "Comms_1",
+    "Name": "Simple Comms",
+    "Description": "Simple Comms Device",
+    "Status": {
+        "State": "Enabled",
+        "Health": "OK",
+        "HealthRollup": "OK"
+    },
+    "FabricAdapter": {
+        "@odata.id" : "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/Comms_1/FabricAdapter"
+    }
+}
