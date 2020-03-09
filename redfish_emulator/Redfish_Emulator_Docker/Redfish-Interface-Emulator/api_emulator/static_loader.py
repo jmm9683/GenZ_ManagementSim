@@ -50,7 +50,7 @@ def load_static(name, spec, mode, rest_base, resource_dictionary, mockup_parent)
                     continue
                 path = os.path.join(dirName,fname)
                 f = open(path)
-                print(path)
+                # print(path)
                 index = json.load(f)
                 m = Member(index)
 
@@ -63,7 +63,8 @@ def load_static(name, spec, mode, rest_base, resource_dictionary, mockup_parent)
                     shortpath = shortpath.replace('\\', '/')
 
                 shortpath = re.sub('/index.json', '', shortpath)
-                resource_dictionary.add_resource(shortpath, m)
+                resource_dictionary.add_resource(shortpath, m, path)
+
 # debug print
 #        resource_dictionary.print_dictionary()
 

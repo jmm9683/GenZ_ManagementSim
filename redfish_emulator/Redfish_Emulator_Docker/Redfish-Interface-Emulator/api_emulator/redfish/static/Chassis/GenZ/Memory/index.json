@@ -5,9 +5,9 @@
   "Description": "Memory Collection",
   "Members@odata.count": 4,
   "Members": [
-    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/1/" },
-    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/2/" },
-    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/3/" },
-    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/4/" }
+    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/1" },
+    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/2" },
+    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/3" },
+    { "@odata.id": "/redfish/v1/Chassis/GenZ/Memory/4" }
   ]
 }

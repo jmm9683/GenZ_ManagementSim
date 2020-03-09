@@ -80,7 +80,7 @@ def populate(cfg):
     chassis_count = 0
     zones = {}
     for chassi_template in cfg['Chassis']:
-        print(chassi_template)
+        # print(chassi_template)
         for i in range(chassi_template.get('Count', 1)):
             chassis_count += 1
             chassis = chassi_template['Id'].format(chassis_count)
@@ -135,7 +135,7 @@ def populate(cfg):
 def n_populate(num):
     # populate with some example infrastructure
     for i in range(num):
-        print(i)
+        # print(i)
         chassis = 'Chassis-{0}'.format(i + 1)
         compSys = 'System-{0}'.format(i + 1)
         bmc = 'BMC-{0}'.format(i + 1)
