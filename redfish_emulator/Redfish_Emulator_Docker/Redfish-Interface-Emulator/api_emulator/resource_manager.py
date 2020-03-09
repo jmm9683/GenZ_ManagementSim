@@ -101,7 +101,7 @@ class ResourceManager(object):
     Defines ServiceRoot
     """
 
-    def __init__(self, rest_base, spec, mode, trays=None):
+    def __init__(self, rest_base, spec, mode, mockup_parent, trays=None):
         """
         Arguments:
             rest_base - Base URL for the REST interface
@@ -127,6 +127,7 @@ class ResourceManager(object):
 
         self.resource_dictionary = ResourceDictionary()
         self.mockupfolders = copy.copy(g.staticfolders)
+        self.mockup_parent= mockup_parent
         self.load_self()
 
 
@@ -137,9 +138,10 @@ class ResourceManager(object):
             # self.Registries =       load_static('Registries', 'redfish', mode, rest_base, self.resource_dictionary)
             # self.SessionService =   load_static('SessionService', 'redfish', mode, rest_base, self.resource_dictionary)
             # self.TaskService =      load_static('TaskService', 'redfish', mode, rest_base, self.resource_dictionary)
-            self.Systems = load_static('Systems', 'redfish', self.mode, self.rest_base, self.resource_dictionary)
-            self.Fabrics = load_static('Fabrics', 'redfish', self.mode, self.rest_base, self.resource_dictionary)
-            self.Chassis = load_static('Chassis', 'redfish', self.mode, self.rest_base, self.resource_dictionary)
+            self.Systems = load_static('Systems', 'redfish', self.mode, self.rest_base, self.resource_dictionary, self.mockup_parent)
+            self.Fabrics = load_static('Fabrics', 'redfish', self.mode, self.rest_base, self.resource_dictionary, self.mockup_parent)
+            self.Chassis = load_static('Chassis', 'redfish', self.mode, self.rest_base, self.resource_dictionary, self.mockup_parent)
+
 
     @property
     def configuration(self):

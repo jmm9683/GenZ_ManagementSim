@@ -20,7 +20,7 @@ class Member():
     def configuration(self):
         return self.config
 
-def load_static(name, spec, mode, rest_base, resource_dictionary):
+def load_static(name, spec, mode, rest_base, resource_dictionary, mockup_parent):
     """
     Loads the static data starting at the directory ./<spec>/static/<name>, recursively.
 
@@ -38,11 +38,11 @@ def load_static(name, spec, mode, rest_base, resource_dictionary):
         assert spec.lower() in ['redfish', 'chinook'], 'Unknown spec: ' + spec
         assert mode.lower() in ['local', 'cloud'], 'Unknown mode: ' + mode
         dirname = os.path.dirname(__file__)
-        base_dir = os.path.join(dirname, spec.lower(), 'static')
-        index = os.path.join(dirname, spec, 'static', name, 'index.json')
+        base_dir = os.path.join(dirname, spec.lower(), mockup_parent) #replaced 'static' with mockup_parent
+        index = os.path.join(dirname, spec, mockup_parent, name, 'index.json') #replaced 'static' with mockup_parent
         assert os.path.exists(index), 'Static data for ' + name + ' does not exist'
 
-        startDir = os.path.join(dirname, spec, 'static', name)
+        startDir = os.path.join(dirname, spec, mockup_parent, name) #replaced 'static' with mockup_parent
         for dirName, subdirList, fileList in os.walk(startDir):
 #            print('Found directory: %s' % dirName)
             for fname in fileList:
@@ -56,9 +56,9 @@ def load_static(name, spec, mode, rest_base, resource_dictionary):
 
 # Create shortpath starting at ServiceRoot
                 if mode == 'Cloud':
-                    shortpath = re.sub(os.path.join(dirname, spec, 'static/'), '', path)
+                    shortpath = re.sub(os.path.join(dirname, spec, mockup_parent, '/'), '', path) #replaced 'static' with mockup_parent
                 else:
-                    relpath = os.path.join(dirname, spec, 'static')
+                    relpath = os.path.join(dirname, spec, mockup_parent) #replaced 'static' with mockup_parent
                     shortpath = os.path.relpath(path, relpath)
                     shortpath = shortpath.replace('\\', '/')
 
@@ -69,5 +69,6 @@ def load_static(name, spec, mode, rest_base, resource_dictionary):
 #        resource_dictionary.print_dictionary()
 
     except AssertionError as e:
-        raise StaticLoadError(e.message)
+        return None
+        #raise StaticLoadError(e.message)
     return shortpath
