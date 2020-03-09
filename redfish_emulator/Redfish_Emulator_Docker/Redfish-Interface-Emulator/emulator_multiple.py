@@ -70,24 +70,25 @@ def main():
         print("Port numbers alive:")
         for thread_name in live_threads:
             print(thread_name)
-        num = input("Type in the number of the port you want to kill (and only the number of the port you want to kill")
+        time.sleep(60)
+        #num = input("Type in the number of the port you want to kill (and only the number of the port you want to kill")
         #if num == "0":
         #    os._exit(0)
             #sys.exit(0)
             #for thread_name in live_threads:
             #   live_threads[thread_name].raise_exception()
-        if num in live_threads:
-            live_threads[num].raise_exception()
-            print("should have killed thread in port " + num)
-        else:
-            print("'" + num + "'" + " not valid to kill")
+        #if num in live_threads:
+            #live_threads[num].raise_exception()
+            #print("should have killed thread in port " + num)
+        #else:
+            #print("'" + num + "'" + " not valid to kill")
         
         
         
         
 def emulator_run(port_number_as_string, parent_mockup_directory):
     print("running on " + port_number_as_string)
-    os.system("python emulator.py -port " + port_number_as_string + " -mockup_parent_directory " + parent_mockup_directory)
+    os.system("python emulator.py -port " + port_number_as_string + " -mockup_parent_directory " + parent_mockup_directory + " -debug")
     
     
 if __name__ == '__main__':
