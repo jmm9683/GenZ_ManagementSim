@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-    selector: 'single-system',
+    selector: 'singleSystem',
     templateUrl: './singleSystem.component.html'
 
 })
