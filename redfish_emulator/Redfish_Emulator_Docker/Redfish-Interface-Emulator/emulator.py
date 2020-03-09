@@ -346,6 +346,7 @@ def main():
     global TRAYS
     global MOCKUPFOLDERS
     global SPEC
+    global resource_manager
 
     # Open the emulator configuration file
     with open(CONFIG, 'r') as f:
@@ -408,6 +409,8 @@ def main():
 
         if not args.debug:
             kwargs['host'] = '0.0.0.0'
+        else:
+            kwargs['extra_files']=resource_manager.resource_dictionary.get_paths()
 
         print (' * Running in', SPEC, 'mode')
         g.app.run(**kwargs)

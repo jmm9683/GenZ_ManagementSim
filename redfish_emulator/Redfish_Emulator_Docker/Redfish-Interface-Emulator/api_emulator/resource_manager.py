@@ -121,22 +121,25 @@ class ResourceManager(object):
         self.uuid = str(uuid4())
         self.time = self.modified
         self.cs_puid_count = 0
+        self.mockupfolders = []
 
         # Load the static resources into the dictionary
 
         self.resource_dictionary = ResourceDictionary()
-        mockupfolders = copy.copy(g.staticfolders)
+        self.mockupfolders = copy.copy(g.staticfolders)
+        self.load_self()
 
-        if "Redfish" in mockupfolders:
+
+    def load_self(self):
+        if "Redfish" in self.mockupfolders:
             logging.info('Loading Redfish static resources')
             # self.AccountService =   load_static('AccountService', 'redfish', mode, rest_base, self.resource_dictionary)
             # self.Registries =       load_static('Registries', 'redfish', mode, rest_base, self.resource_dictionary)
             # self.SessionService =   load_static('SessionService', 'redfish', mode, rest_base, self.resource_dictionary)
             # self.TaskService =      load_static('TaskService', 'redfish', mode, rest_base, self.resource_dictionary)
-            self.Systems = load_static('Systems', 'redfish', mode, rest_base, self.resource_dictionary)
-            self.Fabrics = load_static('Fabrics', 'redfish', mode, rest_base, self.resource_dictionary)
-            self.Chassis = load_static('Chassis', 'redfish', mode, rest_base, self.resource_dictionary)
-
+            self.Systems = load_static('Systems', 'redfish', self.mode, self.rest_base, self.resource_dictionary)
+            self.Fabrics = load_static('Fabrics', 'redfish', self.mode, self.rest_base, self.resource_dictionary)
+            self.Chassis = load_static('Chassis', 'redfish', self.mode, self.rest_base, self.resource_dictionary)
 
     @property
     def configuration(self):

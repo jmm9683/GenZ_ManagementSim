@@ -8,6 +8,7 @@
 import logging
 
 resdict = {}
+full_paths = []
 
 class ResourceDictionary(object):
 
@@ -22,12 +23,16 @@ class ResourceDictionary(object):
     def get_object(self, path):
         return resdict[path]
 
-    def add_resource(self, path, obj):
+    def add_resource(self, path, obj, full_path):
         resdict[path] = obj
+        full_paths.append(full_path)
         return obj
 
     def delete_resource(self, path):
         del resdict[path]
+
+    def get_paths(self):
+        return full_paths
 
     def print_dictionary(self):
         for x in resdict:
