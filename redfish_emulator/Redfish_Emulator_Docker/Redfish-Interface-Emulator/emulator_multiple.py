@@ -17,14 +17,15 @@ creating the thread (because some threads may be overwriting others)
 TODO
 '''
 
+base_path = "api_emulator/redfish"
 root_folder = "api_emulator/redfish/Gen_Z_Extension_DMTF/"
 static_path = "api_emulator/redfish/static" #DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
 static_path_temp = "api_emulator/redfish/static_old_temp"
 file_port = {
-    "FabricManagerView" : 5000,
-    "Switch1View" : 5001,
-    "Switch2View" : 5002,
-    "Switch3View" : 5003
+    "Gen_Z_Extension_DMTF/FabricManagerView" : 5000,
+    "Gen_Z_Extension_DMTF/Switch1View" : 5001,
+    "Gen_Z_Extension_DMTF/Switch2View" : 5002,
+    "Gen_Z_Extension_DMTF/Switch3View" : 5003
     
     }
 
@@ -38,16 +39,17 @@ def main():
     
     live_threads = {}   #List of threads that are alive
     
-    if os.path.exists(static_path): #if the static path exists, rename it to the temporary name specified
-        os.rename(static_path, static_path_temp)
+    #if os.path.exists(static_path): #if the static path exists, rename it to the temporary name specified
+    #    os.rename(static_path, static_path_temp)
     
     for file in file_port:  
         print(str(file) + ":" + str(file_port[file]))
-        os.rename(root_folder + str(file), static_path) #rename the directory to the api_emulator/redfish/static
-        
+    #    os.rename(root_folder + str(file), static_path) #rename the directory to the api_emulator/redfish/static
+        full_path = base_path + file;
+        print("full_path =" + full_path)
         print("renamed " + str(file))
         port_string = str(file_port[file])
-        thread = threading.Thread( target=emulator_run, args= (port_string,) , daemon=True) #Create a thread to run the emulator on the port specified, using the directory that was put in static
+        thread = threading.Thread( target=emulator_run, args= (port_string,file,) , daemon=True) #Create a thread to run the emulator on the port specified, using the directory that was put in static
         thread.start()
         time.sleep(0)   #yield to the thread that was created
         time.sleep(5)   #wait 5 seconds for safety (may need to be increased if errors occur)
@@ -56,10 +58,10 @@ def main():
     
         print("past system call")
         
-        os.rename(static_path, root_folder + str(file)) #rename the directory back to what it was
+    #    os.rename(static_path, root_folder + str(file)) #rename the directory back to what it was
         
-    if os.path.exists(static_path_temp):    #put the old static file back as static if it existed
-        os.rename(static_path_temp, static_path)
+    #if os.path.exists(static_path_temp):    #put the old static file back as static if it existed
+    #    os.rename(static_path_temp, static_path)
         
     print("DONE :)")
     
@@ -83,9 +85,9 @@ def main():
         
         
         
-def emulator_run(port_number_as_string):
+def emulator_run(port_number_as_string, parent_mockup_directory):
     print("running on " + port_number_as_string)
-    os.system("python emulator.py -port " + port_number_as_string)
+    os.system("python emulator.py -port " + port_number_as_string + " -mockup_parent_directory " + parent_mockup_directory)
     
     
 if __name__ == '__main__':

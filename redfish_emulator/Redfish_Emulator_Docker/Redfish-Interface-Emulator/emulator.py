@@ -75,7 +75,8 @@ def init_resource_manager():
     global REST_BASE
     global TRAYS
     global SPEC
-    resource_manager = ResourceManager(REST_BASE, SPEC,MODE,TRAYS)
+    global args_main
+    resource_manager = ResourceManager(REST_BASE, SPEC,MODE, args_main.mockup_parent_directory, TRAYS)
 
     # If POPULATE is specified in emulator-config.json, INFRAGEN is called to populate emulator (i.e. with Chassi, CS, Resource Blocks, etc) according to specified file
     try:
@@ -320,6 +321,7 @@ g.api.add_resource(RedfishAPI, '/redfish/v1/', '/redfish/v1/<path:path>')
 def startup():
 
     init_resource_manager()
+    #print("past init_resouce_manager")
 
 #
 # Main method
@@ -346,6 +348,7 @@ def main():
     global TRAYS
     global MOCKUPFOLDERS
     global SPEC
+    global args_main
 
     # Open the emulator configuration file
     with open(CONFIG, 'r') as f:
@@ -393,7 +396,10 @@ def main():
                            help='Run the emulator in debug mode. Note that if you'
                                 ' run in debug mode, then the emulator will only'
                                 'be ran locally.')
-    args = argparser.parse_args()
+    
+    argparser.add_argument('-mockup_parent_directory', type=str, default='static', 
+                           help='Specify the parent folder of the mockup. This defaults to the static folder in /redfish/static. Useful for instantiating multiple instances of the emulator with different mockups')
+    args_main = argparser.parse_args()
 
     try:
         startup()
@@ -402,14 +408,16 @@ def main():
     else:
         if (HTTPS == 'Enable'):
             context = ('server.crt', 'server.key')
-            kwargs = {'debug': args.debug, 'port': args.port, 'ssl_context' : context}
+            kwargs = {'debug': args_main.debug, 'port': args_main.port, 'ssl_context' : context}
         else:
-            kwargs = {'debug': args.debug, 'port': args.port}
+            kwargs = {'debug': args_main.debug, 'port': args_main.port}
 
-        if not args.debug:
+        if not args_main.debug:
             kwargs['host'] = '0.0.0.0'
 
         print (' * Running in', SPEC, 'mode')
+        print("kwargs is:")
+        print(kwargs)
         g.app.run(**kwargs)
 
 if __name__ == '__main__':
