@@ -3,7 +3,8 @@ import { addNewObject,
     getObjectWithID, 
     updateObject,
     deleteObject,
-    getObjectWithDomainID
+    getObjectWithDomainID,
+    getObjectWith
 } from '../controllers/objectController'
 
 const objectRoutes = (app) => {
@@ -28,6 +29,10 @@ app.route('/object/1')
 
     // deleting a specific contact
     .delete(deleteObject);
+
+app.route('/object/search')
+    // get an object based on _id
+    .post(getObjectWith);
 
 app.route('/object/2')
     //see if domainID exists

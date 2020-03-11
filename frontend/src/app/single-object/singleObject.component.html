@@ -1,0 +1,28 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div *ngFor="let object of this.webService.specificobject | async" class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger" style="background: linear-gradient(60deg, #ff8c45, #e53935); }">
+                      <h3 class="card-title">{{object.jsonFile.Name}}</h3>
+                      <p class="card-category">{{object.jsonFile.Description}}</p>
+                  </div>
+                  <div class="card-body">
+                    <h4>
+                      <app-single-object-path [url]='object.Id' [domainID]='object.domainID'></app-single-object-path>
+                    </h4>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <h4>Full JSON</h4>
+                        <app-single-object-viewer [json]='object.jsonFile'></app-single-object-viewer>
+                      </div>
+                      <div class="col-md-8">
+                        <app-single-object-link [json]='object.jsonFile' [domainID]='object.domainID'></app-single-object-link>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
