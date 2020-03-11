@@ -63,11 +63,16 @@ cron.schedule("*/10 * * * * *", function(){
         request({ url: 'http://localhost:63145/object/2', method: 'GET', json: {"domainID": domain}}, function (error, response, body) {
             if (body == null){
                 request(domain+rootURL, function (error, response, body) {
-                       // console.log(JSON.parse(body));
-                        let Id = domain+rootURL;
-                        console.log("adding domain and link: " + domain);
-                        request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": Id, "domainID": domain, "@odata.id": Id, "jsonFile": JSON.parse(body), "updated_date": Date.now()}});
-                        request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": Id, "domain": domain, "linkLocation": Id, "updated_date": Date.now()}});
+                        if (error == null){
+                            let Id = domain+rootURL;
+                            console.log("adding domain and link: " + domain);
+                            request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": Id, "domainID": domain, "@odata.id": Id, "jsonFile": JSON.parse(body), "updated_date": Date.now()}});
+                            request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": Id, "domain": domain, "linkLocation": Id, "updated_date": Date.now()}});
+                        }
+                        else{
+                            console.log("bad domain: " + domain);
+                        }
+                        
                     })
             }
         })
