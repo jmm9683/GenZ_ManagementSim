@@ -1,0 +1,6 @@
+<p style="padding:1%">
+  <span>Path: {{this.domainID}}</span>
+  <span *ngFor="let path of this.paths">
+    <a style="border: 1px" href="/#/object/{{path?.id}}">{{path.display}}</a>
+  </span>
+</p>

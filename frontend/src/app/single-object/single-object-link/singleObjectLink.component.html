@@ -1,0 +1,25 @@
+<h4>Sub-Links</h4>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="">
+      <th>
+            Name
+      </th>
+      <th>
+            URL
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let link of this.links">
+          <td>
+              {{link?.name}}
+          </td>
+          <td>
+            <a href="/#/object/{{link?.id}}">
+              {{link?.link}}
+            </a>
+          </td>
+      </tr>
+    </tbody>
+</table>
+</div>
