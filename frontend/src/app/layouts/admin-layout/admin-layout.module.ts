@@ -13,7 +13,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {SingleObjectModule} from '../../single-object/singleObject.module';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
-
+import { DomainTableModule } from 'app/domain-table/domain-table.component.module';
 
 import {
   MatButtonModule,
@@ -38,6 +38,7 @@ import {
     NgxJsonViewerModule,
     SingleObjectModule,
     TableListModule,
+    DomainTableModule,
   ],
   declarations: [
     DashboardComponent,
