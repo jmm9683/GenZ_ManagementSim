@@ -11,15 +11,25 @@
     </thead>
     <tbody>
       <tr *ngFor="let link of this.links">
-          <td>
-              {{link?.name}}
-          </td>
-          <td>
-            <a href="/#/object/{{link?.id}}">
-              {{link?.link}}
-            </a>
-          </td>
+        <td [ngClass]="link?.name === 'DEAD LINK'? 'deadlink' : ''">
+          {{link?.name}}
+        </td>
+        <td [ngClass]="link?.name === 'DEAD LINK'? 'deadlink' : ''">
+          <a [ngClass]="link?.name === 'DEAD LINK'? 'deadlinklink' : ''" href="/#/object/{{link?.id}}">
+            {{link?.link}}
+          </a>
+        </td>
       </tr>
     </tbody>
 </table>
 </div>
+
+<style>
+  .deadlink{
+    background-color: grey;
+    color: white;
+  }
+  .deadlinklink{
+    color:white;
+  }
+</style>
