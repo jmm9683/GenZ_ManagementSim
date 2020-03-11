@@ -11,11 +11,14 @@ export class WebService {
     private objectStore;
 
     private objectsSubject = new Subject();
-
     allobjects = this.objectsSubject.asObservable();
 
     private singleObject = new Subject();
     specificobject = this.singleObject.asObservable();
+
+    private domainStore;
+    private domainsSubject = new Subject();
+    alldomains = this.domainsSubject.asObservable();
 
     constructor(private http: HttpClient){
     }
@@ -23,7 +26,6 @@ export class WebService {
     getObjectById(id){
           const body = { '_id' : id}
           const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
-          const headers = new HttpHeaders ({'Content-Type': 'application/json'});
           this.http.post(this.BASE_URL + '/object/search/', body, config).subscribe(response =>{
             console.log("POST specific object");
             console.log(response);
@@ -54,6 +56,34 @@ export class WebService {
         }, error => {
                 this.handleError("Unable to get systems.");
               });
+    }
+
+    public getAllDomains(){
+      // gets and returns all domains
+      this.http.get(this.BASE_URL+'/domain').subscribe(response =>{
+        if(!Array.isArray(response)) {
+            this.domainStore = [response];
+        }
+        else{
+            this.domainStore = response;
+            console.log("GET all objects");
+            console.log(response);
+        }
+        this.domainsSubject.next(this.domainStore);
+    }, error => {
+            this.handleError("Unable to get systems.");
+          });
+    }
+
+    public addNewDomain(id){
+      const body = {'Id':id};
+      const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+      this.http.post(this.BASE_URL + '/domain', body, config).subscribe(response =>{
+        console.log("POST specific object");
+        console.log(response);
+      }, error => {
+        this.handleError("Unable to add domain.");
+      });
     }
 
     // postMessage(message){

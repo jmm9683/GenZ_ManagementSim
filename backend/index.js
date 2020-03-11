@@ -77,7 +77,6 @@ cron.schedule("*/10 * * * * *", function(){
             }
         })
     })
-
 });
 
 //new odata.id
