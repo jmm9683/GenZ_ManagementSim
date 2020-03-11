@@ -1,6 +1,6 @@
 {
-  "name": "material-dashboard-angular",
-  "version": "2.3.0",
+  "name": "genz-management-demo",
+  "version": "0.3.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
