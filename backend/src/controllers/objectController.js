@@ -31,6 +31,15 @@ export const getObjectWithID = (req, res) => {
     });
 }
 
+export const getObjectWith = (req, res) => {
+    Objects.find(req.body, (err, sys) => {
+        if (err){
+            res.send(err);
+        }
+        res.json(sys);
+    });
+}
+
 export const updateObject = (req, res) => {
     Objects.findOneAndUpdate({ Id: req.body.objectID }, req.body, { new: true, useFindAndModify: false }, (err, sys) => {
         if (err){

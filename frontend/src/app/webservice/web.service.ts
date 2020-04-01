@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { MatSnackBarModule, MatSnackBar} from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
@@ -11,32 +11,35 @@ export class WebService {
     private objectStore;
 
     private objectsSubject = new Subject();
-
     allobjects = this.objectsSubject.asObservable();
 
+    private singleObject = new Subject();
+    specificobject = this.singleObject.asObservable();
+
+    private domainStore;
+    private domainsSubject = new Subject();
+    alldomains = this.domainsSubject.asObservable();
+
     constructor(private http: HttpClient){
-      this.getAllObjects();
     }
 
-    getObject(id){
-          id = (id) ? '/' + id : '';
-          this.http.get(this.BASE_URL + '/system' + id).subscribe(response =>{
-
+    getObjectById(id){
+          const body = { '_id' : id}
+          const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+          this.http.post(this.BASE_URL + '/object/search/', body, config).subscribe(response =>{
+            console.log("POST specific object");
+            console.log(response);
             if(!Array.isArray(response)) {
-              this.objectStore = [response];   
-            }  
+              this.objectStore = [response];
+            }
             else{
-              this.objectStore = response;   
-            } 
-            this.objectsSubject.next(this.objectStore);
+              this.objectStore = response;
+            }
+            this.singleObject.next(this.objectStore);
           }, error => {
             this.handleError("Unable to get systems.");
           });
       }
-
-    getAllObjectsService(){
-        return this.http.get(this.BASE_URL+'/object');
-    }
 
     public getAllObjects(){
         // gets and returns all objects
@@ -55,6 +58,34 @@ export class WebService {
               });
     }
 
+    public getAllDomains(){
+      // gets and returns all domains
+      this.http.get(this.BASE_URL+'/domain').subscribe(response =>{
+        if(!Array.isArray(response)) {
+            this.domainStore = [response];
+        }
+        else{
+            this.domainStore = response;
+            console.log("GET all objects");
+            console.log(response);
+        }
+        this.domainsSubject.next(this.domainStore);
+    }, error => {
+            this.handleError("Unable to get systems.");
+          });
+    }
+
+    public addNewDomain(id){
+      const body = {'Id':id};
+      const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+      this.http.post(this.BASE_URL + '/domain', body, config).subscribe(response =>{
+        console.log("POST specific object");
+        console.log(response);
+      }, error => {
+        this.handleError("Unable to add domain.");
+      });
+    }
+
     // postMessage(message){
     //     this.http.post(this.BASE_URL + '/message', message).subscribe(response => {
     //       this.systemStore.push(response);
@@ -62,7 +93,7 @@ export class WebService {
     //     }, error => {
     //       this.handleError("Unable to post message.")
     //     });
-        
+
     // }
 
     private handleError(error){

@@ -1,0 +1,54 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="input-group no-border">
+      <input class="form-control" type="text" [formControl]="filter" value="" placeholder="Search by name..." style="width:50%;font-size: large">
+      <button mat-raised-button  class="btn btn-white btn-round btn-just-icon">
+        <i class="material-icons">search</i>
+        <div class="ripple-container"></div>
+      </button>
+    </div>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger" style="background: linear-gradient(60deg, #ff8c45, #e53935); }">
+                      <h4 class="card-title mt-0"> Domain Table ({{this.num_domains}} Total Domains)</h4>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-hover">
+                              <thead class="">
+                                <th>
+                                      URL
+                                </th>
+                                <th>
+                                      Date Added
+                                </th>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let obj of filteredStates$ | async">
+                                    <td>
+                                      {{obj.Id}}
+                                    </td>
+                                    <td>
+                                      {{obj.updated_date}}
+                                    </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      <h4>Add New Domain</h4>
+                      <form [formGroup]="addDomainForm" (ngSubmit)="onSubmit(addDomainForm.value)">
+                        <div class="input-group no-border">
+                          <input class='form-control' id="Id" type="text" formControlName="Id" placeholder="https://localhost:8000" style="width:40%">
+                          <button mat-raised-button  type="submit" class="btn btn-white btn-round btn-just-icon">
+                            <i class="material-icons">add_circle</i>
+                            <div class="ripple-container"></div>
+                          </button>
+                        </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
