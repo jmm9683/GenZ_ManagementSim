@@ -1,7 +1,7 @@
 {
 	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch1",
 	"@odata.type": "#Switch.v1_1_0.Switch",
-	"Id": "Switch1",
+	"Id": "Switch31",
 	"Name": "GenZ Switch",
 	"SwitchType": "GenZ",
 	"Manufacturer": "Contoso",

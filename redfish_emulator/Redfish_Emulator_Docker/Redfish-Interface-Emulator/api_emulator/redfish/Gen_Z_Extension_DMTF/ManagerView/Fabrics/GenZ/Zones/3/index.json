@@ -1,0 +1,24 @@
+{
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Zones/3",
+	"@odata.type": "#Zone.v1_1_0.Zone",
+	"Id": "3",
+	"Name": "GenZ Zone 3",
+	"Description": "GenZ Zone 3",
+	"Status": {
+		"State": "Enabled",
+		"Health": "OK" 
+	},
+	"ZoneType": "ZoneOfEndpoints",
+	"Links": {
+		"Endpoints": [
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/3" },
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/5" },
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/6" },
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/8" },
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/12" },
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/15" },
+			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/16" }
+		]
+	},
+	"Oem": { }
+}
