@@ -22,7 +22,7 @@ root_folder = "api_emulator/redfish/Gen_Z_Extension_DMTF/"
 static_path = "api_emulator/redfish/static" #DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
 static_path_temp = "api_emulator/redfish/static_old_temp"
 file_port = {
-    "Gen_Z_Extension_DMTF/FabricManagerView" : 5000,
+    "Gen_Z_Extension_DMTF/ManagerView" : 5000,
     "Gen_Z_Extension_DMTF/Switch1View" : 5001,
     "Gen_Z_Extension_DMTF/Switch2View" : 5002,
     "Gen_Z_Extension_DMTF/Switch3View" : 5003

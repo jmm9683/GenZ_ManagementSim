@@ -1,0 +1,12 @@
+{
+    "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/1",
+    "@odata.type": "#MemoryDomain.v1_2_0.MemoryDomain",
+    "Name": "Node Memory Domain",
+    "Id": "1",
+    "MemoryChunks": {
+        "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/1/MemoryChunks"
+    },
+    "AllowsMemoryChunkCreation": false,
+    "AllowsBlockProvisioning": false,
+    "Oem": { }
+}

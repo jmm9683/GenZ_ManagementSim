@@ -1,0 +1,24 @@
+{
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints", 
+	"@odata.type": "#EndpointCollection.EndpointCollection", 
+	"Name": "GenZ Endpoint Collection", 
+	"Members@odata.count": 16, 
+	"Members": [ 
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/1" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/2" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/3" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/4" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/5" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/6" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/7" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/8" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/9" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/10" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/11" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/12" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/13" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/14" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/15" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/16" }
+	]
+}

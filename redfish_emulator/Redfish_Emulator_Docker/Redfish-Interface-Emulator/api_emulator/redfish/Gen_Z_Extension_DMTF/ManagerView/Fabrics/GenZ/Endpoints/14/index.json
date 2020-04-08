@@ -1,0 +1,10 @@
+{
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/14",
+	"@odata.type": "#Endpoint.v1_1_0.Endpoint",
+	"Id": "14",
+	"Name": "Memory Chunk 6",
+	"Description": "Memory Chunk 6",
+	"EndpointProtocol": "GenZ",
+	"MemoryChunkSizeMiB" : "32768"
+}
+	
