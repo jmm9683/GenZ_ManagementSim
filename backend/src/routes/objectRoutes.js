@@ -4,7 +4,8 @@ import { addNewObject,
     updateObject,
     deleteObject,
     getObjectWithDomainID,
-    getObjectWith
+    getObjectWith,
+    getNodes
 } from '../controllers/objectController'
 
 const objectRoutes = (app) => {
@@ -37,6 +38,9 @@ app.route('/object/search')
 app.route('/object/2')
     //see if domainID exists
     .get(getObjectWithDomainID);
+
+app.route('/object/isNode')
+    .get(getNodes);
 
 }
 
