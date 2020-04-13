@@ -63,11 +63,16 @@ cron.schedule("*/10 * * * * *", function(){
         request({ url: 'http://localhost:63145/object/2', method: 'GET', json: {"domainID": domain}}, function (error, response, body) {
             if (body == null){
                 request(domain+rootURL, function (error, response, body) {
-                       // console.log(JSON.parse(body));
-                        let Id = domain+rootURL;
-                        console.log("adding domain and link: " + domain);
-                        request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": Id, "domainID": domain, "@odata.id": Id, "jsonFile": JSON.parse(body), "updated_date": Date.now()}});
-                        request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": Id, "domain": domain, "linkLocation": Id, "updated_date": Date.now()}});
+                        if (error == null){
+                            let Id = domain+rootURL;
+                            console.log("adding domain and link: " + domain);
+                            request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": Id, "domainID": domain, "@odata.id": Id, "jsonFile": JSON.parse(body), "updated_date": Date.now()}});
+                            request({ url: 'http://localhost:63145/link', method: 'POST',  json: {"link": Id, "domain": domain, "linkLocation": Id, "updated_date": Date.now()}});
+                        }
+                        else{
+                            console.log("bad domain: " + domain);
+                        }
+                        
                     })
             }
         })
@@ -162,12 +167,16 @@ cron.schedule("*/10 * * * * *", function(){
                             //add new object
                             if (body != undefined && body.length == 0 && simBodyStatus != "404"){
                                 console.log("adding: " + link.link);
-                                request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
+                                let isNode = link.link.includes("Fabrics/GenZ/Switches/") && link.link.includes("/Ports/") && (simBody["Links"] != undefined && simBody["Links"]["AssociatedEndpoints"] != undefined)
+                                let isEdge = link.link.includes("Fabrics/GenZ/Endpoints/");
+                                request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "isNode": isNode, "isEdge": isEdge, "jsonFile": simBody, "updated_date": Date.now()}});
                             }
                             //update object
                             else if (body != undefined && body.length == 1 && simBody != undefined && simBodyStatus != "404"){
                                 console.log("updating: " + link.link);
-                                request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "jsonFile": simBody, "updated_date": Date.now()}});
+                                let isNode = link.link.includes("Fabrics/GenZ/Switches/") && link.link.includes("/Ports/") && (simBody["Links"] != undefined && simBody["Links"]["AssociatedEndpoints"] != undefined);
+                                let isEdge = link.link.includes("Fabrics/GenZ/Endpoints/");
+                                request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "isNode": isNode, "isEdge": isEdge, "jsonFile": simBody, "updated_date": Date.now()}});
                             }
                             else if (body != undefined && body.length >= 2){
                                 for (let i = 1; i < body.length; i++){
