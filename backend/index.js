@@ -167,13 +167,13 @@ cron.schedule("*/10 * * * * *", function(){
                             //add new object
                             if (body != undefined && body.length == 0 && simBodyStatus != "404"){
                                 console.log("adding: " + link.link);
-                                let isNode = link.link.includes("Fabrics/GenZ/Endpoints/")
+                                let isNode = link.link.includes("Fabrics/GenZ/Switches/") && link.link.includes("/Ports/") && (simBody["Links"] != undefined && simBody["Links"]["AssociatedEndpoints"] != undefined)
                                 request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "isNode": isNode, "jsonFile": simBody, "updated_date": Date.now()}});
                             }
                             //update object
                             else if (body != undefined && body.length == 1 && simBody != undefined && simBodyStatus != "404"){
                                 console.log("updating: " + link.link);
-                                let isNode = link.link.includes("Fabrics/GenZ/Endpoints/")
+                                let isNode = link.link.includes("Fabrics/GenZ/Switches/") && link.link.includes("/Ports/") && (simBody["Links"] != undefined && simBody["Links"]["AssociatedEndpoints"] != undefined)
                                 request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "isNode": isNode, "jsonFile": simBody, "updated_date": Date.now()}});
                             }
                             else if (body != undefined && body.length >= 2){
