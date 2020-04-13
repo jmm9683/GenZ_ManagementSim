@@ -5,6 +5,25 @@
 	"Name": "Memory Chunk 7",
 	"Description": "Memory Chunk 7",
 	"EndpointProtocol": "GenZ",
-	"MemoryChunkSizeMiB" : "32768"
+	"MemoryChunkSizeMiB" : "32768",
+	"ConnectedEntities": [
+		{
+			"EntityType": "MediaController",
+			"EntityRole": "Both",
+			"GCID": {
+				"ComponentID": "0x4",
+				"SubnetID": "0x1"
+			},
+      			"AccessKey": "0x1A345C3",
+			"EntityLink": { 
+				"@odata.id": "/redfish/v1/Chassis/GenZ/MediaControllers/4"
+			}
+		}
+	],
+	"Links" : {
+		"ChassisRepresentation" : [
+			{ "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/4/MemoryChunks/1" }
+		]
+	}
 }
 	

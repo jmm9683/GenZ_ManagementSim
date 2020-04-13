@@ -1,0 +1,10 @@
+{
+    "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/4/MemoryChunks",
+    "@odata.type" : "#MemoryChunksCollection.MemoryChunksCollection",
+    "Name": "Memory Chunks Collection 4",
+    "Members@odata.count": 2,
+    "Members": [
+        { "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/4/MemoryChunks/1" },
+        { "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/4/MemoryChunks/2" }
+    ]
+}

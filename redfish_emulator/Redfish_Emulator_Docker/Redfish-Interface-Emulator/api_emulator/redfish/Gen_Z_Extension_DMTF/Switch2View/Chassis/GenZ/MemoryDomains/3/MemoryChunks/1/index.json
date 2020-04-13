@@ -1,7 +1,7 @@
 {
-    "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/1/MemoryChunks/1",
+    "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/3/MemoryChunks/1",
     "@odata.type": "#MemoryChunks.v1_2_0.MemoryChunks",
-    "Name": "Memory Chunk 1",
+    "Name": "Memory Chunk 5",
     "Id": "1",
     "MemoryChunkSizeMiB": 32768,
     "AddressRangeType": "Volatile",
@@ -10,7 +10,7 @@
     "OffsetMiB": 0,
     "Links": {
 	    "Endpoints": [
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/9" }
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/13" }
 	    ]
     },
     "Oem": { }
