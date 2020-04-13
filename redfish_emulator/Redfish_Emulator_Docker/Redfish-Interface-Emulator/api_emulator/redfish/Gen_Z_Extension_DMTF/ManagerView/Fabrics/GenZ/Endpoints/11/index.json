@@ -21,7 +21,7 @@
 		}
 	],
 	"Links" : {
-		"ChassisRepresentation" : [
+		"Chassis" : [
 			{ "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/2/MemoryChunks/1" }
 		]
 	}
