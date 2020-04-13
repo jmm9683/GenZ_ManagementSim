@@ -75,3 +75,12 @@ export const getNodes = (req, res) => {
         res.json(sys);
     });
 }
+
+export const getEdges = (req, res) => {
+    Objects.find({ isEdge: true }, (err, sys) => {
+        if (err){
+            res.send(err);
+        }
+        res.json(sys);
+    });
+}

@@ -5,7 +5,8 @@ import { addNewObject,
     deleteObject,
     getObjectWithDomainID,
     getObjectWith,
-    getNodes
+    getNodes,
+    getEdges
 } from '../controllers/objectController'
 
 const objectRoutes = (app) => {
@@ -42,6 +43,8 @@ app.route('/object/2')
 app.route('/object/isNode')
     .get(getNodes);
 
+app.route('/object/isEdge')
+    .get(getEdges);
 }
 
 export default objectRoutes;

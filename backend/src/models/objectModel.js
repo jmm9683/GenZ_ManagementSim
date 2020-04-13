@@ -7,6 +7,7 @@ export const ObjectSchema = new Schema({
     "Id": {type: String},
     "@odata.id": {type: String},
     "isNode" : {type: Boolean},
+    "isEdge" : {type: Boolean},
     "jsonFile":  {type: Object},
     "updated_date": {
         type: Date,
