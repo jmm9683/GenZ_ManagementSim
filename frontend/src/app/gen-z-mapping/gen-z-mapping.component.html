@@ -1,0 +1,15 @@
+<div class="main-content">
+  <div style="padding:0px">
+    <div class="card" style="position:fixed;width:30%;">
+      <div class="card-header card-header-danger" style="background: linear-gradient(60deg, #ff8c45, #e53935); }">
+          <h4 class="card-title mt-0"> Node Info Table ({{this.num_nodes}} Total Nodes)</h4>
+      </div>
+      <div id="node-info" class="card-body">
+        <h3 #nodename id="nodename"></h3>
+        <p id="nodedata"></p>
+        <app-single-object-viewer #nodeinfo [json]=''></app-single-object-viewer>
+      </div>
+    </div>
+    <graph #genzmapping [nodes]="nodes" [links]="links"></graph>
+  </div>
+</div>

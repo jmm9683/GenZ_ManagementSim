@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { SingleObjectComponent } from '../../single-object/singleObject.component';
 import { DomainTableComponent } from 'app/domain-table/domain-table.component';
+import { GenZMappingComponent } from '../../gen-z-mapping/gen-z-mapping.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -63,5 +64,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'domain-table', component: DomainTableComponent}
+    { path: 'domain-table', component: DomainTableComponent},
+    { path: 'gen-z-mapping', component: GenZMappingComponent},
 ];

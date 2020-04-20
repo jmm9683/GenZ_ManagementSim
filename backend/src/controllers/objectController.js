@@ -67,8 +67,8 @@ export const getObjectWithDomainID = (req, res) => {
     });
 }
 
-export const getNodes = (req, res) => {
-    Objects.find({ isNode: true }, (err, sys) => {
+export const getSwitches = (req, res) => {
+    Objects.find({ isSwitch: true }, (err, sys) => {
         if (err){
             res.send(err);
         }
@@ -76,8 +76,8 @@ export const getNodes = (req, res) => {
     });
 }
 
-export const getEdges = (req, res) => {
-    Objects.find({ isEdge: true }, (err, sys) => {
+export const getEndpoints = (req, res) => {
+    Objects.find({ isEndpoint: true }, (err, sys) => {
         if (err){
             res.send(err);
         }
