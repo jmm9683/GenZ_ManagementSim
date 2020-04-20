@@ -9,8 +9,8 @@
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/6" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/8" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/11" },
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/12" }
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/15" }
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/12" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/15" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/16" }
 	]
 }

@@ -12,10 +12,10 @@
 	"Links": {
 		"Contains": [
 			{
-				"@odata.type": "/redfish/v1/Fabrics/GenZ/Zones/2"
+				"@odata.id": "/redfish/v1/Fabrics/GenZ/Zones/2"
 			},
 			{
-				"@odata.type": "/redfish/v1/Fabrics/GenZ/Zones/3"
+				"@odata.id": "/redfish/v1/Fabrics/GenZ/Zones/3"
 			}
 		]
 	},
