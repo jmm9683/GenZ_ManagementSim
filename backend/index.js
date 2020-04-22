@@ -200,10 +200,3 @@ cron.schedule("*/10 * * * * *", function(){
     })
 })
 
-cron.schedule("*/10 * * * * *", function(){
-
-
-
-
-
-})
