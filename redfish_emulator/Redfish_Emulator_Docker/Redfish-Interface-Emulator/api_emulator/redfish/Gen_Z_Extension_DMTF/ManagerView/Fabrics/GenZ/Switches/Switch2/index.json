@@ -11,7 +11,7 @@
 		"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch2/Ports"
 	} ,
 	"Status": {
-		"State": "Disabled | Starting | Enabled",
+		"State": "Enabled",
 		"Health": "OK"
 	},
 	"UUID": "1ad59fe9-49f9-52fa-9a93-e349f9477fe0",
