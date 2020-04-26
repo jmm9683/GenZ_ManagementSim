@@ -19,7 +19,7 @@
 			}
 		},
    		{
-            		"EntityType": "MemoryChunk?? | MemoryRegion??",
+            		"EntityType": "MemoryChunk",
             		"EntityRole": "Target",
             		"EntityLink": {
                 		"@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/1/MemoryChunks/1"
@@ -27,7 +27,7 @@
             		"RegionKey": "0x12C2F42A"
         	},
    		{
-            		"EntityType": "MemoryChunk?? | MemoryRegion??",
+            		"EntityType": "MemoryChunk",
             		"EntityRole": "Target",
             		"EntityLink": {
                 		"@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/1/MemoryChunks/2"

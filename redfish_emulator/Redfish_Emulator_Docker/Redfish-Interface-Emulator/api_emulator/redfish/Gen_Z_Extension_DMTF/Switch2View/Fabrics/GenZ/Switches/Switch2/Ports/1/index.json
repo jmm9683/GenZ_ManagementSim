@@ -13,8 +13,8 @@
 	"LinkState": "Disabled",
 	"InterfaceState": "Disabled",
 	"Status": {
-		"State": "Disabled | Starting | StandbyOffline | Enabled",
-		"Health": "OK | Warning | Critical"
+		"State": "Enabled",
+		"Health": "OK"
 	},
 	"Actions": {
 		"#Port.Reset": {
