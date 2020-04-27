@@ -76,6 +76,15 @@ export const getSwitches = (req, res) => {
     });
 }
 
+export const getZones = (req, res) => {
+    Objects.find({ isZone: true }, (err, sys) => {
+        if (err){
+            res.send(err);
+        }
+        res.json(sys);
+    });
+}
+
 export const getEndpoints = (req, res) => {
     Objects.find({ isEndpoint: true }, (err, sys) => {
         if (err){

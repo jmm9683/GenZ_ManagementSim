@@ -27,12 +27,14 @@ export class SingleObjectViewerComponent implements OnChanges {
       this.segments = [];
     }
 
-    if (typeof this.json === 'object') {
+    if (typeof this.json === 'object' && this.json) {
       Object.keys(this.json).forEach( key => {
         this.segments.push(this.parseKeyValue(key, this.json[key]));
       });
     } else {
-      this.segments.push(this.parseKeyValue(`(${typeof this.json})`, this.json));
+      if(this.json){
+        this.segments.push(this.parseKeyValue(`(${typeof this.json})`, this.json));
+      }
     }
   }
 

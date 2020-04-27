@@ -1,8 +1,8 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { Node } from '../../../d3';
-import { SingleObjectViewerComponent } from 'app/single-object/single-object-viewer/single-object-viewer.component';
-import {ViewChild} from '@angular/core';
 import {WebService} from '../../../webservice/web.service';
+
+// add name of the node above when hover
 
 @Component({
   selector: '[nodeVisual]',
@@ -26,9 +26,8 @@ import {WebService} from '../../../webservice/web.service';
   styleUrls: ['./node-visual.component.css']
 })
 export class NodeVisualComponent {
+
   @Input('nodeVisual') node: Node;
-  @ViewChild('nodeinfo', { static: false }) infoRef: SingleObjectViewerComponent;
-  @ViewChild('nodename', { static: false }) nameRef: ElementRef;
 
 
   constructor(private webService: WebService) {
@@ -46,21 +45,21 @@ export class NodeVisualComponent {
 
 
     this.webService.getObjectByURL(this.node.url);
+    this.webService.getEndpointByURL(this.node.endpoint_url);
     document.getElementById("nodename").innerText = this.node.url;
-    this.webService.specificobject.subscribe( response => {
-      console.log(response);
-      let data = response;
-      document.getElementById("nodedata").innerText = JSON.stringify(data);
-    });
+    // clear the help text
+    document.getElementById("componentjson").innerText = "Component JSON";
+    document.getElementById("endpointjson").innerText = "Endpoint JSON";
+    document.getElementById("mapping-help").innerText = "";
   }
 
   onHover(evt){
-    evt.CurrentTarget.addClass('selectednode');
-    console.log("hovering");
+    //evt.CurrentTarget.addClass('selectednode');
+    //console.log("hovering");
   }
 
   offHover(evt){
-    evt.CurrentTarget.removeClass('selectednode');
+    //evt.CurrentTarget.removeClass('selectednode');
   }
 
 }

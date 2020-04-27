@@ -1,12 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import APP_CONFIG from './gen-z-mapping.config';
 import { Node, Link } from '../d3';
 import {combineLatest, Observable, of} from 'rxjs';
-import * as d3 from 'd3';
 import {WebService } from '../webservice/web.service';
 import {ViewChild, ElementRef} from '@angular/core';
 import { GraphComponent } from '../visuals/graph/graph.component';
-import { PassThrough } from 'stream';
 
 @Component({
   selector: 'gen-z-mapping',
@@ -21,17 +18,10 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
   edges$: Observable<any>;
   num_nodes: number;
   mapping: Map<string, number> = new Map();
-
   @ViewChild('genzmapping', { static: false }) graphRef: GraphComponent;
 
-  constructor(private webService: WebService) {
-    const N = APP_CONFIG.N,
-          getIndex = number => number - 1;
-
-
-
+  constructor(public webService: WebService) {
     /** constructing the nodes array */
-
 
     // this.nodes.push(new Node("a"));
     // this.nodes.push(new Node("p"));
@@ -51,11 +41,19 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(){
+
+
+
     let index = 0;
+
+
+    // create zones
+
     this.webService.getEndpoints();
     this.webService.alledges.subscribe( response => {
 
       let mapping = new Map();
+      console.log(response);
 
       Array(response)[0].forEach(element => {
         let node = new Node("e "+index);
@@ -69,21 +67,46 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
         mapping.set(element['Id'], index);
         index++;
 
-        let entities = Array(element['jsonFile']['ConnectedEntities'])[0];
-        console.log(entities);
+        let entities = element['jsonFile']['ConnectedEntities'];
+
+        let links = element['jsonFile']['Links'];
+
+        if(links instanceof Object && links['Chassis'] ){
+          links['Chassis'].forEach(link => {
+            // create node for component
+            let entityid = element['domainID'] + link['@odata.id'];
+
+            if(mapping.has(entityid) == false){
+              mapping.set(entityid,index);
+              //mapping.set(element['Id'],index)
+              let node = new Node("c "+index);
+              node.linkCount++;
+              node.url = entityid;
+              node.endpoint_url = element['Id'];
+              this.graphRef.graph.nodes.push(node);
+              this.graphRef.graph.initNodes();
+              index++;
+            }
+            this.graphRef.graph.links.push(new Link(mapping.get(element['Id']), mapping.get(entityid)));
+            this.graphRef.graph.initLinks();
+
+          });
+        }
+
 
         if(entities instanceof Object){
           entities.forEach(entity => {
-            if((entity['EntityType']!='Switch')&&(entity['EntityType']!='Bridge')){
+            if(entity['EntityRole']!='Target' || entity['EntityType'] != 'MemoryChunk') {
               // create node for component
               let entityid = element['domainID'] + entity['EntityLink']['@odata.id'];
 
-              if(mapping.has(entityid)==false){
+              if(mapping.has(entityid) == false){
                 mapping.set(entityid,index);
                 let node = new Node("c "+index);
                 node.linkCount++;
                 node.url = entityid;
-                node.type = 'Component';
+                node.type = entity['EntityType'];
+                node.endpoint_url = element['Id'];
                 this.graphRef.graph.nodes.push(node);
                 this.graphRef.graph.initNodes();
                 index++;
@@ -136,6 +159,27 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
           this.graphRef.graph.initLinks();
           this.graphRef.graph.simulation.restart();
         });
+        // set each node to a zone based on get zones
+        this.webService.getZones();
+        this.webService.allzones.subscribe(response=>{
+          response.forEach(element => {
+            let endpoints = element['jsonFile']['Links']['Endpoints'];
+            let zone_name = element['jsonFile']['Description'];
+            endpoints.forEach(endpoint=> {
+
+              let endpointurl =  element['domainID']+endpoint;
+              console.log(mapping.get(endpointurl));
+              // for each endpoint, find corresponding node
+              let endpoint_node = this.graphRef.graph.nodes.find(node => node.endpoint_url==endpointurl);
+              console.log(endpoint_node);
+              endpoint_node.group = zone_name;
+            })
+
+
+          });
+        })
+
+
       });
 
     });
@@ -144,83 +188,10 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
 
   ngAfterViewInit() {
 
-    this.mapping.forEach((value:number,key:string)=>{
+    this.mapping.forEach((value: number, key: string) => {
       console.log(key);
     });
-
-
-
-    // let index = 0;
-    // // adding endpoints
-    // this.webService.getEdges();
-    // this.webService.alledges.subscribe( response => {
-    //   let existingnodes = new Map<string, number>();
-    //   Array(response)[0].forEach(element => {
-    //     // add node to nodes
-    //     //this.nodes.push(new Node(1));
-    //     let node = new Node("e "+index);
-    //     // add names of nodes and the respective index
-
-    //     let eindex = index;
-
-    //     let entities = Array(element['jsonFile']['ConnectedEntities'])[0]
-    //     try{
-    //       entities.forEach(entity =>{
-
-    //         let id = element['domainID'] + entity['EntityLink']['@odata.id']
-    //         console.log(existingnodes.has(id));
-
-    //         if(existingnodes.has(id)==false){
-    //           existingnodes.set(id,index);
-    //           this.webService.getObjectByURL(id);
-    //           this.webService.specificobject.subscribe( response => {
-    //             try{
-    //               console.log(response[0]['@odata'])
-
-    //               var node = new Node("n "+index);
-    //               node.linkCount=.5;
-    //               node.data = response[0];
-    //               this.graphRef.graph.nodes.push(node);
-    //               this.graphRef.graph.initNodes();
-
-    //               // add link from endpoint to component
-    //               this.graphRef.graph.links.push(new Link(index,index+1));
-    //               if (index > 2) {
-    //                 this.graphRef.graph.links.push(new Link(eindex, index));
-    //                 this.graphRef.graph.initLinks();
-    //                 this.graphRef.graph.simulation.restart();
-    //               }
-    //               this.graphRef.graph.simulation.restart();
-    //               index++;
-    //             }
-    //             catch(e){console.log(e)}
-    //           });
-    //         }
-    //       });
-    //     } catch(e){}
-    //     node.linkCount++;
-    //     node.data = element;
-    //     this.graphRef.graph.nodes.push(node);
-    //     this.graphRef.graph.initNodes();
-    //     this.graphRef.graph.simulation.restart();
-    //     index++;
-    //   });
-    // });
-
-    // let index = 0;
-    // this.webService.getEdges();
-    // this.webService.alledges.subscribe( response => {
-    //   Array(response)[0].forEach(element => {
-    //     let node = new Node("e "+index);
-    //     node.linkCount++;
-    //     node.data = element;
-    //     this.graphRef.graph.nodes.push(node);
-    //     this.graphRef.graph.initNodes();
-    //     this.graphRef.graph.simulation.restart();
-    //     index++;
-    //   });
-    // });
-
+    // after nodes have been added
 
   }
 

@@ -7,6 +7,7 @@ import { addNewObject,
     getObjectWith,
     getSwitches,
     getEndpoints,
+    getZones,
 } from '../controllers/objectController'
 
 const objectRoutes = (app) => {
@@ -45,6 +46,10 @@ app.route('/object/isSwitch')
 
 app.route('/object/isEndpoint')
     .get(getEndpoints);
+
+app.route('/object/isZone')
+    .get(getZones);
+
 }
 
 export default objectRoutes;

@@ -8,6 +8,7 @@ export const ObjectSchema = new Schema({
     "@odata.id": {type: String},
     "isSwitch" : {type: Boolean},
     "isEndpoint" : {type: Boolean},
+    "isZone" : {type: Boolean},
     "jsonFile":  {type: Object},
     "updated_date": {
         type: Date,

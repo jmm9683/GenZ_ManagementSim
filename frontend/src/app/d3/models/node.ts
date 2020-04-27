@@ -10,13 +10,19 @@ export class Node implements d3.SimulationNodeDatum {
   fx?: number | null;
   fy?: number | null;
 
-  // holds the url for data lookup
+  // holds the url for component lookup
   url?: any;
+
+  // holds the url for the endpoint lookup
+  endpoint_url?: any;
 
   // holds the type of Entity (used for coloring/shape)
   type?: string;
 
   id: string;
+
+  // holds info for the respective zone
+  group?: string;
 
   // used for emphasis
   linkCount: number = 10;

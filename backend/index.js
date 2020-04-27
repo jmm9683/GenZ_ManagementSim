@@ -169,14 +169,16 @@ cron.schedule("*/10 * * * * *", function(){
                                 console.log("adding: " + link.link);
                                 let isSwitch = link.link.includes("Fabrics/GenZ/Switches/") && link.link.includes("/Ports/") && (simBody["Links"] != undefined && simBody["Links"]["AssociatedEndpoints"] != undefined)
                                 let isEndpoint = link.link.includes("Fabrics/GenZ/Endpoints/");
-                                request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "isSwitch": isSwitch, "isEndpoint": isEndpoint, "jsonFile": simBody, "updated_date": Date.now()}});
+                                let isZone = link.link.includes("Fabrics/GenZ/Zone/");
+                                request({ url: 'http://localhost:63145/object', method: 'POST',  json: {"Id": link.link, "domainID": link.domain, "@odata.id": link.link, "isSwitch": isSwitch, "isEndpoint": isEndpoint, "isZone":isZone,"jsonFile": simBody, "updated_date": Date.now()}});
                             }
                             //update object
                             else if (body != undefined && body.length == 1 && simBody != undefined && simBodyStatus != "404"){
                                 console.log("updating: " + link.link);
                                 let isSwitch = link.link.includes("Fabrics/GenZ/Switches/") && link.link.includes("/Ports/") && (simBody["Links"] != undefined && simBody["Links"]["AssociatedEndpoints"] != undefined);
                                 let isEndpoint = link.link.includes("Fabrics/GenZ/Endpoints/");
-                                request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "isSwitch": isSwitch, "isEndpoint": isEndpoint, "jsonFile": simBody, "updated_date": Date.now()}});
+                                let isZone = link.link.includes("Fabrics/GenZ/Zones/");
+                                request({ url: 'http://localhost:63145/object/1', method: 'PUT',  json: {"objectID": link.link, "isSwitch": isSwitch, "isEndpoint": isEndpoint, "isZone":isZone, "jsonFile": simBody, "updated_date": Date.now()}});
                             }
                             else if (body != undefined && body.length >= 2){
                                 for (let i = 1; i < body.length; i++){
