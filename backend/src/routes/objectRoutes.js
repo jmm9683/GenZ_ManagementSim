@@ -5,8 +5,9 @@ import { addNewObject,
     deleteObject,
     getObjectWithDomainID,
     getObjectWith,
-    getNodes,
-    getEdges
+    getSwitches,
+    getEndpoints,
+    getZones,
 } from '../controllers/objectController'
 
 const objectRoutes = (app) => {
@@ -40,11 +41,15 @@ app.route('/object/2')
     //see if domainID exists
     .get(getObjectWithDomainID);
 
-app.route('/object/isNode')
-    .get(getNodes);
+app.route('/object/isSwitch')
+    .get(getSwitches);
 
-app.route('/object/isEdge')
-    .get(getEdges);
+app.route('/object/isEndpoint')
+    .get(getEndpoints);
+
+app.route('/object/isZone')
+    .get(getZones);
+
 }
 
 export default objectRoutes;

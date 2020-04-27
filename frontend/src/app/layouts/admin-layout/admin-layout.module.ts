@@ -14,6 +14,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {SingleObjectModule} from '../../single-object/singleObject.module';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { DomainTableModule } from 'app/domain-table/domain-table.component.module';
+import { GenZMappingModule } from '../../gen-z-mapping/gen-z-mapping.component.module'
 
 import {
   MatButtonModule,
@@ -39,6 +40,7 @@ import {
     SingleObjectModule,
     TableListModule,
     DomainTableModule,
+    GenZMappingModule,
   ],
   declarations: [
     DashboardComponent,

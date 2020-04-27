@@ -1,0 +1,23 @@
+<div class="main-content">
+  <div style="padding:0px">
+    <div class="card" style="position:fixed;width:30%;">
+      <div class="card-header card-header-danger" style="background: linear-gradient(60deg, #ff8c45, #e53935); }">
+          <h4 class="card-title mt-0"> Selected Node Info</h4>
+      </div>
+      <div id="node-info" class="card-body" style="max-height: 800px;overflow-y: auto;">
+        <p id="mapping-help">
+          This is a graph-based representation of the Gen-Z mappings within this system,
+          click on a node to view information related to each node. Each node will have
+          a endpoint json which holds connection information and a component json that has information
+          about the component status. These json can be expanded by clicking on the respective arrows.
+        </p>
+        <h4 #nodename id="nodename"></h4>
+        <h4 id="componentjson"></h4>
+        <app-single-object-viewer #nodeinfo [json]="this.webService.specificobject | async" [expanded]="false"></app-single-object-viewer>
+        <h4 id="endpointjson"></h4>
+        <app-single-object-viewer #endpointinfo [json]="this.webService.specificendpoint | async" [expanded]="false"></app-single-object-viewer>
+      </div>
+    </div>
+    <graph #genzmapping [nodes]="nodes" [links]="links"></graph>
+  </div>
+</div>
