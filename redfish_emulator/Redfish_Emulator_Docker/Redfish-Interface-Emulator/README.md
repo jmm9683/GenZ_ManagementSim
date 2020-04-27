@@ -38,6 +38,11 @@ Edit the emulator_config.json file and set **"MODE": "Local"**, then start the e
 
 	python emulator.py
 
+For multiple instantiations of the emulator with different files, edit the emulator_multiple.py file.
+The file has instructions in there of how to run. When configured to your liking, start emulator_multiple.
+
+	python emulator_multiple.py
+
 ### Cloud Foundry
 
 Edit the emulator_config.json file and set **"MODE": "Cloud"**, then push the emulator to the foundry.
@@ -60,6 +65,7 @@ The emulator is invoked with the following command:
     -v -- verbose
     -port -- specifies the port number to use
     -debug -- enables debugging (needed to debug flask calls)
+    -mockup_parent_directory -- Specify the parent folder of the mockup. This defaults to the static folder in api_emulator/redfish/static. Useful for instantiating multiple instances of the emulator with different mockups
 
 ### Format of emulator_config.json
 
