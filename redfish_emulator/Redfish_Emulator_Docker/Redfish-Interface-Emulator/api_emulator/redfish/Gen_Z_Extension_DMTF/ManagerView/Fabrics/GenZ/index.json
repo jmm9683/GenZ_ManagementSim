@@ -1,0 +1,16 @@
+{
+	"@odata.id": "/redfish/v1/Fabrics/GenZ",
+	"@odata.type": "#Fabric.v1_0_3.Fabric",
+	"Id": "GenZ",
+	"Name": "GenZ Fabric",
+	"FabricType": "GenZ",
+	"Description": "Fabric Manager Zone Information",
+	"Status": {
+		"State": "Enabled",
+		"Health": "OK"
+	},
+	"Zones": {
+		"@odata.id": "/redfish/v1/Fabrics/GenZ/Zones"
+	},
+	"Oem": { }
+}
