@@ -46,7 +46,7 @@ import threading
 import time
 import sys
 
-DEBUG = 0;
+DEBUG = 1;
 
 def main():
     #print (os.listdir(os.curdir))

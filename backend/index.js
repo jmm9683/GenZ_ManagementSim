@@ -50,8 +50,8 @@ cron.schedule("*/10 * * * * *", function(){
     request("http://localhost:63145/domain", function (error, response, body) {
         if (body != null){
             let domainJSON = JSON.parse(body);
+            domains = []
             domainJSON.forEach(elem => {
-                domains = []
                 domains.push(elem.Id);
             })
         }
@@ -91,7 +91,11 @@ cron.schedule("*/10 * * * * *", function(){
                     if(typeof jsonFile[k] == "object"){
                         for (let k2 in jsonFile[k]){
                             if (k2 == "@odata.id"){
-                                let link = obj.domainID + jsonFile[k][k2];
+                                let link = "";
+                                if (jsonFile[k][k2].includes("localhost"))
+                                    link = "http://" + jsonFile[k][k2];
+                                else
+                                    link = obj.domainID + jsonFile[k][k2];
                             // console.log(link)
                                 request({ url: 'http://localhost:63145/link/2', method: 'GET', json: {"link": link}}, function (error, response, body) {
                                     if (body != undefined && body.length == 0){
@@ -111,7 +115,11 @@ cron.schedule("*/10 * * * * *", function(){
                                 //add a loop for elements in k2 to account for array
                                 for(let k3 in jsonFile[k][k2]){
                                     if (k3 == "@odata.id"){
-                                        let link = obj.domainID + jsonFile[k][k2][k3];
+                                        let link = "";
+                                        if (jsonFile[k][k2][k3].includes("localhost"))
+                                            link = "http://" + jsonFile[k][k2][k3];
+                                        else
+                                            link = obj.domainID + jsonFile[k][k2][k3];
                                         request({ url: 'http://localhost:63145/link/2', method: 'GET', json: {"link": link}}, function (error, response, body) {
                                             if (body != undefined && body.length == 0){
                                                 console.log("adding link: " + link);
@@ -128,7 +136,11 @@ cron.schedule("*/10 * * * * *", function(){
                                     }
                                     else if (typeof jsonFile[k][k2][k3] == "object"){
                                         if (jsonFile[k][k2][k3]["@odata.id"] != undefined){
-                                            let link = obj.domainID + jsonFile[k][k2][k3]["@odata.id"];
+                                            let link = "";
+                                            if (jsonFile[k][k2][k3]["@odata.id"].includes("localhost"))
+                                                link = "http://" + jsonFile[k][k2][k3]["@odata.id"];
+                                            else
+                                                link = obj.domainID + jsonFile[k][k2][k3]["@odata.id"];
                                             request({ url: 'http://localhost:63145/link/2', method: 'GET', json: {"link": link}}, function (error, response, body) {
                                                 if (body != undefined && body.length == 0){
                                                     console.log("adding link: " + link);
