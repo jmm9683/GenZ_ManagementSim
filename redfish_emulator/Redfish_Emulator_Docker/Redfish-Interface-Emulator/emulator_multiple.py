@@ -32,10 +32,12 @@ file_port = {
 }
 '''
 file_port = {
-    "Gen_Z_Extension_DMTF/ManagerView" : 5000,
+    "Gen_Z_Extension_DMTF/ManagerView" : 4800,
     "Gen_Z_Extension_DMTF/Switch1View" : 5001,
     "Gen_Z_Extension_DMTF/Switch2View" : 5002,
-    "Gen_Z_Extension_DMTF/Switch3View" : 5003
+    "Gen_Z_Extension_DMTF/Switch3View" : 5003,
+    "Gen_Z_Extension_DMTF/Memory"  : 5004
+    #"Gen_Z_Extension_DMTF/pci"  : 5007
     
     }
 

@@ -1,0 +1,43 @@
+{
+	"@odata.type": "#Chassis.v1_6_0.Chassis",
+	"@odata.id": "/redfish/v1/Chassis/PCIEnclosure",
+	"Id": "1",
+	"Name": "PCIe Enclosure",
+	"Manufacturer": "Contoso",
+	"Model": "Contoso PCIe Enclosure",
+	"SerialNumber": "<SerialNumber>",
+	"PowerState": "On",
+	"IndicatorLED": "Lit | Unlit",
+	"ChassisType": "Enclosure",
+	"Status": {
+		"State": "Enabled",
+		"Health": "OK"
+	} ,
+    "PCIeDevices": {
+        "@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices"
+    },
+	"Links": {
+		"ManagedBy": [
+			{
+				"@odata.id": "/redfish/v1/Managers/1"
+			}
+		],
+		"ManagersInChassis": [
+			{
+				"@odata.id": "/redfish/v1/Managers/1"
+			}
+		]
+	},
+	"Actions": {
+    		"#Chassis.Reset": {
+      			"target": "/redfish/v1/Chassis/PCIEnclosure/Actions/Chassis.Reset/",
+      			"ResetType@Redfish.AllowableValues": [
+				  "On",
+				  "ForceOff",
+				  "PushPowerButton",
+				  "PowerCycle"
+      			]
+    		}
+  	},
+	"Oem": { }
+}

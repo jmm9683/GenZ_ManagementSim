@@ -419,8 +419,8 @@ def main():
             kwargs['extra_files']=resource_manager.resource_dictionary.get_paths()
 
         print (' * Running in', SPEC, 'mode')
-        print("kwargs is:")
-        print(kwargs)
+        #print("kwargs is:")
+        #print(kwargs)
         g.app.run(**kwargs)
 
 if __name__ == '__main__':

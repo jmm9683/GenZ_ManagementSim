@@ -1,0 +1,16 @@
+{
+    "@odata.id": "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_2",
+    "@odata.type": "#PCIeDevice.v1_4_0.PCIeDevice",
+    "Id": "GPU_2",
+    "Name": "Simple GPU",
+    "Description": "Simple GPU Device",
+    "Status": {
+        "State": "Enabled",
+        "Health": "OK",
+        "HealthRollup": "OK"
+    },
+    "FabricAdapter": {
+        "@odata.id" : "/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_2/FabricAdapter"
+    }
+
+}

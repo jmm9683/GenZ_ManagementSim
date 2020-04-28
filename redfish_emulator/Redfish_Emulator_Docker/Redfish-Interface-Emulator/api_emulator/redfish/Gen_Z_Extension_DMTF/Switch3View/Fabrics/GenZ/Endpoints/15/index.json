@@ -16,13 +16,13 @@
 			},
       			"AccessKey": "0x1A345C3",
 			"EntityLink": { 
-				"@odata.id": "/redfish/v1/Chassis/GenZ/MediaControllers/4"
+				"@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MediaControllers/4"
 			}
 		}
 	],
 	"Links" : {
 		"Chassis" : [
-			{ "@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/4/MemoryChunks/1" }
+			{ "@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MemoryDomains/4/MemoryChunks/1" }
 		]
 	}
 }
