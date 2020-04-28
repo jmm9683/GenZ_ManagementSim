@@ -20,6 +20,8 @@ class StaticMockup(object):
         with open(index, "w") as jsonFile:
             json.dump(data, jsonFile, indent = 6)
 
+    # This helper method allows for changes in nested fields by basically
+    # copying the whole fields and allowing more minute changes
     def read_index_field(self, json_path, field):
         index = self.get_index(json_path)
         with open(index, "r") as jsonFile:
