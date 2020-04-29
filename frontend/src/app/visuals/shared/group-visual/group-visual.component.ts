@@ -1,7 +1,8 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnChanges} from '@angular/core';
 import { Node } from '../../../d3';
 import * as d3 from 'd3';
 import {WebService} from '../../../webservice/web.service';
+import { DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 
 // divide nodes based on group
 
@@ -9,66 +10,78 @@ import {WebService} from '../../../webservice/web.service';
 @Component({
   selector: '[groupVisual]',
   template: `
-    <svg:g [attr.transform]="'translate('  + centroid[0] + ',' + (centroid[1]) + ') scale(' + scaleFactor + ')'" >
-      <svg:path style="fill:blue;stroke-opacity:.5;fill-opacity:.1;" stroke="blue" stroke-width="20"
-      [attr.transform]="'scale(1) translate(0,0)'" [attr.d]="draw()"></path>
-      <svg:text style="font-size:100px">Apples</svg:text>
+    <svg:g *ngFor="let nodes_ of array_groups; index as i">
+      <svg:g *ngIf="nodes_.length > 0">
+            <g [singleGroupVisual]="nodes_" [name]="reverse_mapping[i]" [color]="color_matrix[i%color_matrix.length]"></g>
+      </svg:g>
     </svg:g>
   `,
   styleUrls: ['./group-visual.component.css']
 })
-export class GroupVisualComponent {
+export class GroupVisualComponent implements DoCheck {
+  @Input('groupVisual') nodes: Node[];
 
-  @Input('groupVisual') group: Node[];
+  differ: KeyValueDiffer<string, any>;
+
+  array_groups = [];
+
+  color_matrix =
+  ["rgb(51,255,153)","rgb(255,102,102)","rgb(38,137,223)",'yellow']
+
+
+  mapping: Map<String, number> = new Map()
+  reverse_mapping : Map<number, String> = new Map();
+
   // x and y coordinates of the center of the group
-  public centroid = [];
+
+  // 2-d array of groups and their nodes
+  groups: Map<String, Node[]> = new Map();
+
+  public centroids: Map<String, number[]> = new Map();
   public scaleFactor = 1.2;
 
-  constructor(private webService: WebService) {
+  constructor(private webService: WebService, private differs: KeyValueDiffers) {
+    this.differ = this.differs.find({}).create();
   }
 
+  ngDoCheck() {
+    // check for changes in groups for each node in nodes
+    this.nodes.forEach(node => {
+      const change = this.differ.diff(node);
+      if (change) {
+        change.forEachChangedItem(changed => {
+          if (changed.key !== 'group') {
+            return;
+          }
+          let groups = changed.currentValue;
+          if(groups && groups.length > 0){
+            groups.forEach(group => {
+              if (!this.mapping[group]){
+                // index for the mapping
+                this.mapping[group] = this.array_groups.length;
+                this.reverse_mapping[this.array_groups.length] = group;
+              }
+              // check if node has already been added
 
-  // returns the polygon for the group
-  polygonGenerator() {
-    let node_coords = [];
-    this.group.forEach(element => {
-      node_coords.push([element.x, element.y])
-    })
-    return d3.polygonHull(node_coords);
-  };
+              // if this group hasnt been added
+              if (this.mapping[group] >= this.array_groups.length){
+                this.array_groups.push([]);
+              }
 
-  draw(){
-    if(!(this.group instanceof Array)) {
-      console.log("not array")
-      return;
-    }
+              //console.log(this.mapping[group] + " " + this.array_groups.length);
 
-    if(this.group.length==0){
-      console.log("empty array")
-      return;
-    }
-
-    let polygon = this.polygonGenerator();
-
-    let temp = d3.polygonCentroid(polygon);
-    if(!(temp instanceof Array)||(temp.length!=2)){
-      return;
-    }
-
-    this.centroid = d3.polygonCentroid(polygon);
-
-    let centroid = this.centroid;
-
-    let valueline = d3.line()
-    .x(function(d) { return d[0]; })
-    .y(function(d) { return d[1]; })
-    .curve(d3.curveCatmullRomClosed);
-
-    return valueline(
-      polygon.map(function(point) {
-        return [  point[0] - centroid[0], point[1] - centroid[1] ];
-    }));
+              let added = this.array_groups[this.mapping[group]].some(e => e.url === node.url);
+              if (added === false) {
+                this.array_groups[this.mapping[group]].push(node);
+              }
+            });
+          }
+        });
+      }
+    });
   }
+}
 
-
+function add_array(value, key, map) {
+  console.log(value);
 }

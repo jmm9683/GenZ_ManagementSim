@@ -20,6 +20,10 @@ export class WebService {
     private singleEndpoint = new Subject();
     specificendpoint = this.singleEndpoint.asObservable();
 
+    private singleZoneStore;
+    private singleZone = new Subject();
+    specificzone = this.singleZone.asObservable();
+
     private domainStore;
     private domainsSubject = new Subject();
     alldomains = this.domainsSubject.asObservable();
@@ -47,8 +51,8 @@ export class WebService {
         }
         else{
             this.zoneStore = response;
-            console.log("GET all zones");
-            console.log(response);
+            // console.log("GET all zones");
+            // console.log(response);
         }
         this.zoneSubject.next(this.zoneStore)
     }, error => {
@@ -58,7 +62,7 @@ export class WebService {
 
     getEndpointByURL(url){
       const body = { 'Id' : url, 'isEndpoint': true}
-      console.log(url);
+      // console.log(url);
       if(!url){
         this.singleEndpointStore = {'Empty': 'None'};
         this.singleEndpoint.next(this.singleEndpointStore);
@@ -67,8 +71,8 @@ export class WebService {
 
       const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
       this.http.post(this.BASE_URL + '/object/search/', body, config).subscribe(response => {
-        console.log("POST specific object");
-        console.log(response);
+        // console.log("POST specific object");
+        // console.log(response);
         if(!Array.isArray(response)) {
           this.singleEndpointStore = [response];
         }
@@ -81,12 +85,35 @@ export class WebService {
       });
     }
 
+
+    getZoneByURL(url){
+      const body = { 'Id' : url, 'isZone': true}
+      if(!url){
+        this.singleZoneStore = {'Empty': 'None'};
+        this.singleZone.next(this.singleZoneStore);
+        return;
+      }
+
+      const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+      this.http.post(this.BASE_URL + '/object/search/', body, config).subscribe(response => {
+        if(!Array.isArray(response)) {
+          this.singleZoneStore = [response];
+        }
+        else{
+          this.singleZoneStore = response;
+        }
+        this.singleZone.next(this.singleZoneStore);
+      }, error => {
+        this.handleError("Unable to get endpoint.");
+      });
+    }
+
     getObjectById(id){
           const body = { '_id' : id}
           const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
           this.http.post(this.BASE_URL + '/object/search/', body, config).subscribe(response =>{
-            console.log("POST specific object");
-            console.log(response);
+            // console.log("POST specific object");
+            // console.log(response);
             if(!Array.isArray(response)) {
               this.singleObjectStore = [response];
             }
@@ -99,12 +126,13 @@ export class WebService {
           });
       }
 
+
     getObjectByURL(url){
         const body = { 'Id' : url}
         const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
         this.http.post(this.BASE_URL + '/object/search/', body, config).subscribe(response =>{
-          console.log("POST specific object");
-          console.log(response);
+          // console.log("POST specific object");
+          // console.log(response);
           if(!Array.isArray(response)) {
             this.objectStore = [response];
           }
@@ -125,8 +153,8 @@ export class WebService {
             }
             else{
                 this.objectStore = response;
-                console.log("GET all objects");
-                console.log(response);
+                // console.log("GET all objects");
+                // console.log(response);
             }
             this.objectsSubject.next(this.objectStore)
         }, error => {
@@ -141,8 +169,8 @@ export class WebService {
         }
         else{
             this.edgeStore = response;
-            console.log("GET all edges");
-            console.log(response);
+            // console.log("GET all edges");
+            // console.log(response);
         }
         this.edgeSubject.next(this.edgeStore)
     }, error => {
@@ -157,8 +185,8 @@ export class WebService {
         }
         else{
             this.nodeStore = response;
-            console.log("GET all nodes");
-            console.log(response);
+            // console.log("GET all nodes");
+            // console.log(response);
         }
         this.nodeSubject.next(this.nodeStore)
     }, error => {
@@ -174,8 +202,8 @@ export class WebService {
         }
         else{
             this.domainStore = response;
-            console.log("GET all objects");
-            console.log(response);
+            // console.log("GET all objects");
+            // console.log(response);
         }
         this.domainsSubject.next(this.domainStore);
     }, error => {
@@ -187,8 +215,8 @@ export class WebService {
       const body = {'Id':id};
       const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
       this.http.post(this.BASE_URL + '/domain', body, config).subscribe(response =>{
-        console.log("POST specific object");
-        console.log(response);
+        // console.log("POST specific object");
+        // console.log(response);
       }, error => {
         this.handleError("Unable to add domain.");
       });

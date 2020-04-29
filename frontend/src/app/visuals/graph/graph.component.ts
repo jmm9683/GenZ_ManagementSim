@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectorRef, HostListener, ChangeDetectionStrategy, OnInit, AfterViewInit } from '@angular/core';
 import { D3Service, ForceDirectedGraph} from '../../d3';
+import {Link} from '../../d3/models/link'
 
 @Component({
   selector: 'graph',
@@ -7,7 +8,9 @@ import { D3Service, ForceDirectedGraph} from '../../d3';
   template: `
     <svg #svg [attr.width]="_options.width" [attr.height]="_options.height">
       <g [zoomableOf]="svg">
-        <g [groupVisual]="nodes"></g>
+        <g *ngIf="nodes.length> 0">
+          <g [groupVisual]="nodes"></g>
+        </g>
         <g [linkVisual]="link" *ngFor="let link of links"></g>
         <g [nodeVisual]="node" *ngFor="let node of nodes"
             [draggableNode]="node" [draggableInGraph]="graph"></g>
