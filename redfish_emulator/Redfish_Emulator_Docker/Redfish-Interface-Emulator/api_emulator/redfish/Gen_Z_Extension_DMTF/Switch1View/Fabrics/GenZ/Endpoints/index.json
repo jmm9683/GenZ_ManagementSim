@@ -2,12 +2,14 @@
 	"@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints", 
 	"@odata.type": "#EndpointCollection.EndpointCollection", 
 	"Name": "GenZ Endpoint Collection", 
-	"Members@odata.count": 8, 
+	"Members@odata.count": 7, 
 	"Members": [ 
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/1" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/2" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/3" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/9" },
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/10" }
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/10" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/19" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/20" }
 	]
 }

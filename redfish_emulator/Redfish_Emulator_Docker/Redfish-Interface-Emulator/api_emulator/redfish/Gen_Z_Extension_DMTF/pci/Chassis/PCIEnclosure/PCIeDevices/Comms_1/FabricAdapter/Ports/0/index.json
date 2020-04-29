@@ -50,10 +50,10 @@
 	},
 	"Links": {
 		"ConnectedSwitches": [
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch1" }
+			{ "@odata.id": "localhost:5001/redfish/v1/Fabrics/GenZ/Switches/Switch1" }
 		],
 		"ConnectedSwitchPort": [
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch1/Ports/2" }
+			{ "@odata.id": "localhost:5001/redfish/v1/Fabrics/GenZ/Switches/Switch1/Ports/3" }
 		]
 	},
 			

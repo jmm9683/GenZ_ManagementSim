@@ -1,9 +1,9 @@
 {
-	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/1/MPRT/1",
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/3/MPRT/1",
 	"@odata.type": "#RouteEntry.v1_1_0.RouteEntry",
 	"Id": "1",  
 	"Name": "MPRT1",
-	"Description": "GenZ Port 1 MPRT Entry 1",
+	"Description": "GenZ Port 3 MPRT Entry 1",
 	"RawEntryHex": "0x12345678",
 	"RouteSet": [
 		{
