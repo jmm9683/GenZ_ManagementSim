@@ -37,7 +37,7 @@ file_port = {
     "Gen_Z_Extension_DMTF/Switch2View" : 5002,
     "Gen_Z_Extension_DMTF/Switch3View" : 5003,
     "Gen_Z_Extension_DMTF/Memory"  : 5004,
-    #"Gen_Z_Extension_DMTF/pci"  : 5007,
+    "Gen_Z_Extension_DMTF/pci"  : 5007,
     "Gen_Z_Extension_DMTF/SingleComputeView" : 5005,
     "Gen_Z_Extension_DMTF/MultiComputeView" : 5006,
 
@@ -48,7 +48,7 @@ import threading
 import time
 import sys
 
-DEBUG = 1;
+DEBUG = 0;
 
 def main():
     #print (os.listdir(os.curdir))

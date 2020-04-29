@@ -1,9 +1,9 @@
 {
-	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch1/Ports/1/VCAT",
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch2/Ports/3/VCAT",
 	"@odata.type": "#RouteEntry.v1_1_0.RouteEntry",
-	"Id": "1",  
+	"Id": "3",  
 	"Name": "VCAT",
-	"Description": "GenZ Port 1 Virtual Channel Action Table",
+	"Description": "GenZ Port 3 Virtual Channel Action Table",
 	"VCAT": [
 		{
 		  "RawEntryHex": "0x12345678ABCDEF",

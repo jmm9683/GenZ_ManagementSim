@@ -28,7 +28,7 @@
 	"UUID": "45724775-ed3b-2214-1313-9865200c1cc1",
 	"Links": { 
 		"Endpoints": [
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/3" }
+			{ "@odata.id": "localhost:5001/redfish/v1/Fabrics/GenZ/Endpoints/19" }
 		]
 	},
 	"Actions": {

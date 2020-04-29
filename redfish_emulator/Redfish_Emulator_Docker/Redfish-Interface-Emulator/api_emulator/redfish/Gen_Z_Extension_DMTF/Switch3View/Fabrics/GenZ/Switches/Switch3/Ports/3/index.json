@@ -27,18 +27,18 @@
 			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/8" }
 		],
 		"ConnectedAdapterPorts": [
-			{ "@odata.id": "/redfish/v1/Chassis/GenZ/MediaControllers/4/Ports/0" }
+			{ "@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MediaControllers/4/Ports/0" }
 		]
 	},
 	"Routes": [
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/1/LPRT" },
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/1/MPRT" }
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/3/LPRT" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/3/MPRT" }
 	],
 	"VirtualChannels": [
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/1/VCAT" }
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/3/VCAT" }
 	],
 	"Metrics": {
-		"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/1/Metrics"
+		"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/3/Metrics"
 	},
 	"Oem": { }
 }
