@@ -11,13 +11,13 @@
 	"ZoneType": "ZoneOfEndpoints",
 	"Links": {
 		"Endpoints": [
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/3" },
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/5" },
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/6" },
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/8" },
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/12" },
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/15" },
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/16" }
+			{ "@odata.id": "localhost:5003/redfish/v1/Fabrics/GenZ/Endpoints/18" },
+			{ "@odata.id": "localhost:5003/redfish/v1/Fabrics/GenZ/Endpoints/5" },
+			{ "@odata.id": "localhost:5003/redfish/v1/Fabrics/GenZ/Endpoints/6" },
+			{ "@odata.id": "localhost:5003/redfish/v1/Fabrics/GenZ/Endpoints/8" },
+			{ "@odata.id": "localhost:5003/redfish/v1/Fabrics/GenZ/Endpoints/12" },
+			{ "@odata.id": "localhost:5003/redfish/v1/Fabrics/GenZ/Endpoints/15" },
+			{ "@odata.id": "localhost:5003/redfish/v1/Fabrics/GenZ/Endpoints/16" }
 		]
 	},
 	"Oem": { }

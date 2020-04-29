@@ -15,14 +15,14 @@
 			},
       		"AccessKey": "0x1A345C3",
 			"EntityLink": { 
-				"@odata.id": "/redfish/v1/Chassis/GenZ/MediaControllers/2"
+				"@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MediaControllers/2"
 			}
 		},
    		{
             		"EntityType": "MemoryChunk",
             		"EntityRole": "Target",
             		"EntityLink": {
-                		"@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/2/MemoryChunks/1"
+                		"@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MemoryDomains/2/MemoryChunks/1"
             		},
             		"RegionKey": "0x12C2F42A"
         	},
@@ -30,14 +30,14 @@
             		"EntityType": "MemoryChunk",
             		"EntityRole": "Target",
             		"EntityLink": {
-                		"@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/2/MemoryChunks/2"
+                		"@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MemoryDomains/2/MemoryChunks/2"
             		},
             		"RegionKey": "0xDC14995F"
         	}
 	],
 	"Links": {
 		"ConnectedSwitchPorts": [
-			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch2/Ports/1" },
+			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Switches/Switch2/Ports/1" },
 			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch3/Ports/1" }
 		]
 	},

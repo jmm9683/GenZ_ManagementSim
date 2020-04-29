@@ -1,0 +1,26 @@
+{
+	"@odata.type": "#ComputerSystem.v1_5_0.ComputerSystem",
+	"@odata.id": "/redfish/v1/Systems/MultiCompute1",
+	"ID": "1",
+	"Name": "Compute Node",
+	"SystemType": "Physical",
+	"Manufacturer": "Contoso",
+	"Model": "ComputeNodeModel",
+	"Description": "Compute Node",
+	"HostName": "node_r1c1b1s1",
+	"SerialNumber": "437X1BR2-001",
+	"UUID": "<UUID>",
+	"Status": {
+		"State": "Enabled",
+		"Health": "OK",
+		"HealthRollup": "OK"
+	},
+	"PowerState": "On",
+	"Links": {
+		"FabricAdapter": "/redfish/v1/Systems/MultiCompute1/FabricAdapter",
+		"Chassis": [
+			{ "@odata.id": "/redfish/v1/Chassis/GenZ_1" }
+		]
+	},
+	"Oem": { }
+}

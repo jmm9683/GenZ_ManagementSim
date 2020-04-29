@@ -15,14 +15,14 @@
 			},
       		"AccessKey": "0x1A345C3",
 			"EntityLink": { 
-				"@odata.id": "/redfish/v1/Chassis/GenZ/MediaControllers/3"
+				"@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MediaControllers/3"
 			}
 		},
    		{
             		"EntityType": "MemoryChunk",
             		"EntityRole": "Target",
             		"EntityLink": {
-                		"@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/3/MemoryChunks/1"
+                		"@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MemoryDomains/3/MemoryChunks/1"
             		},
             		"RegionKey": "0x12C2F42A"
         	},
@@ -30,7 +30,7 @@
             		"EntityType": "MemoryChunk",
             		"EntityRole": "Target",
             		"EntityLink": {
-                		"@odata.id": "/redfish/v1/Chassis/GenZ/MemoryDomains/3/MemoryChunks/2"
+                		"@odata.id": "localhost:5004/redfish/v1/Chassis/GenZ/MemoryDomains/3/MemoryChunks/2"
             		},
             		"RegionKey": "0xDC14995F"
         	}
