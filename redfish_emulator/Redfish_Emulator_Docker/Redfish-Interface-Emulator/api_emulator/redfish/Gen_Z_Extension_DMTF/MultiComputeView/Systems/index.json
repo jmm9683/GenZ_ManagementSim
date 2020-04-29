@@ -4,11 +4,7 @@
     "Members@odata.count": 2,
     "Members": [
         {
-            "@odata.id": "/redfish/v1/Systems/MultiCompute1"
-        },
-
-        {
-            "@odata.id": "/redfish/v1/Systems/MultiCompute2"
+            "@odata.id": "/redfish/v1/Systems/MultiCompute"
         }
     ],
     "@odata.id": "/redfish/v1/Systems"

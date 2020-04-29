@@ -16,8 +16,10 @@
 		"HealthRollup": "OK"
 	},
 	"PowerState": "On",
+    "FabricAdapters": {
+        "@odata.id": "/redfish/v1/Systems/SingleCompute/FabricAdapters"
+    },
 	"Links": {
-		"FabricAdapter": "/redfish/v1/Systems/SingleCompute/FabricAdapter",
 		"Chassis": [
 			{ "@odata.id": "/redfish/v1/Chassis/GenZ" }
 		]

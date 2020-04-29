@@ -27,7 +27,7 @@
 			{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/17" }
 		],
 		"ConnectedAdapterPorts": [
-			{ "@odata.id": "localhost:5006/redfish/v1/Systems/MultiCompute1/FabricAdapter/FabricAdapterPorts/0" }
+			{ "@odata.id": "localhost:5006/redfish/v1/Systems/MultiCompute/FabricAdapters/0/FabricAdapterPorts/0" }
 		]
 	},
 	"Routes": [
