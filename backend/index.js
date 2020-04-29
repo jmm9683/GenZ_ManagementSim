@@ -49,9 +49,9 @@ const rootURL = '/redfish/v1/'
 cron.schedule("*/10 * * * * *", function(){
     request("http://localhost:63145/domain", function (error, response, body) {
         if (body != null){
+            domains=[];
             let domainJSON = JSON.parse(body);
             domainJSON.forEach(elem => {
-                domains = []
                 domains.push(elem.Id);
             })
         }

@@ -14,8 +14,6 @@ import { GraphComponent } from '../visuals/graph/graph.component';
 export class GenZMappingComponent implements OnInit, AfterViewInit{
   nodes: Node[] = [];
   links: Link[] = [];
-  nodes$: Observable<any>;
-  edges$: Observable<any>;
   num_nodes: number;
   mapping: Map<string, number> = new Map();
   @ViewChild('genzmapping', { static: false }) graphRef: GraphComponent;
@@ -59,13 +57,14 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
         let node = new Node("e "+index);
         node.linkCount++;
         node.url = element['Id'];
+        node.endpoint_url = element['Id'];
         node.type = 'Endpoint';
         this.graphRef.graph.nodes.push(node);
         this.graphRef.graph.initNodes();
         this.graphRef.graph.simulation.restart();
 
         mapping.set(element['Id'], index);
-        index++;
+        //index++;
 
         let entities = element['jsonFile']['ConnectedEntities'];
 
@@ -79,72 +78,116 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
             if(mapping.has(entityid) == false){
               mapping.set(entityid,index);
               //mapping.set(element['Id'],index)
-              let node = new Node("c "+index);
-              node.linkCount++;
+              //let node = new Node("c "+index);
               node.url = entityid;
-              node.endpoint_url = element['Id'];
-              this.graphRef.graph.nodes.push(node);
+              node.type="";
+              //this.graphRef.graph.nodes.push(node);
               this.graphRef.graph.initNodes();
-              index++;
             }
-            this.graphRef.graph.links.push(new Link(mapping.get(element['Id']), mapping.get(entityid)));
-            this.graphRef.graph.initLinks();
+            // this.graphRef.graph.links.push(new Link(mapping.get(element['Id']), mapping.get(entityid)));
+            // this.graphRef.graph.initLinks();
 
           });
         }
+        index++;
 
 
         if(entities instanceof Object){
           entities.forEach(entity => {
-            if(entity['EntityRole']!='Target' || entity['EntityType'] != 'MemoryChunk') {
-              // create node for component
+            if(entity['EntityRole']=='Target' && entity['EntityType']=='Switch'){
+              // convert endpoint to type switch
               let entityid = element['domainID'] + entity['EntityLink']['@odata.id'];
 
               if(mapping.has(entityid) == false){
-                mapping.set(entityid,index);
-                let node = new Node("c "+index);
+                let node = this.graphRef.graph.nodes[mapping.get(element['Id'])]
                 node.linkCount++;
                 node.url = entityid;
-                node.type = entity['EntityType'];
-                node.endpoint_url = element['Id'];
-                this.graphRef.graph.nodes.push(node);
+                node.type='Switch';
+
+                mapping.set(entityid,mapping.get(element['Id']));
+                //mapping.set(element['Id'],index)
+                //let node = new Node("c "+index);
+                //this.graphRef.graph.nodes.push(node);
                 this.graphRef.graph.initNodes();
-                index++;
               }
-              this.graphRef.graph.links.push(new Link(mapping.get(element['Id']), mapping.get(entityid)));
-              this.graphRef.graph.initLinks();
+            }else{
+                if(entity['EntityRole']!='Target' || entity['EntityType'] != 'MemoryChunk') {
+                // create node for component
+                let entityid = element['domainID'] + entity['EntityLink']['@odata.id'];
+
+                if(mapping.has(entityid) == false){
+                  //
+                  let node = new Node("c "+index);
+                  node.linkCount++;
+                  node.url = entityid;
+                  node.type = entity['EntityType'];
+                  node.endpoint_url = element['Id'];
+                  this.graphRef.graph.nodes.push(node);
+                  mapping.set(entityid, index);
+                  this.graphRef.graph.initNodes();
+                  index++;
+                }
+                this.graphRef.graph.links.push(new Link(mapping.get(element['Id']), mapping.get(entityid)));
+                this.graphRef.graph.initLinks();
+              }
             }
+
           });
         }
       });
-
+      // create switch ports
       this.webService.getSwitches();
       this.webService.allnodes.subscribe( response => {
         Array(response)[0].forEach(element => {
-          let node = new Node("s "+index);
-          node.linkCount++;
-          node.url = element['Id'];
-          node.type = 'Switch'
-          let endpoint = element['domainID']+element['jsonFile']['Links']['AssociatedEndpoints'][0]['@odata.id'];
 
-          console.log(mapping.get(endpoint));
+          // Switch ports
 
-          this.graphRef.graph.nodes.push(node);
-          this.graphRef.graph.initNodes();
 
-          mapping.set(element['Id'], index);
 
-          this.graphRef.graph.links.push(new Link(index, mapping.get(endpoint)))
-          this.graphRef.graph.initLinks();
+          if(!mapping.has(element['Id'])){
+            let endpoint = element['domainID'] + element['jsonFile']['Links']['AssociatedEndpoints'][0]['@odata.id'];
+            let switch_port_node = this.graphRef.graph.nodes[mapping.get(endpoint)]
+            switch_port_node.linkCount++;
+            switch_port_node.url = element['Id'];
+            switch_port_node.type = 'Switch Port'
 
-          index++;
+            // this.graphRef.graph.nodes.push(node);
+            this.graphRef.graph.initNodes();
+
+            mapping.set(element['Id'], mapping.get(endpoint));
+
+            // this.graphRef.graph.links.push(new Link(index, mapping.get(endpoint)))
+            // this.graphRef.graph.initLinks();
+
+            //index++;
+
+            // add links to parent switch --->
+
+            let temp1 = Array.from(element['Id'].split("/"))
+            let portname = temp1[temp1.length - 3]
+
+            for (let switchnode of this.graphRef.graph.nodes){
+              let temp = Array.from(switchnode.url.split("/"));
+              let switchname = temp[temp.length - 1];
+
+              if((switchnode.type == "Switch") && (portname===switchname) && (switch_port_node.url.includes(switchnode.url))){
+                // adding switch links
+                console.log(switchnode.id+" "+switch_port_node.id+"  "+switchnode.url+"     "+element['Id']+ "  "+mapping.get(endpoint));
+                switchnode.linkCount+=10;
+                this.graphRef.graph.links.push(new Link(mapping.get(switchnode.url), mapping.get(endpoint)));
+                this.graphRef.graph.initLinks();
+                this.graphRef.graph.simulation.restart();
+                break;
+              }
+            }
+          }
 
 
           // create fabric adapter node if haven't been created already
 
           let fabricadapter = element['domainID']+element['jsonFile']['Links']['ConnectedAdapterPorts'][0]['@odata.id'];
 
-          console.log(fabricadapter)
+          //console.log(fabricadapter)
           if(mapping.has(fabricadapter)==false){
             mapping.set(fabricadapter,index);
             let node = new Node("ad"+index);
@@ -162,20 +205,26 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
         // set each node to a zone based on get zones
         this.webService.getZones();
         this.webService.allzones.subscribe(response=>{
+          console.log(response);
           response.forEach(element => {
-            let endpoints = element['jsonFile']['Links']['Endpoints'];
-            let zone_name = element['jsonFile']['Description'];
-            endpoints.forEach(endpoint=> {
-
-              let endpointurl =  element['domainID']+endpoint;
-              console.log(mapping.get(endpointurl));
-              // for each endpoint, find corresponding node
-              let endpoint_node = this.graphRef.graph.nodes.find(node => node.endpoint_url==endpointurl);
-              console.log(endpoint_node);
-              endpoint_node.group = zone_name;
-            })
-
-
+            // support zone of zones (check contains)
+            if(element['jsonFile']['ZoneType']=='ZoneOfEndpoints'){
+              let endpoints = element['jsonFile']['Links']['Endpoints'];
+              let zone_name = element['jsonFile']['Description'];
+              endpoints.forEach(endpoint=> {
+                let endpointurl =  element['domainID']+endpoint['@odata.id'];
+                // for each endpoint, find corresponding node
+                let endpoint_node = this.graphRef.graph.nodes[mapping.get(endpointurl)]
+                endpoint_node.group.push(zone_name);
+                endpoint_node.group_urls.push(element['Id']);
+                // console.log(element['Id']);
+              })
+            }
+            if(element['jsonFile']['ZoneType']=='ZoneOfZones'){
+              let zone_url = element['Id'];
+              let zone_name = element['jsonFile']['Description'];
+              this.addRecursiveZone(element, zone_name, zone_url, mapping);
+            }
           });
         })
 
@@ -183,6 +232,50 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
       });
 
     });
+  }
+
+
+  // recursive adds zone info to nodes
+  addRecursiveZone(element, zone_name, zone_url, mapping){
+
+    // recursively add zone info
+    if(!element['jsonFile']){element = element[0]}
+    console.log(zone_name+" "+element['Id']);
+    if(element['jsonFile']['ZoneType']=='ZoneOfEndpoints'){
+      let endpoints = element['jsonFile']['Links']['Endpoints'];
+      endpoints.forEach(endpoint=> {
+        let endpointurl =  element['domainID']+endpoint['@odata.id'];
+        // for each endpoint, find corresponding node
+        let endpoint_node = this.graphRef.graph.nodes[mapping.get(endpointurl)]
+
+        // if zone name not already in zone names
+        if(-1 == endpoint_node.group.findIndex(element => element === zone_name)){
+          endpoint_node.group.push(zone_name);
+        }
+        endpoint_node.group_urls.push(zone_url);
+        console.log(element['Id']);
+      })
+    }
+    // TODO: move this to the after all zones are created
+    if(element['jsonFile']['ZoneType']=='ZoneOfZones'){
+      let subzones = element['jsonFile']['Links']['Contains'];
+      // for each subzone get the endpoints for that zone
+      subzones.forEach(subzone => {
+        console.log(subzone)
+        // call addRecursiveZone using new element
+
+        let temp = subzone['@odata.type']
+
+        if(!temp){temp = subzone['@odata.id']}
+
+        let subzone_url = element['domainID'] + temp;
+        console.log(subzone_url);
+        this.webService.getZoneByURL(subzone_url);
+        this.webService.specificzone.subscribe(subzone => {
+          this.addRecursiveZone(subzone, zone_name, zone_url, mapping);
+        });
+      });
+    }
   }
 
 

@@ -51,6 +51,7 @@ export class NodeVisualComponent {
     document.getElementById("componentjson").innerText = "Component JSON";
     document.getElementById("endpointjson").innerText = "Endpoint JSON";
     document.getElementById("mapping-help").innerText = "";
+    document.getElementById("zones").innerText = this.node.group.toString();
   }
 
   onHover(evt){

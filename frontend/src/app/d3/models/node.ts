@@ -22,7 +22,8 @@ export class Node implements d3.SimulationNodeDatum {
   id: string;
 
   // holds info for the respective zone
-  group?: string;
+  group?: string[] = [];
+  group_urls?: string[] = [];
 
   // used for emphasis
   linkCount: number = 10;
@@ -50,7 +51,7 @@ export class Node implements d3.SimulationNodeDatum {
     if(this.type=='Endpoint'){
       color_palette = APP_CONFIG.SPECTRUM_ORANGE;
     }
-    if(this.type=='Switch'){
+    if(this.type=='Switch' || this.type=='Switch Port'){
       color_palette = APP_CONFIG.SPECTRUM_GREEN;
     }
     if(this.type=='Adapter'){

@@ -16,6 +16,7 @@
         <app-single-object-viewer #nodeinfo [json]="this.webService.specificobject | async" [expanded]="false"></app-single-object-viewer>
         <h4 id="endpointjson"></h4>
         <app-single-object-viewer #endpointinfo [json]="this.webService.specificendpoint | async" [expanded]="false"></app-single-object-viewer>
+        <a>Zones: <a id="zones"></a></a>
       </div>
     </div>
     <graph #genzmapping [nodes]="nodes" [links]="links"></graph>
