@@ -14,7 +14,7 @@
 				"SubnetID": "0x9"
 			},
 			"EntityLink": { 
-				"@odata.id": "localhost:5005/redfish/v1/Systems/SingleCompute/FabricAdapter"
+				"@odata.id": "localhost:5006/redfish/v1/Systems/MultiCompute2/FabricAdapter"
 			}
 		}
 	],
