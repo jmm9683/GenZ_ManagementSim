@@ -1,5 +1,5 @@
 {
-	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch1/Ports/2/VCAT",
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch2/Ports/2/VCAT",
 	"@odata.type": "#RouteEntry.v1_1_0.RouteEntry",
 	"Id": "2",  
 	"Name": "VCAT",

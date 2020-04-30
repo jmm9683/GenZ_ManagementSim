@@ -1,5 +1,5 @@
 {
-	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch1/Ports/1/LPRT/0",
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Switches/Switch2/Ports/1/LPRT/0",
 	"@odata.type": "#RouteEntry.v1_1_0.RouteEntry",
 	"Id": "0",  
 	"Name": "LPRT0",

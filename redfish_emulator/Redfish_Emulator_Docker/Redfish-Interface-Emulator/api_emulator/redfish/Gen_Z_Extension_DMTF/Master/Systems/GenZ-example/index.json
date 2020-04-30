@@ -16,6 +16,9 @@
 		"HealthRollup": "OK"
 	},
 	"PowerState": "On",
+    "FabricAdapters": {
+        "@odata.id": "/redfish/v1/Systems/GenZ-example/FabricAdapters"
+    },
 	"Links": {
 		"Chassis": [
 			{ "@odata.id": "/redfish/v1/Chassis/GenZ" }
@@ -23,7 +26,6 @@
 		"ManagedBy": [
 			{ "@odata.id": "/redfish/v1/Managers/1" }
 		],
-		"FabricAdapter": "/redfish/v1/Systems/GenZ-example/FabricAdapter"
 	},
 	"Oem": { }
 }

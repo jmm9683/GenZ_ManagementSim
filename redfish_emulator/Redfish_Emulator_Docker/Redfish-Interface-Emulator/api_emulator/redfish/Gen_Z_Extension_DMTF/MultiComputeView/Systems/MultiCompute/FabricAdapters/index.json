@@ -1,0 +1,14 @@
+{
+    "Name": "Fabric Adapter Collection",
+    "Members@odata.count": 2,
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Systems/MultiCompute/FabricAdapters/0"
+        },
+
+        {
+            "@odata.id": "/redfish/v1/Systems/MultiCompute/FabricAdapters/1"
+        }
+    ],
+    "@odata.id": "/redfish/v1/Systems"
+}
