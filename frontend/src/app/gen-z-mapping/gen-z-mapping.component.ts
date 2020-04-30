@@ -250,7 +250,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
         });
         // set each node to a zone based on get zones
         this.webService.getZones();
-        this.webService.allzones.subscribe(response=>{
+        this.webService.allzones.subscribe( response =>{
           response.forEach(element => {
             // support zone of zones (check contains)
             if(element['jsonFile']['ZoneType'] === 'ZoneOfEndpoints'){

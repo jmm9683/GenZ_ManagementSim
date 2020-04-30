@@ -1,6 +1,7 @@
 import { Component, Input, ChangeDetectorRef, HostListener, ChangeDetectionStrategy, OnInit, AfterViewInit } from '@angular/core';
 import { D3Service, ForceDirectedGraph} from '../../d3';
-import {Link} from '../../d3/models/link'
+import {Link} from '../../d3/models/link';
+import {Node} from '../../d3/models/node';
 
 @Component({
   selector: 'graph',

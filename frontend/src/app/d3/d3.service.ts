@@ -61,7 +61,7 @@ export class D3Service {
   /** The interactable graph we will simulate in this article
   * This method does not interact with the document, purely physical calculations with d3
   */
-  getForceDirectedGraph(nodes, links: Link[], options: { width, height }) {
+  getForceDirectedGraph(nodes: Node[], links: Link[], options: { width, height }) {
     const sg = new ForceDirectedGraph(nodes, links, options);
     return sg;
   }
