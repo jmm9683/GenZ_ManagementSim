@@ -16,8 +16,10 @@
 			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/6" },
 			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/7" },
 			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/11" },
-			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/13" },
-			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/14" }
+			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/12" },
+			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/14" },
+			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/21" },
+			{ "@odata.id": "localhost:5002/redfish/v1/Fabrics/GenZ/Endpoints/24" }
 		]
 	},
 	"Oem": { }
