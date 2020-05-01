@@ -1,0 +1,21 @@
+{
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/23",
+	"@odata.type": "#Endpoint.v1_1_0.Endpoint",
+	"Id": "23",
+	"Name": "GPU_1 Endpoint",
+	"Description": "GPU_1 Endpoint",
+	"EndpointProtocol": "GenZ",
+	"ConnectedEntities": [
+		{
+			"EntityType": "FabricAdapter",
+			"EntityRole": "Both",
+			"EntityLink": "localhost:5007/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1/FabricAdapter"
+		}
+	],
+	"Links": {
+		"Chassis": [
+			{ "@odata.id": "localhost:5007/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/GPU_1" }
+		]
+	},
+	"Oem": { }
+}

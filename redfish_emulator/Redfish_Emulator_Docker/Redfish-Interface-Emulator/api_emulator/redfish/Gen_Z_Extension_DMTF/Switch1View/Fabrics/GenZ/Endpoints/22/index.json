@@ -1,0 +1,21 @@
+{
+	"@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/22",
+	"@odata.type": "#Endpoint.v1_1_0.Endpoint",
+	"Id": "22",
+	"Name": "Simple Comms Device",
+	"Description": "Simple Comms Device",
+	"EndpointProtocol": "GenZ",
+	"ConnectedEntities": [
+		{
+			"EntityType": "FabricAdapter",
+			"EntityRole": "Both",
+			"EntityLink": "localhost:5007/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/Comms_1/FabricAdapter"
+		}
+	],
+	"Links": {
+		"Chassis": [
+			{ "@odata.id": "localhost:5007/redfish/v1/Chassis/PCIEnclosure/PCIeDevices/Comms_1" }
+		]
+	},
+	"Oem": { }
+}
