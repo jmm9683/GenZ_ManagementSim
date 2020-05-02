@@ -61,7 +61,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
     // create zones
 
     this.webService.getEndpoints();
-    this.webService.alledges.subscribe( response => {
+    this.webService.alledges.subscribe( (response: any[]) => {
 
       let mapping = new Map();
       console.log(response);
@@ -184,7 +184,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
       });
       // create switch ports
       this.webService.getSwitches();
-      this.webService.allnodes.subscribe( response => {
+      this.webService.allnodes.subscribe( (response: any[]) => {
         console.log(response);
         Array(response)[0].forEach(element => {
 
@@ -250,7 +250,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
         });
         // set each node to a zone based on get zones
         this.webService.getZones();
-        this.webService.allzones.subscribe( response =>{
+        this.webService.allzones.subscribe( (response: any[]) =>{
           response.forEach(element => {
             // support zone of zones (check contains)
             if(element['jsonFile']['ZoneType'] === 'ZoneOfEndpoints'){
