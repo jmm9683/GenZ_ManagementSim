@@ -12,6 +12,7 @@
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/12" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/13" },
 		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/14" },
-		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/21" }
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/21" },
+		{ "@odata.id": "/redfish/v1/Fabrics/GenZ/Endpoints/24" }
 	]
 }
