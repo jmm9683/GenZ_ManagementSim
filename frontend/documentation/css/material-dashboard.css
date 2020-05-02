@@ -8645,7 +8645,9 @@ button:focus {
   .form-check .form-check-input:focus + .form-check-sign .check:after {
     opacity: 0.2; }
   .form-check .form-check-input:checked + .form-check-sign .check {
-    background: #9c27b0; }
+    /* background: #9c27b0;  */
+    background: #e53935;
+  }
   .form-check .form-check-input:checked + .form-check-sign .check:before {
     color: #FFFFFF;
     -webkit-box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px;

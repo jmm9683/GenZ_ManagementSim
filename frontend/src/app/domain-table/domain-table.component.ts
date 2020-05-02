@@ -4,6 +4,7 @@ import {combineLatest, Observable, of} from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import {map, startWith} from 'rxjs/operators';
 import {FormControl, FormBuilder} from '@angular/forms';
+import {ViewChild, ElementRef} from '@angular/core';
 
 @Component({
   selector: 'app-domain-table',
@@ -22,7 +23,7 @@ export class DomainTableComponent implements OnInit {
   num_domains: number;
 
   constructor(
-    private webService: WebService,
+    public webService: WebService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     )
@@ -31,6 +32,8 @@ export class DomainTableComponent implements OnInit {
           Id: ''
         })
     }
+
+  @ViewChild('addnewdomain', { static: false }) addDomainRef: ElementRef;
 
   ngOnInit() {
 
@@ -53,10 +56,39 @@ export class DomainTableComponent implements OnInit {
     // Process checkout data here
 
     if(id.length > 0){
-      console.log('Adding New Domain ... '+id);
+      console.log('Adding New Domain ... ' + id);
       this.webService.addNewDomain(id);
+      this.webService.getAllDomains();
+      // add new domain to the list
+      this.objects$ = this.webService.alldomains;
+      this.filteredStates$ = combineLatest(this.objects$, this.filter$).pipe(
+        map(([objects, filterString]) => objects.filter(object => object.Id.toLowerCase().indexOf(filterString.toLowerCase()) !== -1))
+      );
+
+      // clear text of the add domain element
+      this.addDomainRef.nativeElement.innerText = "";
+
+
+
+
     }
   }
+
+  removeDomain(Id){
+    console.log( "remove " + Id);
+
+    this.webService.removeDomain(Id);
+
+    this.webService.getAllDomains();
+
+    this.objects$ = this.webService.alldomains;
+    this.filteredStates$ = combineLatest(this.objects$, this.filter$).pipe(
+      map(([objects, filterString]) => objects.filter(object => object.Id.toLowerCase().indexOf(filterString.toLowerCase()) !== -1))
+    );
+  }
+
+
+
 
 
 }

@@ -42,10 +42,10 @@ export const updateDomain = (req, res) => {
 }
 
 export const deleteDomain = (req, res) => {
-    Domain.remove({ Id: req.params.domainID }, req.body, (err, sys) => {
+    Domain.remove({ Id: req.body.Id }, (err, sys) => {
         if (err){
             res.send(err);
         }
-        res.json({ message: 'successfully deleted contact' });
+        res.json({ message: "deleted "+req.body.Id});
     });
 }

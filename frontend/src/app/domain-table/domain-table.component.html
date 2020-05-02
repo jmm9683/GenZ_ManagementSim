@@ -23,6 +23,9 @@
                                 <th>
                                       Date Added
                                 </th>
+                                <th>
+
+                                </th>
                               </thead>
                               <tbody>
                                   <tr *ngFor="let obj of filteredStates$ | async">
@@ -32,6 +35,12 @@
                                     <td>
                                       {{obj.updated_date}}
                                     </td>
+                                    <td>
+                                      <div (click)="removeDomain(obj.Id)" class="btn btn-white btn-round btn-just-icon">
+                                        <i class="material-icons">clear</i>
+                                        <div class="ripple-container"></div>
+                                      </div>
+                                    </td>
                                   </tr>
                               </tbody>
                           </table>
@@ -39,7 +48,7 @@
                       <h4>Add New Domain</h4>
                       <form [formGroup]="addDomainForm" (ngSubmit)="onSubmit(addDomainForm.value)">
                         <div class="input-group no-border">
-                          <input class='form-control' id="Id" type="text" formControlName="Id" placeholder="https://localhost:8000" style="width:40%">
+                          <input #addnewdomain class='form-control' id="Id" type="text" formControlName="Id" placeholder="https://localhost:8000" style="width:40%;line-color-focus:red">
                           <button mat-raised-button  type="submit" class="btn btn-white btn-round btn-just-icon">
                             <i class="material-icons">add_circle</i>
                             <div class="ripple-container"></div>

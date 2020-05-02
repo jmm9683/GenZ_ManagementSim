@@ -22,10 +22,12 @@ app.route('/domain/1')
     .get(getDomainWithID)
     
     // updataing specific contact
-    .put(updateDomain)
+    .put(updateDomain);
 
-    // deleting a specific contact
-    .delete(deleteDomain);
+app.route('/domain/delete')
+    // deleting certain domain
+    .post(deleteDomain);
+
 }
 
 export default domainRoutes;

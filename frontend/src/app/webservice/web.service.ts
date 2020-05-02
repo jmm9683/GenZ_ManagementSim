@@ -222,6 +222,17 @@ export class WebService {
       });
     }
 
+
+    public removeDomain(id){
+      const body = {'Id': id};
+      const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+      this.http.post(this.BASE_URL + '/domain/delete', body, config).subscribe(response => {
+        console.log(response);
+      }, error => {
+        this.handleError("Unable to remove domain.");
+      });
+    }
+
     // postMessage(message){
     //     this.http.post(this.BASE_URL + '/message', message).subscribe(response => {
     //       this.systemStore.push(response);
