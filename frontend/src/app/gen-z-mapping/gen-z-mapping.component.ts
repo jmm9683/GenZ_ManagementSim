@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Node, Link } from '../d3';
-import {combineLatest, Observable, of} from 'rxjs';
 import {WebService } from '../webservice/web.service';
 import {ViewChild, ElementRef} from '@angular/core';
 import { GraphComponent } from '../visuals/graph/graph.component';
@@ -45,7 +44,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
   geturl(domainID: string, link: string){
     if(link.split(":").length > 1){
       // add leading http:
-      console.log(link);
+      //console.log(link);
       return "http://"+link;
     }
     return domainID+link;
@@ -64,7 +63,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
     this.webService.alledges.subscribe( response => {
 
       let mapping = new Map();
-      console.log(response);
+      //console.log(response);
 
       response.forEach(element => {
         if(!mapping.has(element['Id'])){
@@ -97,7 +96,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
 
                 // also map element['domainID'] split link to this index
                 if(temp[2]!=element['domainID']){
-                  console.log(temp);
+                  //console.log(temp);
                   temp[2] = element['domainID'];
                   mapping.set(temp.join("/"), index);
                 }
@@ -227,30 +226,32 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
               }
             }
           }
-
-
           // create fabric adapter node if haven't been created already
+          console.log(element['jsonFile']);
 
-          let fabricadapter = this.geturl(element['domainID'], element['jsonFile']['Links']['ConnectedAdapterPorts'][0]['@odata.id']);
+          if(element['jsonFile']['Links']['ConnectedAdapterPorts']){
+            let fabricadapter = this.geturl(element['domainID'], element['jsonFile']['Links']['ConnectedAdapterPorts'][0]['@odata.id']);
 
-          //console.log(fabricadapter)
-          if(mapping.has(fabricadapter)==false){
-            mapping.set(fabricadapter,index);
-            let node = new Node("ad"+index);
-            node.type = 'Adapter';
-            node.linkCount++;
-            node.url = fabricadapter;
-            this.graphRef.graph.nodes.push(node);
-            this.graphRef.graph.initNodes();
-            index++;
+            //console.log(fabricadapter)
+            if(mapping.has(fabricadapter)==false){
+              mapping.set(fabricadapter,index);
+              let node = new Node("ad"+index);
+              node.type = 'Adapter';
+              node.linkCount++;
+              node.url = fabricadapter;
+              this.graphRef.graph.nodes.push(node);
+              this.graphRef.graph.initNodes();
+              index++;
+            }
+            this.graphRef.graph.links.push(new Link(mapping.get(element['Id']), mapping.get(fabricadapter)));
+            this.graphRef.graph.initLinks();
+            this.graphRef.graph.simulation.restart();
           }
-          this.graphRef.graph.links.push(new Link(mapping.get(element['Id']), mapping.get(fabricadapter)));
-          this.graphRef.graph.initLinks();
-          this.graphRef.graph.simulation.restart();
         });
         // set each node to a zone based on get zones
         this.webService.getZones();
         this.webService.allzones.subscribe( response =>{
+          console.log(response);
           response.forEach(element => {
             // support zone of zones (check contains)
             if(element['jsonFile']['ZoneType'] === 'ZoneOfEndpoints'){
