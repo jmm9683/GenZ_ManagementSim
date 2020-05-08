@@ -40,6 +40,8 @@ Edit the emulator_config.json file and set **"MODE": "Local"**, then start the e
 
 For multiple instantiations of the emulator with different files, edit the emulator_multiple.py file.
 The file has instructions in there of how to run. When configured to your liking, start emulator_multiple.
+Each instantion is run with -port -debug and -mockup_parent_directory options
+(added by I7 Senior Design Group)
 
 	python emulator_multiple.py
 
@@ -66,6 +68,7 @@ The emulator is invoked with the following command:
     -port -- specifies the port number to use
     -debug -- enables debugging (needed to debug flask calls)
     -mockup_parent_directory -- Specify the parent folder of the mockup. This defaults to the static folder in api_emulator/redfish/static. Useful for instantiating multiple instances of the emulator with different mockups
+	(added by I7 Senior Design Group)
 
 ### Format of emulator_config.json
 
