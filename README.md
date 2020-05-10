@@ -9,6 +9,9 @@ For emulator information:
 For our mockups which are run by default if using emulator_multiple:
 	redfish_emulator/Redfish_Emulator_Docker/Redfish-Interface-Emulator/api_emulator/redfish/Gen_Z_Extension_DMTF/README
 
+For initial prototype for dynamic JSON mockup changing:
+	redfish_emulator/Redfish_Emulator_Docker/Redfish-Interface-Emulator/dynamic_prototype/README
+
 For what the connections on the simulator look like:
 	Project_Artifacts/Simulator_Diagram_and_Info.pdf
 

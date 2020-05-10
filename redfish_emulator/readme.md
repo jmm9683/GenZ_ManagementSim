@@ -28,6 +28,8 @@ To run multiple redfish emulators, go to the the directory where the `docker-com
 
 `docker-compose up`
 
+Note: This configuration works with the base emulator.py script which does not currently work with the modified redfish spec
+
 To change the machines in the emulators built, you can add or change the args for machine_config like so:
 
     <container_name>:
