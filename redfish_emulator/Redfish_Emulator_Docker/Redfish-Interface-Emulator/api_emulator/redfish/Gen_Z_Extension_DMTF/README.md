@@ -1,10 +1,9 @@
 # Gen_Z_Extension_DMTF
 
-This set of folders is an extension of the publically available mockup data for an example
+This set of folders is an extension of the publically available mockup data for an example Gen-Z system found at dmtf.org/standards/redfish titled as Redfish Extensions for Gen-Z Bundle
+currently under Work in Progress Documents. 
 
-Gen-Z system found at dmtf.org/standards/redfish titled as Redfish Extensions for Gen-Z Bundle
-
-currently under Work in Progress Documents. (https://www.dmtf.org/dsp/DSP-IS0009)
+(https://www.dmtf.org/dsp/DSP-IS0009)
 
 ## View Information
 ManagerView contains the zone information (note, it is not accurately displayed by the dashboard. It only displays the switch ports properly).
@@ -19,10 +18,13 @@ A lot of data deep in the file structure is duplicated. This includes routing in
 
 ## Changes to the Redfish standard:
 
-	1) Links that reference a file found on another simulation have the port hardcoded in the link to indicate where it actually is. This makes it much easier for the backend and frontend.
-	ex: "/redfish/v1/Chassis/example" existing on port 5006 but being referenced on port 5001 would look like "localhost:5006/redfish/v1/Chassis/example"
+- Links that reference a file found on another simulation have the port hardcoded in the link to indicate where it actually is. This makes it much easier for the backend and frontend.
 
-	2) Memory chunks have their own endpoints. Previously, they were combined in an endpoint with their associated Media Controller. This created an edge case, so to make it easier on the backend and frontend we created endpoints for the individual memory chunks as well. (The endpoint information on the Media Controllers is not changed)
+ex: "/redfish/v1/Chassis/example" existing on port 5006 but being referenced on port 5001 would look like "localhost:5006/redfish/v1/Chassis/example"
+
+- Memory chunks have their own endpoints. Previously, they were combined in an endpoint with their associated Media Controller. This created an edge case, so to make it easier on the backend and frontend we created endpoints for the individual memory chunks as well. (The endpoint information on the Media Controllers is not changed)
+
+- PCIe Devices each have their own individual fabric adapters that act like MediaControllers for Memory and allow for individual PCIe Devices to each have their own endpoint.
 
 ## Prototyping New Mockups
 Master contains an older version of the file system before it was split between multiple simulators. 
