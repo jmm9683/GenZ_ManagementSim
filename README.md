@@ -23,5 +23,4 @@ Our project video link:
 [Video](https://drive.google.com/open?id=1mAZ5_IMZ-VYStf5hglM092uAj3r4lXGV)
 
 For docker information:
-
 [redfish_emulator/](https://github.com/jmm9683/GenZ_ManagementSim/tree/master/redfish_emulator)
