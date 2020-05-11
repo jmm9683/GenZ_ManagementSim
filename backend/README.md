@@ -5,11 +5,13 @@ This is our master branch.
 The required installations to get the backend running on your local machine:
 
 [Node.js](https://nodejs.org/en/)
+
 [MongoDB](https://www.mongodb.com/download-center/community)
 
 Useful applications to help manage the backend:
 
 [Postman](https://www.postman.com/) - Helps with testing http requests 
+
 [Robo 3T](https://robomongo.org/) - Use this application to view and directly manage the MongoDb database
 
 After installing Node.js you will have the npm package manager. Navigate to this directory in your terminal and run the command:
