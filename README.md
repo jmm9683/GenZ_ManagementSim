@@ -18,7 +18,7 @@ For initial prototype for dynamic JSON mockup changing:
 
 For what the connections on the simulator look like:
 
-[Project_Artifacts/Simulator_Diagram_and_Info.pdf](https://github.com/jmm9683/GenZ_ManagementSim/tree/master/Project_Artifacts)
+[Project_Artifacts/Simulator_Diagram_and_Info.pdf](https://github.com/jmm9683/GenZ_ManagementSim/blob/master/Project_Artifacts/Simulator_Diagram_and_Info.pdf)
 
 For docker information:
 
