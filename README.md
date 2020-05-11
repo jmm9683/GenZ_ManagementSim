@@ -2,6 +2,14 @@
 
 This is our master branch.
 
+For frontend information:
+
+- [frontend/](https://github.com/jmm9683/GenZ_ManagementSim/tree/master/frontend)
+
+For backend information:
+
+- [backend/](https://github.com/jmm9683/GenZ_ManagementSim/tree/master/backend)
+
 For emulator information:
 
 - [redfish_emulator/](https://github.com/jmm9683/GenZ_ManagementSim/tree/master/redfish_emulator/)
