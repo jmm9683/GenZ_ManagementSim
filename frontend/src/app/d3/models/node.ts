@@ -11,7 +11,7 @@ export class Node implements d3.SimulationNodeDatum {
   fy?: number | null;
 
   // holds the url for component lookup
-  url?: any;
+  url?: string;
 
   // holds the url for the endpoint lookup
   endpoint_url?: any;
@@ -22,8 +22,8 @@ export class Node implements d3.SimulationNodeDatum {
   id?: string;
 
   // holds info for the respective zone
-  group?: string[] = [];
-  group_urls?: string[] = [];
+  group?: String[] = [];
+  group_urls?: String[] = [];
 
   // used for emphasis
   linkCount?: number = 10;
@@ -48,13 +48,13 @@ export class Node implements d3.SimulationNodeDatum {
 
     let color_palette = APP_CONFIG.SPECTRUM_BLUE;
 
-    if(this.type=='Endpoint'){
+    if(this.url.includes('Endpoint')){
       color_palette = APP_CONFIG.SPECTRUM_ORANGE;
     }
-    if(this.type=='Switch' || this.type=='Switch Port'){
+    if(this.type=='Switch' || this.type=='Switch Port' || this.url.includes('Switch')){
       color_palette = APP_CONFIG.SPECTRUM_GREEN;
     }
-    if(this.type=='Adapter'){
+    if(this.type=='Adapter' || this.url.includes('Adapter')){
       color_palette = APP_CONFIG.SPECTRUM_RED;
     }
 

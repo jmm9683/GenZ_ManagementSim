@@ -51,9 +51,233 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(){
+    let index = 0;
+
+    // get endpoints
+
+    this.webService.getEndpoints();
+    this.webService.alledges.subscribe((response:any[]) => {
+      // mapping maps the link to the node's index
+      let mapping = new Map();
+
+      console.log(response);
+
+
+      // create Fabric Manager Node
+
+      let node = new Node("Gen-Z");
+      node.linkCount+=20;
+      node.url = "Endpoint";
+      this.mapping.set("Gen-Z", index);
+      this.graphRef.graph.nodes.push(node);
+      index++;
+      this.graphRef.graph.initNodes();
+
+      response.forEach( endpoint => {
+        if (!mapping.has(endpoint['Id'])) {
+
+          // links
+
+          let link_indexes = [];
+          let entity_indexes = [];
+
+
+          // create new nodes for component link
+          let links = endpoint['jsonFile']['Links']
+          // chassis based
+          if(links instanceof Object && links['Chassis']){
+            links['Chassis'].forEach( link => {
+              // create node for link
+              let entityid = this.geturl(endpoint['domainID'], link['@odata.id']);
+              let temp = entityid.split("/");
+              if(mapping.has(entityid) == false){
+
+                let node = new Node("c "+index);
+                node.linkCount++;
+                node.url = entityid
+                node.endpoint_url = endpoint['Id'];
+                // node.type
+                this.graphRef.graph.nodes.push(node);
+                // set entity link to
+                mapping.set(entityid, index);
+                link_indexes.push(index);
+                index++;
+
+                // also map element['domainID'] split link to this index
+                if(temp[2]!=endpoint['domainID']){
+                  temp[2] = endpoint['domainID'];
+                  mapping.set(temp.join("/"), index);
+                }
+              }
+              else{
+                // if link already created, then change endpoint to this
+                let found_node = this.graphRef.graph.nodes[mapping.get(entityid)];
+                found_node.endpoint_url = endpoint['Id'];
+                link_indexes.push(mapping.get(entityid));
+              }
+              this.graphRef.graph.initNodes();
+            });
+          }
+
+          // switch port based
+
+          if(links instanceof Object && links['ConnectedSwitchPorts']){
+            links['ConnectedSwitchPorts'].forEach( link => {
+              // create node for link
+              let entityid = this.geturl(endpoint['domainID'], link['@odata.id']);
+              let temp = entityid.split("/");
+              if(mapping.has(entityid) == false){
+
+                let node = new Node("c "+index);
+                node.linkCount++;
+                node.url = entityid
+                node.endpoint_url = endpoint['Id'];
+                node.type = "Switch Port";
+                this.graphRef.graph.nodes.push(node);
+                // set entity link to
+                mapping.set(entityid, index);
+                // set endpoint to index
+                mapping.set(endpoint['Id'], index);
+                link_indexes.push(index);
+                index++;
+
+                // also map element['domainID'] split link to this index
+                if(temp[2]!=endpoint['domainID']){
+                  temp[2] = endpoint['domainID'];
+                  mapping.set(temp.join("/"), index);
+                }
+              }
+              else{
+                // if link already created, then change endpoint to this
+                let found_node = this.graphRef.graph.nodes[mapping.get(entityid)];
+                found_node.endpoint_url = endpoint['Id'];
+                link_indexes.push(mapping.get(entityid));
+              }
+              this.graphRef.graph.initNodes();
+            });
+          }
 
 
 
+          // create new nodes for connected entities
+          let entities = endpoint['jsonFile']['ConnectedEntities'];
+          if(entities instanceof Object){
+            entities.forEach( entity => {
+
+              let entitylink = entity['EntityLink']['@odata.id'];
+              let entityrole = entity['EntityRole'];
+              if(!entitylink){
+                entitylink = entity['EntityLink'];
+              }
+              let entityid = this.geturl(endpoint['domainID'], entitylink);
+              let temp = entityid.split("/");
+              if(mapping.has(entityid) == false) {
+                let node = new Node("c "+index);
+                node.linkCount++;
+                node.url = entityid
+                // node.endpoint_url = endpoint['Id'];
+                node.type = entity['EntityType']
+                this.graphRef.graph.nodes.push(node);
+                this.graphRef.graph.initNodes();
+                // set entity link to
+                mapping.set(entityid, index);
+
+                if(entity['EntityType'] =='MediaController'){
+                  console.log(endpoint);
+                  console.log(links);
+                  console.log(mapping.get(entityid));
+                }
+
+                // if adapater
+                if(node.url.includes("Adapter")){
+                  //add link to gen-z
+                  this.graphRef.graph.links.push(new Link(index, 0));
+                  this.graphRef.graph.initLinks();
+                }
+
+                if(entity['EntityRole']!='Target') {
+                  entity_indexes.push(index);
+                }
+
+                // also map element['domainID'] split link to this index
+                if(temp[2]!=endpoint['domainID']){
+                  temp[2] = endpoint['domainID'];
+                  mapping.set(temp.join("/"), index);
+                }
+                index++;
+              }
+              else{
+                if(entity['EntityRole']!='Target') {
+                  entity_indexes.push(mapping.get(entityid));
+                }
+              }
+            });
+          }
+          // add links between the connected entities and the component
+          console.log(endpoint,link_indexes,entity_indexes);
+          for(var i=0; i<link_indexes.length; i++){
+            for(var j=0; j<entity_indexes.length;j++){
+              // push link between
+              this.graphRef.graph.links.push(new Link(link_indexes[i], entity_indexes[j]));
+              this.graphRef.graph.initLinks();
+            }
+          }
+
+        }
+
+      });
+
+
+      // add connect switch ports to switches
+
+      for (let node of this.graphRef.graph.nodes){
+
+        if(node.url.includes('Switches') && node.url.includes('Ports')){
+          let temp = Array.from(node.url.split("/"));
+          let sub = temp.slice(0,temp.length-2);
+          let switch_name = sub.join("/");
+          this.graphRef.graph.nodes[mapping.get(switch_name)].linkCount+=5;
+          this.graphRef.graph.links.push(new Link(mapping.get(switch_name), mapping.get(node.url)));
+          this.graphRef.graph.initLinks();
+        }
+      }
+
+
+
+      // add zones
+      this.webService.getZones();
+      this.webService.allzones.subscribe( (response: any[]) =>{
+        response.forEach(element => {
+          // support zone of zones (check contains)
+          if(element['jsonFile']['ZoneType'] === 'ZoneOfEndpoints'){
+            let endpoints = element['jsonFile']['Links']['Endpoints'];
+            let zone_name = element['jsonFile']['Description'];
+            endpoints.forEach(endpoint=> {
+              let endpointurl = this.geturl(element['domainID'], endpoint['@odata.id']);
+              // for each endpoint, find corresponding node
+
+              if(mapping.has(endpointurl)){
+                let endpoint_node = this.graphRef.graph.nodes[mapping.get(endpointurl)]
+                endpoint_node.group.push(zone_name); // push zone_name if zone not already added
+                endpoint_node.group_urls.push(element['Id']);
+              }
+              else{
+                console.log(endpointurl);
+              }
+            })
+          }
+          // if(element['jsonFile']['ZoneType']=='ZoneOfZones'){
+          //   let zone_url = element['Id'];
+          //   let zone_name = element['jsonFile']['Description'];
+          //   this.addRecursiveZone(element, zone_name, zone_url, mapping);
+          // }
+        });
+      })
+
+    })
+  }
+
+  init(){
     let index = 0;
 
 
@@ -156,6 +380,7 @@ export class GenZMappingComponent implements OnInit, AfterViewInit{
               }else{
                   if(entity['EntityRole']!='Target' || entity['EntityType'] != 'MemoryChunk') {
                   // create node for component
+
                   let entityid = this.geturl(element['domainID'], entity['EntityLink']['@odata.id']);
 
                   if(mapping.has(entityid) == false){

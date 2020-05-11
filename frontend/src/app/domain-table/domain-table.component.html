@@ -11,7 +11,7 @@
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger" style="background: linear-gradient(60deg, #ff8c45, #e53935); }">
-                      <h4 class="card-title mt-0"> Domain Table ({{this.num_domains}} Total Domains)</h4>
+                      <h4 class="card-title mt-0"> Redfish APIs ({{this.num_domains}} Total APIs)</h4>
                   </div>
                   <div class="card-body">
                       <div class="table-responsive">
@@ -45,7 +45,7 @@
                               </tbody>
                           </table>
                       </div>
-                      <h4>Add New Domain</h4>
+                      <h4>Add New Redfish API</h4>
                       <form [formGroup]="addDomainForm" (ngSubmit)="onSubmit(addDomainForm.value)">
                         <div class="input-group no-border">
                           <input #addnewdomain class='form-control' id="Id" type="text" formControlName="Id" placeholder="https://localhost:8000" style="width:40%;line-color-focus:red">

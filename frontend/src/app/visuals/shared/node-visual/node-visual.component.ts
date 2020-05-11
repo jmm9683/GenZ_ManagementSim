@@ -51,7 +51,16 @@ export class NodeVisualComponent {
     document.getElementById("componentjson").innerText = "Component JSON";
     document.getElementById("endpointjson").innerText = "Endpoint JSON";
     document.getElementById("mapping-help").innerText = "";
-    document.getElementById("zones").innerText = this.node.group.toString();
+
+    document.getElementById("selectednodecircle").style.fill = this.node.color;
+    document.getElementById("selectednodetext").textContent = this.node.id;
+
+    if(this.node.group.length>0){
+      document.getElementById("zones").innerText = "Zones: "+this.node.group.toString();
+    }
+    else{
+      document.getElementById("zones").innerText = "";
+    }
   }
 
   onHover(evt){

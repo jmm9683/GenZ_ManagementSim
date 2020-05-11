@@ -26,7 +26,7 @@ export class GroupVisualComponent implements DoCheck {
   array_groups = [];
 
   color_matrix =
-  ["rgb(51,255,153)","rgb(255,102,102)","rgb(38,137,223)",'yellow']
+  ["yellow","rgb(255,102,102)","rgb(38,137,223)","rgb(51,255,153)"]
 
 
   mapping: Map<String, number> = new Map()

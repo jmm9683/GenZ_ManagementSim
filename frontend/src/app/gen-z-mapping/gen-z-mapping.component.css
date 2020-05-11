@@ -1,0 +1,30 @@
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.node {
+  cursor: pointer;
+  transition: stroke-width 0.1s ease-out,
+      fill 0.1s ease-out,
+      stroke 0.1s ease-out;
+
+  stroke: white;
+  stroke-width: 15;
+}
+
+.selectednode {
+  stroke:grey;
+}
+
+.node-name {
+font-family: 'Lato';
+text-anchor: middle;
+alignment-baseline: central;
+font-weight: 300;
+font-size:50px;
+fill: white;
+}

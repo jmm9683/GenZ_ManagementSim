@@ -12,7 +12,9 @@ import {WebService} from '../../../webservice/web.service';
       <svg:path style="stroke-opacity:.5;fill-opacity:.1;" [attr.fill] = "color" [attr.stroke]="color" stroke-width="20"
       [attr.transform]="'scale(1) translate(0,0)'" [attr.d]="draw()">
      </path>
-      <svg:text style="font-size:100px" [attr.fill]="color" *ngIf="group.length>0">{{this.groupname}}</svg:text>
+      <svg:g *ngIf="group.length>2" style="position:fixed;z-index:1">
+       <svg:text style="font-size:50px;text-align:center;" [attr.fill]="color">{{this.groupname}}</svg:text>
+      </svg:g>
     </svg:g>
   `,
   styleUrls: ['./group-visual.component.css']
@@ -24,7 +26,7 @@ export class SingleGroupVisualComponent {
   @Input('color') color: String;
   // x and y coordinates of the center of the group
   public centroid = [];
-  public scaleFactor = 1.2;
+  public scaleFactor = 1.8;
 
   constructor(private webService: WebService) {
   }

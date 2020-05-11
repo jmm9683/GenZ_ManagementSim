@@ -27,6 +27,16 @@ export class SingleObjectLinkComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
+
+  geturl(domainID: string, link: string){
+    if(link.split(":").length > 1){
+      // add leading http:
+      //console.log(link);
+      return "http://"+link;
+    }
+    return domainID+link;
+  }
+
   ngOnInit() {
     if(typeof this.json === 'object'){
       const json_string = JSON.stringify(this.json);
@@ -40,13 +50,13 @@ export class SingleObjectLinkComponent implements OnInit {
             // same as previous
             continue;
           }
-
+          let temp = this.geturl(this.domainID,odata_info[index+2]);
           const l: Link = {
-            link: this.domainID + odata_info[index + 2],
+            link: temp,
             name: '',
             id: '',
           };
-          const url = this.domainID + odata_info[index + 2];
+          const url = temp;
           const body = {'Id' : url};
           const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
           const headers = new HttpHeaders ({'Content-Type': 'application/json'});
