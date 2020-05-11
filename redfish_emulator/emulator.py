@@ -397,8 +397,8 @@ def main():
                            help='Run the emulator in debug mode. Note that if you'
                                 ' run in debug mode, then the emulator will only'
                                 'be ran locally.')
-    
-    argparser.add_argument('-mockup_parent_directory', type=str, default='static', 
+
+    argparser.add_argument('-mockup_parent_directory', type=str, default='static',
                            help='Specify the parent folder of the mockup. This defaults to the static folder in /redfish/static. Useful for instantiating multiple instances of the emulator with different mockups')
     args_main = argparser.parse_args()
 
@@ -416,6 +416,7 @@ def main():
         if not args_main.debug:
             kwargs['host'] = '0.0.0.0'
         else:
+            kwargs['host'] = '0.0.0.0'
             kwargs['extra_files']=resource_manager.resource_dictionary.get_paths()
 
         print (' * Running in', SPEC, 'mode')

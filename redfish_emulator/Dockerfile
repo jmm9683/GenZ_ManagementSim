@@ -4,15 +4,15 @@ FROM python:3.6
 
 WORKDIR /app
 
-COPY Redfish-Interface-Emulator/requirements.txt ./
+COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-COPY Redfish-Interface-Emulator /app
+COPY . /app
 
 # Uncomment to allow for running a specific static config in the Gen_Z modified mockups
 # COPY /app/api_emulator/Gen_Z_Extension_DMTF/$machine_config /app/api_emulator/redfish/static
 
 EXPOSE 5000
 
-CMD [ "python", "emulator.py", "-debug" ]
+CMD [ "python", "emulator.py", "-debug"]
