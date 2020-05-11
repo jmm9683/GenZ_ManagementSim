@@ -4,7 +4,7 @@ This is our master branch.
 
 The required installations to get the frontend running on your local machine:
 
-	Node.js - https://nodejs.org/en/
+[Node.js](https://nodejs.org/en/)
 
 After installing Node.js you will have the npm package manager. Navigate to this directory in your terminal and run the command:
 
