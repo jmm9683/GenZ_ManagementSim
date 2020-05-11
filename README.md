@@ -17,7 +17,6 @@ For initial prototype for dynamic JSON mockup changing:
 [redfish_emulator/Redfish_Emulator_Docker/Redfish-Interface-Emulator/dynamic_prototype/](https://github.com/jmm9683/GenZ_ManagementSim/tree/master/redfish_emulator/Redfish_Emulator_Docker/Redfish-Interface-Emulator/dynamic_prototype)
 
 For what the connections on the simulator look like:
-
 [Project_Artifacts/Simulator_Diagram_and_Info.pdf](https://github.com/jmm9683/GenZ_ManagementSim/blob/master/Project_Artifacts/Simulator_Diagram_and_Info.pdf)
 
 Our project video link:
